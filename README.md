@@ -12,4 +12,4 @@ Based on Przemek Nowicki [essay](https://itnext.io/building-multi-page-applicati
 
 * Generate a production build in `deploy` directory:
 
-    npm run build
+    npm run deploy

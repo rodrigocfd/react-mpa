@@ -4,7 +4,7 @@
 	"description": "PoC with React and Webpack for a multi-page application.",
 	"main": "index.js",
 	"scripts": {
-		"build": "webpack --mode production",
+		"deploy": "webpack --mode production",
 		"start": "webpack-dev-server --mode development --hot --port 3000"
 	},
 	"author": "",

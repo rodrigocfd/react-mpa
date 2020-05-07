@@ -4,19 +4,19 @@ const fs = require('fs');
 const path = require('path');
 const htmlWebPackPlugin = require('html-webpack-plugin');
 
-const pagesDir = path.join('src', 'pages', path.sep);
+const pagesDir = path.join('src', 'pages', path.sep); // src/pages
 
-const entry = filesFromDir(pagesDir, ['.js']).reduce((obj, filePath) => {
-	const pageName = filePath.replace(path.extname(filePath), '').replace(pagesDir, '');
-	obj[pageName] = `./${filePath}`;
+const entry = filesFromDir(pagesDir, ['.js']).reduce((obj, jsPath) => { // all JS files in src/pages
+	const pageName = jsPath.replace(path.extname(jsPath), '').replace(pagesDir, ''); // remove extension and path
+	obj[pageName] = `./${jsPath}`;
 	return obj;
 }, {});
 
-const htmlPlugins = filesFromDir(pagesDir, ['.html']).map(filePath => {
-	const fileName = filePath.replace(pagesDir, '');
+const htmlPlugins = filesFromDir(pagesDir, ['.html']).map(htmlPath => { // all HTML files in src/pages
+	const fileName = htmlPath.replace(pagesDir, ''); // remove path
 	return new htmlWebPackPlugin({
-		chunks: [fileName.replace(path.extname(fileName), ''), 'vendor'],
-		template: filePath,
+		chunks: [fileName.replace(path.extname(fileName), ''), 'vendor'], // remove extension
+		template: htmlPath,
 		filename: fileName
 	});
 });
@@ -58,7 +58,7 @@ module.exports = {
 		}
 	},
 	output: {
-		path: path.resolve(__dirname, 'deploy/')
+		path: path.resolve(__dirname, 'deploy')
 	}
 };
 
