@@ -6,7 +6,7 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const pagesDir = path.join('src', 'pages', path.sep); // src/pages
+const pagesDir = path.join('src', 'pages', path.sep); // 'src/pages/'
 
 const entry = filesFromDir(pagesDir, ['.js', '.jsx']).reduce((obj, jsPath) => { // all JS files in src/pages and nested
 	const pageName = jsPath.replace(path.extname(jsPath), '').replace(pagesDir, ''); // remove extension and path
@@ -47,16 +47,16 @@ module.exports = (env, argv) => ({
 	entry,
 	output: {
 		path: path.resolve(__dirname, 'deploy'),
-		filename: '[name].[hash].js'
+		filename: '[name].[hash:8].js'
 	},
 	devtool: argv.mode === 'production' ? false : 'eval-source-maps',
 	plugins: [
-		new MiniCssExtractPlugin({ filename: '[name].[hash].css' }),
+		new MiniCssExtractPlugin({ filename: '[name].[hash:8].css' }),
 		new CleanWebpackPlugin(),
 		...htmlPlugins
 	],
 	resolve: {
-		alias: {
+		alias: { // absolute paths available inside the app
 			src: path.resolve(__dirname, 'src'),
 			components: path.resolve(__dirname, 'src', 'components')
 		}
@@ -95,13 +95,20 @@ module.exports = (env, argv) => ({
 			use: [{
 				loader: 'file-loader',
 				options: {
-					name: '[name].[ext]',
+					name: (argv.mode === 'development') ? '[name].[ext]' : '[name].[hash:8].[ext]',
 					outputPath: (url, resourcePath, context) => {
 						if (argv.mode === 'development') {
 							const relativePath = path.relative(context, resourcePath);
 							return `/${relativePath}`;
 						}
-						return `assets/images/${path.basename(resourcePath)}`;
+						return path.dirname(path.relative(context, resourcePath).substr(pagesDir.length)) + '/' + url; // same dev directory
+					},
+					publicPath: (url, resourcePath, context) => {
+						if (argv.mode === 'development') {
+							const relativePath = path.relative(context, resourcePath);
+							return `/${relativePath}`;
+						}
+						return url;
 					}
 				}
 			}]
@@ -110,6 +117,7 @@ module.exports = (env, argv) => ({
 			use: [{
 				loader: 'file-loader',
 				options: {
+					name: (argv.mode === 'development') ? '[name].[ext]' : '[name].[hash:8].[ext]',
 					outputPath: (url, resourcePath, context) => {
 						if (argv.mode === 'development') {
 							const relativePath = path.relative(context, resourcePath);
