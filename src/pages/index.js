@@ -11,7 +11,7 @@ function Main() {
 	return (<>
 		<Header />
 		<h1>This is index.</h1>
-		<p><a href="second.html">Second</a></p>
+		<p><a href="second/second.html">Second</a></p>
 		<p><img src={frog} /></p>
 	</>);
 }

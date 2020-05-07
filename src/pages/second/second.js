@@ -10,6 +10,6 @@ function Main() {
 	return (<>
 		<Header />
 		<p>You came to the second.</p>
-		<p><a href="index.html">Index</a></p>
+		<p><a href="../index.html">Index</a></p>
 	</>);
 }
