@@ -2,13 +2,18 @@
 	"name": "react-mpa",
 	"version": "0.0.1",
 	"description": "PoC with React and Webpack for a multi-page application.",
+	"private": true,
 	"main": "index.js",
 	"scripts": {
 		"deploy": "webpack --mode production",
 		"start": "webpack-dev-server --mode development --hot --port 3000"
 	},
-	"author": "",
+	"author": "Rodrigo Cesar de Freitas Dias <rcesar@gmail.com>",
 	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/rodrigocfd/react-mpa.git"
+	},
 	"devDependencies": {
 		"@babel/core": "^7.9.6",
 		"@babel/preset-env": "^7.9.6",

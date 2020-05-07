@@ -52,7 +52,12 @@ module.exports = (env, argv) => ({
 			}
 		}, {
 			test: /\.css$/,
-			use: ['style-loader', { loader: 'css-loader', options: { modules: true } }],
+			use: ['style-loader', {
+				loader: 'css-loader',
+				options: {
+					modules: true
+				}
+			}],
 			exclude: /node_modules/,
 		}, {
 			test: /\.(svg|jpg|gif|png)$/,
