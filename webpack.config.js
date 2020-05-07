@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const pagesDir = path.join('src', 'pages', path.sep); // src/pages
@@ -28,6 +29,7 @@ module.exports = (env, argv) => ({
 	},
 	devtool: argv.mode === 'production' ? false : 'eval-source-maps',
 	plugins: [
+		new MiniCssExtractPlugin({ filename: '[name].[hash].css' }),
 		new CleanWebpackPlugin(),
 		...htmlPlugins
 	],
@@ -52,12 +54,16 @@ module.exports = (env, argv) => ({
 			}
 		}, {
 			test: /\.css$/,
-			use: ['style-loader', {
-				loader: 'css-loader',
-				options: {
-					modules: true
+			use: [
+				MiniCssExtractPlugin.loader,
+				{
+					loader: 'css-loader',
+					options: {
+						importLoaders: 1,
+						modules: true
+					}
 				}
-			}],
+			],
 			exclude: /node_modules/,
 		}, {
 			test: /\.(svg|jpg|gif|png)$/,
