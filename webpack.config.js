@@ -6,13 +6,14 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const pagesDir = path.join('src', 'pages', path.sep); // src/pages
 
-const entry = filesFromDir(pagesDir, ['.js']).reduce((obj, jsPath) => { // all JS files in src/pages
+const entry = filesFromDir(pagesDir, ['.js', '.jsx']).reduce((obj, jsPath) => { // all JS files in src/pages and nested
 	const pageName = jsPath.replace(path.extname(jsPath), '').replace(pagesDir, ''); // remove extension and path
 	obj[pageName] = `./${jsPath}`;
+	console.log(`./${jsPath}`);
 	return obj;
 }, {});
 
-const htmlPlugins = filesFromDir(pagesDir, ['.html']).map(htmlPath => { // all HTML files in src/pages
+const htmlPlugins = filesFromDir(pagesDir, ['.html']).map(htmlPath => { // all HTML files in src/pages and nested
 	const fileName = htmlPath.replace(pagesDir, ''); // remove path
 	return new HtmlWebPackPlugin({
 		chunks: [fileName.replace(path.extname(fileName), ''), 'vendor'], // remove extension
@@ -20,6 +21,25 @@ const htmlPlugins = filesFromDir(pagesDir, ['.html']).map(htmlPath => { // all H
 		filename: fileName
 	});
 });
+
+/*
+entry: {
+	'index': './src/index.jsx',
+	'second/second': './src/pages/second/second.jsx'
+},
+plugins: [
+	new HtmlWebPackPlugin({
+		chunks: ['index', 'vendor'],
+		template: 'src/pages/index.html',
+		filename: 'index.html'
+	}),
+	new HtmlWebPackPlugin({ // for each HTML page
+		chunks: ['second', 'vendor'],
+		template: 'src/pages/second/second.html',
+		filename: 'second.html'
+	})
+]
+*/
 
 module.exports = (env, argv) => ({
 	entry,
@@ -41,8 +61,11 @@ module.exports = (env, argv) => ({
 	},
 	module: {
 		rules: [{
-			test: /\.js$/,
+			test: /\.(js|jsx)$/,
 			exclude: /node_modules/,
+			resolve: {
+				extensions: ['.js', '.jsx']
+			},
 			use: {
 				loader: 'babel-loader',
 				options: {
@@ -121,7 +144,7 @@ function filesFromDir(dir, fileExts) {
 			if (fs.statSync(curFile).isFile() && fileExts.indexOf(path.extname(curFile)) != -1) {
 				filesToReturn.push(curFile);
 			} else if (fs.statSync(curFile).isDirectory()) {
-				walkDir(curFile);
+				walkDir(curFile); // recursively within subdirectories
 			}
 		}
 	}
