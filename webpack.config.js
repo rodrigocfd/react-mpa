@@ -1,9 +1,7 @@
-// https://itnext.io/building-multi-page-application-with-react-f5a338489694
-
 const fs = require('fs');
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const pagesDir = path.join('src', 'pages', path.sep); // src/pages
 
@@ -22,8 +20,13 @@ const htmlPlugins = filesFromDir(pagesDir, ['.html']).map(htmlPath => { // all H
 	});
 });
 
-module.exports = {
+module.exports = (env, argv) => ({
 	entry,
+	output: {
+		path: path.resolve(__dirname, 'deploy'),
+		filename: '[name].[hash].js'
+	},
+	devtool: argv.mode === 'production' ? false : 'eval-source-maps',
 	plugins: [
 		new CleanWebpackPlugin(),
 		...htmlPlugins
@@ -33,10 +36,6 @@ module.exports = {
 			src: path.resolve(__dirname, 'src'),
 			components: path.resolve(__dirname, 'src', 'components')
 		}
-	},
-	output: {
-		path: path.resolve(__dirname, 'deploy'),
-		filename: '[name].[chunkhash].js'
 	},
 	module: {
 		rules: [{
@@ -51,9 +50,43 @@ module.exports = {
 					]
 				}
 			}
+		}, {
+			test: /\.css$/,
+			use: ['style-loader', { loader: 'css-loader', options: { modules: true } }],
+			exclude: /node_modules/,
+		}, {
+			test: /\.(svg|jpg|gif|png)$/,
+			use: [{
+				loader: 'file-loader',
+				options: {
+					name: '[name].[ext]',
+					outputPath: (url, resourcePath, context) => {
+						if (argv.mode === 'development') {
+							const relativePath = path.relative(context, resourcePath);
+							return `/${relativePath}`;
+						}
+						return `assets/images/${path.basename(resourcePath)}`;
+					}
+				}
+			}]
+		}, {
+			test: /\.(woff|woff2|eot|ttf|otf)$/,
+			use: [{
+				loader: 'file-loader',
+				options: {
+					outputPath: (url, resourcePath, context) => {
+						if (argv.mode === 'development') {
+							const relativePath = path.relative(context, resourcePath);
+							return `/${relativePath}`;
+						}
+						return `/assets/fonts/${path.basename(resourcePath)}`;
+					}
+				}
+			}]
 		}]
 	},
 	optimization: {
+		minimize: argv.mode === 'production' ? true : false,
 		splitChunks: {
 			cacheGroups: {
 				vendor: {
@@ -65,7 +98,7 @@ module.exports = {
 			}
 		}
 	}
-};
+});
 
 function filesFromDir(dir, fileExts) {
 	const filesToReturn = [];
