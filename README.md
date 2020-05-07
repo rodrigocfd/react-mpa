@@ -1,6 +1,6 @@
 # React Multi-Page Application
 
-A proof of concept of a [React](https://reactjs.org/) application using [Webpack](https://webpack.js.org/) to generate a multi-page application (MPA), instead of the ordinary single-page application (SPA).
+A proof of concept of a [React](https://reactjs.org/) application using [Webpack](https://webpack.js.org/) to generate a multi-page application (MPA), instead of the ordinary single-page application (SPA). CSS modules supported.
 
 Based on Przemek Nowicki [essay](https://itnext.io/building-multi-page-application-with-react-f5a338489694).
 

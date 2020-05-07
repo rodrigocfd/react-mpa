@@ -25,11 +25,11 @@ const htmlPlugins = filesFromDir(pagesDir, ['.html']).map(htmlPath => { // all H
 });
 
 /*
-entry: {
+entry: { // points where the bundling process starts
 	'index': './src/index.jsx',
 	'second/second': './src/pages/second/second.jsx'
 },
-plugins: [
+plugins: [ // generate HTML files with JS included
 	new HtmlWebPackPlugin({
 		chunks: ['index', 'vendor'],
 		template: 'src/pages/index.html',
@@ -47,11 +47,13 @@ module.exports = (env, argv) => ({
 	entry,
 	output: {
 		path: path.resolve(__dirname, 'deploy'),
-		filename: '[name].[hash:8].js'
+		filename: (argv.mode === 'development') ? '[name].js' : '[name].[hash:8].js'
 	},
-	devtool: argv.mode === 'production' ? false : 'eval-source-maps',
+	devtool: (argv.mode === 'production') ? false : 'eval-source-maps',
 	plugins: [
-		new MiniCssExtractPlugin({ filename: '[name].[hash:8].css' }),
+		new MiniCssExtractPlugin({
+			filename: (argv.mode === 'development') ? '[name].css' : '[name].[hash:8].css'
+		}),
 		new CleanWebpackPlugin(),
 		...htmlPlugins
 	],
@@ -109,21 +111,6 @@ module.exports = (env, argv) => ({
 							return `/${relativePath}`;
 						}
 						return url;
-					}
-				}
-			}]
-		}, {
-			test: /\.(woff|woff2|eot|ttf|otf)$/,
-			use: [{
-				loader: 'file-loader',
-				options: {
-					name: (argv.mode === 'development') ? '[name].[ext]' : '[name].[hash:8].[ext]',
-					outputPath: (url, resourcePath, context) => {
-						if (argv.mode === 'development') {
-							const relativePath = path.relative(context, resourcePath);
-							return `/${relativePath}`;
-						}
-						return `/assets/fonts/${path.basename(resourcePath)}`;
 					}
 				}
 			}]
