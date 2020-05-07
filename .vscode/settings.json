@@ -1,0 +1,10 @@
+{
+	"editor.insertSpaces": false,
+	"files.exclude": {
+		"**/node_modules/": true,
+		"deploy/": true,
+		".vscode/": true,
+		"package-lock.json": true
+	},
+	"files.trimTrailingWhitespace": true
+}
