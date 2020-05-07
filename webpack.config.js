@@ -2,6 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserJSPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const pagesDir = path.join('src', 'pages', path.sep); // src/pages
@@ -120,7 +122,10 @@ module.exports = (env, argv) => ({
 		}]
 	},
 	optimization: {
-		minimize: argv.mode === 'production' ? true : false,
+		minimizer: [
+			new TerserJSPlugin({ extractComments: false }),
+			new OptimizeCSSAssetsPlugin()
+		],
 		splitChunks: {
 			cacheGroups: {
 				vendor: {
