@@ -2,7 +2,8 @@
 
 const fs = require('fs');
 const path = require('path');
-const htmlWebPackPlugin = require('html-webpack-plugin');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 const pagesDir = path.join('src', 'pages', path.sep); // src/pages
 
@@ -14,7 +15,7 @@ const entry = filesFromDir(pagesDir, ['.js']).reduce((obj, jsPath) => { // all J
 
 const htmlPlugins = filesFromDir(pagesDir, ['.html']).map(htmlPath => { // all HTML files in src/pages
 	const fileName = htmlPath.replace(pagesDir, ''); // remove path
-	return new htmlWebPackPlugin({
+	return new HtmlWebPackPlugin({
 		chunks: [fileName.replace(path.extname(fileName), ''), 'vendor'], // remove extension
 		template: htmlPath,
 		filename: fileName
@@ -23,12 +24,19 @@ const htmlPlugins = filesFromDir(pagesDir, ['.html']).map(htmlPath => { // all H
 
 module.exports = {
 	entry,
-	plugins: [...htmlPlugins],
+	plugins: [
+		new CleanWebpackPlugin(),
+		...htmlPlugins
+	],
 	resolve: {
 		alias: {
 			src: path.resolve(__dirname, 'src'),
 			components: path.resolve(__dirname, 'src', 'components')
 		}
+	},
+	output: {
+		path: path.resolve(__dirname, 'deploy'),
+		filename: '[name].[chunkhash].js'
 	},
 	module: {
 		rules: [{
@@ -56,9 +64,6 @@ module.exports = {
 				}
 			}
 		}
-	},
-	output: {
-		path: path.resolve(__dirname, 'deploy')
 	}
 };
 
