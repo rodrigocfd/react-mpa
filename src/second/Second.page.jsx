@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Header from 'components/Header';
+import Header from 'src/components/Header';
 import apple from './apple.jpg';
 import c from './second.css';
 
-ReactDOM.render(<Main />,
-	document.getElementById('main'));
+ReactDOM.render(<Second />,
+	document.getElementById('mountPoint'));
 
-function Main() {
+function Second() {
 	return (<>
 		<Header />
 		<p className={c.red}>You came to the second.</p>

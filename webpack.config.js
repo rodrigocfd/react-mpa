@@ -6,40 +6,40 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const pagesDir = path.join('src', 'pages', path.sep); // 'src/pages/'
+const PAGESDIR = 'src/';
+const JSEXTS = ['.page.js', '.page.jsx'];
 
 // All JS files where to start the application bundling process.
-const entry = filesFromDir(pagesDir, ['.js', '.jsx']).reduce((obj, jsPath) => { // all JS files in src/pages and nested
-	const pageName = jsPath.replace(path.extname(jsPath), '').replace(pagesDir, ''); // remove extension and path
-	obj[pageName] = `./${jsPath}`;
-	return obj;
+const entry = enumFiles(PAGESDIR, JSEXTS).reduce((accum, jsPath) => { // all JS files in src/pages and nested
+	const pageName = removeExt(jsPath, JSEXTS).substr(PAGESDIR.length); // remove extension and path
+	accum[pageName] = `./${jsPath}`;
+	return accum;
 }, {});
 
-// All HTML files that will become server pages.
-const htmlPlugins = filesFromDir(pagesDir, ['.html']).map(htmlPath => { // all HTML files in src/pages and nested
-	const fileName = htmlPath.replace(pagesDir, ''); // remove path
+// All static HTML pages.
+const htmlPlugins = enumFiles(PAGESDIR, JSEXTS).map(pagePath => { // all HTML files in src/pages and nested, full path
 	return new HtmlWebPackPlugin({
-		chunks: [fileName.replace(path.extname(fileName), ''), 'vendor'], // remove extension
-		template: htmlPath,
-		filename: fileName
+		chunks: [removeExt(pagePath, JSEXTS).substr(PAGESDIR.length), 'vendor'],
+		template: 'src/template.html',
+		filename: unCapitalizeBaseName(removeExt(pagePath, JSEXTS)).substr(PAGESDIR.length) + '.html'
 	});
 });
 
 /*
 entry: { // points where the bundling process starts
-	'index': './src/index.jsx',
-	'second/second': './src/pages/second/second.jsx'
+	'Index': './src/Index.page.jsx',
+	'second/Second': './src/pages/second/Second.page.jsx'
 },
 plugins: [ // generate HTML files with JS included
 	new HtmlWebPackPlugin({
-		chunks: ['index', 'vendor'],
-		template: 'src/pages/index.html', // webpack relative or absolute path to the template
-		filename: 'index.html' // file to write the HTML to
+		chunks: ['Index', 'vendor'], // compiled JS files that will go inside this HTML
+		template: 'src/template.html', // webpack relative or absolute path to the template
+		filename: 'index.html' // file to write the HTML to, relative to PAGESDIR
 	}),
 	new HtmlWebPackPlugin({ // for each HTML page
-		chunks: ['second', 'vendor'],
-		template: 'src/pages/second/second.html',
-		filename: 'second.html'
+		chunks: ['second/Second', 'vendor'],
+		template: 'src/template.html',
+		filename: 'second/second.html'
 	})
 ]
 */
@@ -60,8 +60,7 @@ module.exports = (env, argv) => ({
 	],
 	resolve: {
 		alias: { // absolute paths available inside the app
-			src: path.resolve(__dirname, 'src'),
-			components: path.resolve(__dirname, 'src', 'components')
+			src: path.resolve(__dirname, 'src')
 		}
 	},
 	module: {
@@ -104,7 +103,7 @@ module.exports = (env, argv) => ({
 							const relativePath = path.relative(context, resourcePath);
 							return `/${relativePath}`; // in dev, use the full absolute domain path, since it's always served at localhost:3000 root
 						}
-						return path.dirname(path.relative(context, resourcePath).substr(pagesDir.length)) + '/' + url; // in prod, relative path to actual dir
+						return path.dirname(path.relative(context, resourcePath).substr(PAGESDIR.length)) + '/' + url; // in prod, relative path to actual file dir
 					},
 					publicPath: (url, resourcePath, context) => { // will be written in the img/src
 						if (argv.mode === 'development') {
@@ -135,25 +134,41 @@ module.exports = (env, argv) => ({
 	}
 });
 
-function filesFromDir(dir, fileExts) {
-	let filesToReturn = []; // full path to all files whose names end with any of the fileExts
+function enumFiles(rootPath, fileExts) {
+	let ret = []; // 'src/pages/second/Second.page.js'
 
-	function walkDir(currentPath) {
-		for (const file of fs.readdirSync(currentPath)) { // all files and folders within the directory, returns name only
-			const fullPath = path.join(currentPath, file);
+	function enumRecursively(curPath) {
+		for (const file of fs.readdirSync(curPath)) { // all files and folders within the directory, returns name only
+			const fullPath = path.join(curPath, file);
 
 			if (fs.statSync(fullPath).isDirectory()) {
-				walkDir(fullPath); // recursively within subdirectories
+				enumRecursively(fullPath); // recursively within subdirectories
 			} else if (fs.statSync(fullPath).isFile()) {
 				for (const fileExt of fileExts) {
 					if (fullPath.endsWith(fileExt)) {
-						filesToReturn.push(fullPath); // full path to file
+						ret.push(fullPath);
 					}
 				}
 			}
 		}
 	}
 
-	walkDir(dir);
-	return filesToReturn;
+	enumRecursively(rootPath);
+	return ret;
+}
+
+function removeExt(filePath, possibleExts) {
+	for (const ext of possibleExts) {
+		if (filePath.endsWith(ext)) {
+			return filePath.substr(0, filePath.length - ext.length);
+		}
+	}
+	return filePath; // none of the extensions found
+}
+
+function unCapitalizeBaseName(filePath) {
+	if (filePath.indexOf('/') === -1) {
+		return filePath[0].toLowerCase() + filePath.slice(1);
+	}
+	return path.dirname(filePath) + '/' + unCapitalizeBaseName(path.basename(filePath));
 }

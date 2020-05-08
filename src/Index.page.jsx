@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Header from 'components/Header';
+import Header from 'src/components/Header';
 import frog from './frog.jpg';
 
-ReactDOM.render(<Main />,
-	document.getElementById('main'));
+ReactDOM.render(<Index />,
+	document.getElementById('mountPoint'));
 
-function Main() {
+function Index() {
 	return (<>
 		<Header />
 		<h1>This is main index.</h1>
