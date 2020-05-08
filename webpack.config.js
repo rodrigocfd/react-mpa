@@ -12,7 +12,6 @@ const pagesDir = path.join('src', 'pages', path.sep); // 'src/pages/'
 const entry = filesFromDir(pagesDir, ['.js', '.jsx']).reduce((obj, jsPath) => { // all JS files in src/pages and nested
 	const pageName = jsPath.replace(path.extname(jsPath), '').replace(pagesDir, ''); // remove extension and path
 	obj[pageName] = `./${jsPath}`;
-	console.log(`./${jsPath}`);
 	return obj;
 }, {});
 
@@ -137,16 +136,20 @@ module.exports = (env, argv) => ({
 });
 
 function filesFromDir(dir, fileExts) {
-	const filesToReturn = [];
+	let filesToReturn = [];let uwu=[];
 
 	function walkDir(currentPath) {
-		const files = fs.readdirSync(currentPath);
-		for (let i in files) {
-			const curFile = path.join(currentPath, files[i]);
-			if (fs.statSync(curFile).isFile() && fileExts.indexOf(path.extname(curFile)) != -1) {
-				filesToReturn.push(curFile);
-			} else if (fs.statSync(curFile).isDirectory()) {
-				walkDir(curFile); // recursively within subdirectories
+		for (const file of fs.readdirSync(currentPath)) { // all files and folders within the directory, returns name only
+			const fullPath = path.join(currentPath, file);
+
+			if (fs.statSync(fullPath).isDirectory()) {
+				walkDir(fullPath); // recursively within subdirectories
+			} else if (fs.statSync(fullPath).isFile()) {
+				for (const fileExt of fileExts) {
+					if (fullPath.endsWith(fileExt)) {
+						filesToReturn.push(fullPath); // full path to file
+					}
+				}
 			}
 		}
 	}
