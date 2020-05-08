@@ -8,6 +8,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const pagesDir = path.join('src', 'pages', path.sep); // 'src/pages/'
 
+// All JS files where to start the application bundling process.
 const entry = filesFromDir(pagesDir, ['.js', '.jsx']).reduce((obj, jsPath) => { // all JS files in src/pages and nested
 	const pageName = jsPath.replace(path.extname(jsPath), '').replace(pagesDir, ''); // remove extension and path
 	obj[pageName] = `./${jsPath}`;
@@ -15,6 +16,7 @@ const entry = filesFromDir(pagesDir, ['.js', '.jsx']).reduce((obj, jsPath) => { 
 	return obj;
 }, {});
 
+// All HTML files that will become server pages.
 const htmlPlugins = filesFromDir(pagesDir, ['.html']).map(htmlPath => { // all HTML files in src/pages and nested
 	const fileName = htmlPath.replace(pagesDir, ''); // remove path
 	return new HtmlWebPackPlugin({
@@ -32,8 +34,8 @@ entry: { // points where the bundling process starts
 plugins: [ // generate HTML files with JS included
 	new HtmlWebPackPlugin({
 		chunks: ['index', 'vendor'],
-		template: 'src/pages/index.html',
-		filename: 'index.html'
+		template: 'src/pages/index.html', // webpack relative or absolute path to the template
+		filename: 'index.html' // file to write the HTML to
 	}),
 	new HtmlWebPackPlugin({ // for each HTML page
 		chunks: ['second', 'vendor'],
@@ -44,7 +46,7 @@ plugins: [ // generate HTML files with JS included
 */
 
 module.exports = (env, argv) => ({
-	entry,
+	entry, // each JS bundling point
 	output: {
 		path: path.resolve(__dirname, 'deploy'),
 		filename: (argv.mode === 'development') ? '[name].js' : '[name].[hash:8].js'
@@ -54,8 +56,8 @@ module.exports = (env, argv) => ({
 		new MiniCssExtractPlugin({
 			filename: (argv.mode === 'development') ? '[name].css' : '[name].[hash:8].css'
 		}),
-		new CleanWebpackPlugin(),
-		...htmlPlugins
+		new CleanWebpackPlugin(), // clean output directory before building
+		...htmlPlugins // each HTML page
 	],
 	resolve: {
 		alias: { // absolute paths available inside the app
@@ -98,19 +100,19 @@ module.exports = (env, argv) => ({
 				loader: 'file-loader',
 				options: {
 					name: (argv.mode === 'development') ? '[name].[ext]' : '[name].[hash:8].[ext]',
-					outputPath: (url, resourcePath, context) => {
+					outputPath: (url, resourcePath, context) => { // where the target file will be placed
 						if (argv.mode === 'development') {
 							const relativePath = path.relative(context, resourcePath);
-							return `/${relativePath}`;
+							return `/${relativePath}`; // in dev, use the full absolute domain path, since it's always served at localhost:3000 root
 						}
-						return path.dirname(path.relative(context, resourcePath).substr(pagesDir.length)) + '/' + url; // same dev directory
+						return path.dirname(path.relative(context, resourcePath).substr(pagesDir.length)) + '/' + url; // in prod, relative path to actual dir
 					},
-					publicPath: (url, resourcePath, context) => {
+					publicPath: (url, resourcePath, context) => { // will be written in the img/src
 						if (argv.mode === 'development') {
 							const relativePath = path.relative(context, resourcePath);
 							return `/${relativePath}`;
 						}
-						return url;
+						return url; // in prod, just the file name, to it's always relative to current dir
 					}
 				}
 			}]
@@ -124,7 +126,7 @@ module.exports = (env, argv) => ({
 		splitChunks: {
 			cacheGroups: {
 				vendor: {
-					test: /node_modules/,
+					test: /node_modules/, // all dependencies will be placed in vendor.js file, instead of embedded in each generated JS
 					chunks: "initial",
 					name: "vendor",
 					enforce: true
