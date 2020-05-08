@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Header from 'src/components/Header';
+import Header from 'src/common/Header';
 import frog from './frog.jpg';
 
 ReactDOM.render(<Index />,
