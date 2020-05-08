@@ -9,28 +9,12 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const PAGESDIR = 'src/';
 const JSEXTS = ['.page.js', '.page.jsx'];
 
-// All JS files where to start the application bundling process.
-const entry = enumFiles(PAGESDIR, JSEXTS).reduce((accum, jsPath) => { // all JS files in src/pages and nested
-	const pageName = removeExt(jsPath, JSEXTS).substr(PAGESDIR.length); // remove extension and path
-	accum[pageName] = `./${jsPath}`;
-	return accum;
-}, {});
-
-// All static HTML pages.
-const htmlPlugins = enumFiles(PAGESDIR, JSEXTS).map(pagePath => { // all HTML files in src/pages and nested, full path
-	return new HtmlWebPackPlugin({
-		chunks: [removeExt(pagePath, JSEXTS).substr(PAGESDIR.length), 'vendor'],
-		template: 'src/template.html',
-		filename: unCapitalizeBaseName(removeExt(pagePath, JSEXTS)).substr(PAGESDIR.length) + '.html'
-	});
-});
-
 /*
-entry: { // points where the bundling process starts
-	'Index': './src/Index.page.jsx',
-	'second/Second': './src/pages/second/Second.page.jsx'
-},
-plugins: [ // generate HTML files with JS included
+const entry = { // points where the bundling process starts
+	'Index': './src/Index.page.js',
+	'second/Second': './src/pages/second/Second.page.js'
+};
+const plugins: [ // generate HTML files with JS included
 	new HtmlWebPackPlugin({
 		chunks: ['Index', 'vendor'], // compiled JS files that will go inside this HTML
 		template: 'src/template.html', // webpack relative or absolute path to the template
@@ -41,8 +25,24 @@ plugins: [ // generate HTML files with JS included
 		template: 'src/template.html',
 		filename: 'second/second.html'
 	})
-]
+];
 */
+
+let entry = {}; // all JS files where to start the bundling process
+let htmlPlugins = []; // all HTML files to be generated
+
+for (const jsPath of enumFiles(PAGESDIR, JSEXTS)) {
+	const chunkName = removeExt(jsPath, JSEXTS).substr(PAGESDIR.length); // remove extension and PAGESDIR
+	entry[chunkName] = './' + jsPath;
+
+	htmlPlugins.push(
+		new HtmlWebPackPlugin({
+			chunks: [chunkName, 'vendor'],
+			template: 'src/template.html',
+			filename: unCapitalizeBaseName(chunkName) + '.html'
+		})
+	);
+}
 
 module.exports = (env, argv) => ({
 	entry, // each JS bundling point
