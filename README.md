@@ -10,6 +10,6 @@ Based on Przemek Nowicki [essay](https://itnext.io/building-multi-page-applicati
 
     npm start
 
-* Generate a production build in `deploy` directory:
+* Generate a production build in `build` directory:
 
-    npm run deploy
+    npm run build

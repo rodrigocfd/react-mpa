@@ -5,7 +5,7 @@
 	"private": true,
 	"main": "index.js",
 	"scripts": {
-		"deploy": "webpack --mode production",
+		"build": "webpack --mode production",
 		"start": "webpack-dev-server --mode development --hot --port 3000"
 	},
 	"author": "Rodrigo Cesar de Freitas Dias <rcesar@gmail.com>",

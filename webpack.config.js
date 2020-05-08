@@ -47,7 +47,7 @@ plugins: [ // generate HTML files with JS included
 module.exports = (env, argv) => ({
 	entry, // each JS bundling point
 	output: {
-		path: path.resolve(__dirname, 'deploy'),
+		path: path.resolve(__dirname, 'build'),
 		filename: (argv.mode === 'development') ? '[name].js' : '[name].[hash:8].js'
 	},
 	devtool: (argv.mode === 'production') ? false : 'eval-source-maps',
@@ -136,7 +136,7 @@ module.exports = (env, argv) => ({
 });
 
 function filesFromDir(dir, fileExts) {
-	let filesToReturn = [];let uwu=[];
+	let filesToReturn = []; // full path to all files whose names end with any of the fileExts
 
 	function walkDir(currentPath) {
 		for (const file of fs.readdirSync(currentPath)) { // all files and folders within the directory, returns name only
