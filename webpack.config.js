@@ -6,7 +6,7 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const PAGESDIR = 'src/';
+const PAGESDIR = 'src/'; // where the *.page.js files will start being searched
 const JSEXTS = ['.page.js', '.page.jsx'];
 
 /*
@@ -80,20 +80,32 @@ module.exports = (env, argv) => ({
 				}
 			}
 		}, {
-			test: /\.css$/,
+			test: /\.(css|sass|scss)$/,
+			exclude: /node_modules/,
 			use: [
 				MiniCssExtractPlugin.loader,
 				{
 					loader: 'css-loader',
 					options: {
 						importLoaders: 1,
-						modules: true
+						modules: {
+							localIdentName: (argv.mode === 'development') ? '[path][name]__[local]' : '[hash:base64]'
+						}
+					}
+				},
+				{
+					loader: 'sass-loader',
+					options: {
+						sassOptions: {
+							fiber: false,
+						},
 					}
 				}
 			],
 			exclude: /node_modules/,
 		}, {
 			test: /\.(svg|jpg|gif|png)$/,
+			exclude: /node_modules/,
 			use: [{
 				loader: 'file-loader',
 				options: {

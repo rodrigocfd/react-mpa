@@ -6,15 +6,13 @@ A proof of concept of a [React](https://reactjs.org/) application using [Webpack
 
 * Every `FooBar.page.js` will become a static page `fooBar.html`.
 
-* **No** server side rendering. Each HTML page acts like an ordinary small React app.
+* **No** server side rendering, each HTML page acts like an ordinary small React app.
 
 * **No** router, just standard HTML pages with standard `<a href=""></a>` links for navigation.
 
 * The build can be served by any HTTP server, a Node.js server is **not** needed.
 
-* Both `js` and `jsx` extensions are supported for React component files.
-
-* All CSS files will be parsed as CSS modules.
+* [SASS](https://sass-lang.com) support, with all style files parsed as CSS modules.
 
 ## Environment
 
