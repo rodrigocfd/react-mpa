@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const prodCfg = require('./production.config.json');
 
 const PAGESDIR = 'src/'; // where the *.page.js files will start being searched
 const JSEXTS = ['.page.js', '.page.jsx'];
@@ -116,18 +117,14 @@ module.exports = (env, argv) => ({
 				options: {
 					name: (argv.mode === 'development') ? '[name].[ext]' : '[name].[hash:8].[ext]',
 					outputPath: (url, resourcePath, context) => { // where the target file will be placed
-						if (argv.mode === 'development') {
-							const relativePath = path.relative(context, resourcePath);
-							return `/${relativePath}`; // in dev, use the full absolute domain path, since it's always served at localhost:3000 root
-						}
-						return path.dirname(path.relative(context, resourcePath).substr(PAGESDIR.length)) + '/' + url; // in prod, relative path to actual file dir
+						const relativePath = path.relative(context, resourcePath);
+						return `/${relativePath}`; // absolute domain path
 					},
 					publicPath: (url, resourcePath, context) => { // will be written in the img/src
-						if (argv.mode === 'development') {
-							const relativePath = path.relative(context, resourcePath);
-							return `/${relativePath}`;
-						}
-						return url; // in prod, just the file name, to it's always relative to current dir
+						const relativePath = path.relative(context, resourcePath);
+						return (argv.mode === 'development')
+							? `/${relativePath}` // absolute domain path
+							: path.join(prodCfg.baseUrl, `/${relativePath}`); // absolute domain path with baseUrl prefix
 					}
 				}
 			}]
