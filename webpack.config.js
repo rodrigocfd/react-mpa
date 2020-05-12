@@ -4,6 +4,7 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const PAGESDIR = 'src/'; // where the *.page.js files will start being searched
 const JSEXTS = ['.page.js', '.page.jsx'];
@@ -54,6 +55,7 @@ module.exports = (env, argv) => ({
 		new MiniCssExtractPlugin({
 			filename: (argv.mode === 'development') ? '[name].css' : '[name].[hash:8].css'
 		}),
+		...(argv.mode === 'development' ? [] : [new CleanWebpackPlugin()]), // clean output directory before building
 		...htmlPlugins // each HTML page
 	],
 	resolve: {
