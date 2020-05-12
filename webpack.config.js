@@ -20,12 +20,12 @@ const entry = { // points where the bundling process starts
 const plugins: [ // generate HTML files with JS included
 	new HtmlWebPackPlugin({
 		chunks: ['Index', 'vendor'], // compiled JS files that will go inside this HTML
-		template: 'src/template.html', // webpack relative or absolute path to the template
+		template: 'assets/template.html', // webpack relative or absolute path to the template
 		filename: 'index.html' // file to write the HTML to, relative to PAGESDIR
 	}),
 	new HtmlWebPackPlugin({ // for each HTML page
 		chunks: ['second/Second', 'vendor'],
-		template: 'src/template.html',
+		template: 'assets/template.html',
 		filename: 'second/second.html'
 	})
 ];
@@ -41,7 +41,7 @@ for (const jsPath of enumFiles(PAGESDIR, JSEXTS)) {
 	htmlPlugins.push(
 		new HtmlWebPackPlugin({
 			chunks: [chunkName, 'vendor'],
-			template: 'src/template.html',
+			template: 'assets/template.html',
 			filename: unCapitalizeBaseName(chunkName) + '.html'
 		})
 	);
@@ -57,7 +57,7 @@ module.exports = (env, argv) => ({
 	devtool: (argv.mode === 'production') ? false : 'eval-source-maps',
 	plugins: [
 		new CopyWebpackPlugin([
-			{ from: 'src/favicon.ico', to: '.' }
+			{ from: 'assets/favicon.ico', to: '.' }
 		]),
 		new MiniCssExtractPlugin({
 			filename: (argv.mode === 'development') ? '[name].css' : '[name].[hash:8].css'
