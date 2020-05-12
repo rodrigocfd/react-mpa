@@ -40,7 +40,7 @@ for (const jsPath of enumFiles(PAGESDIR, JSEXTS)) {
 		new HtmlWebPackPlugin({
 			chunks: [chunkName, 'vendor'],
 			template: 'src/template.html',
-			filename: camelToKebabCase(chunkName) + '.html'
+			filename: unCapitalizeBaseName(chunkName) + '.html'
 		})
 	);
 }
@@ -118,11 +118,17 @@ module.exports = (env, argv) => ({
 				options: {
 					name: (argv.mode === 'development') ? '[name].[ext]' : '[name].[hash:8].[ext]',
 					outputPath: (url, resourcePath, context) => { // where the target file will be placed
-						const relativePath = path.relative(context, resourcePath);
+						let relativePath = path.relative(context, resourcePath);
+						if (argv.mode === 'production') {
+							relativePath = relativePath.substr(PAGESDIR.length); // remove o 'src/'
+						}
 						return `/${relativePath}`; // absolute domain path
 					},
 					publicPath: (url, resourcePath, context) => { // will be written in the img/src
-						const relativePath = path.relative(context, resourcePath);
+						let relativePath = path.relative(context, resourcePath);
+						if (argv.mode === 'production') {
+							relativePath = relativePath.substr(PAGESDIR.length); // remove o 'src/'
+						}
 						return (argv.mode === 'development')
 							? `/${relativePath}` // absolute domain path
 							: path.join(prodCfg.baseUrl, `/${relativePath}`); // absolute domain path with baseUrl prefix
@@ -181,9 +187,9 @@ function removeExt(filePath, possibleExts) {
 	return filePath; // none of the extensions found
 }
 
-function camelToKebabCase(filePath) {
+function unCapitalizeBaseName(filePath) {
 	if (filePath.indexOf('/') === -1) {
-		return filePath.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+		return filePath[0].toLowerCase() + filePath.slice(1);
 	}
-	return path.dirname(filePath) + '/' + camelToKebabCase(path.basename(filePath));
+	return path.dirname(filePath) + '/' + unCapitalizeBaseName(path.basename(filePath));
 }
