@@ -18,8 +18,10 @@ A proof of concept of a [React](https://reactjs.org/) application using [Webpack
 
 * Run in development mode in `localhost:3000`:
 
-    npm start
+    * `npm start`
 
 * Generate a production build in `build` directory:
 
-    npm run build
+    * `npm run build`
+
+    * Configure `baseUrl` in production.config.json
