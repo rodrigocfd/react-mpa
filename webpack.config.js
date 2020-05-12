@@ -1,7 +1,9 @@
 const fs = require('fs');
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlReplaceWebpackPlugin = require('html-replace-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -54,9 +56,18 @@ module.exports = (env, argv) => ({
 	},
 	devtool: (argv.mode === 'production') ? false : 'eval-source-maps',
 	plugins: [
+		new CopyWebpackPlugin([
+			{ from: 'src/favicon.ico', to: '.' }
+		]),
 		new MiniCssExtractPlugin({
 			filename: (argv.mode === 'development') ? '[name].css' : '[name].[hash:8].css'
 		}),
+		new HtmlReplaceWebpackPlugin([
+			{
+				pattern: '@BASE_URL@',
+				replacement: (argv.mode === 'production') ? prodCfg.baseUrl : '/'
+			}
+		]),
 		...(argv.mode === 'development' ? [] : [new CleanWebpackPlugin()]), // clean output directory before building
 		...htmlPlugins // each HTML page
 	],
