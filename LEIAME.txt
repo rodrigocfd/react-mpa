@@ -1,0 +1,53 @@
++-----------------------+
+| Front-end Siorg React |
++ ----------------------+
+
+-----------------------------------
+Subir o ambiente de desenvolvimento
+-----------------------------------
+
+Instale os pacotes do Node:
+npm i
+
+Suba o servidor http://localhost:3000 de desenvolvimento:
+npm start
+
+A aplicação assume que o Siorg JSF está rodando em http://localhost:8080
+
+---------------
+Gerar uma build
+---------------
+
+O script gera-e-copia-build.sh irá gerar a build e copiá-la para dentro do
+workspace do Siorg.
+
+Gere novamente o .war do Gestão WebApp, e publique no JBoss.
+
+-----------------------------------
+Testar localmente a build compilada
+-----------------------------------
+
+No Eclipse usando o Navigator, em siorg-gestao-webapp, clique com o botão
+direito e em "Refresh" (ou aperte F5).
+
+Após isto, o diretório build deverá aparecer aqui:
+
+- siorg-gestao-webapp
+ - src
+  - main
+   - webapp
+    - public
+
+Dê um "Full Publish" no siorg-gestão-webapp, e reinicie o JBoss.
+
+A URL é http://localhost:8080/siorg-gestao-webapp/public/build/index.html
+
+-------------
+Chamadas REST
+-------------
+
+A aplicação espera as chamadas REST em:
+
+http://localhost:8080/siorg-gestao-webapp/api/...
+
+Configurável em producao.config.json

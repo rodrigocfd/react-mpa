@@ -1,0 +1,12 @@
+.icoET, .icoOR, .icoEN, .icoUA, .icoUC, .icoRE { // RE = unid adm + reg esp
+	display: inline-block;
+	background-image: url('./sprite-tipo-unidade.png');
+	width: 16px;
+	height: 16px;
+}
+.icoET { background-position: 0 0; }
+.icoOR { background-position: -16px 0; }
+.icoEN { background-position: -32px 0; }
+.icoUA { background-position: -48px 0; }
+.icoUC { background-position: -64px 0; }
+.icoRE { background-position: -80px 0; }

@@ -1,0 +1,14 @@
+$cubo-tam: 400px;
+
+.cuboFundo {
+	background-image: url('cubo.png');
+	display: inline-block;
+	z-index: -1;
+	position: absolute;
+	left: 80px;
+	top: 120px;
+	background-size: $cubo-tam $cubo-tam;
+	width: $cubo-tam;
+	height: $cubo-tam;
+	opacity: .04;
+}

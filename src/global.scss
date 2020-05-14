@@ -1,0 +1,64 @@
+/**
+ * Estilos globais da aplicação.
+ */
+
+$app-font: 11pt arial, helvetica, Trebuchet MS, clean, sans-serif;
+
+html {
+	box-sizing: border-box;
+}
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+body {
+	margin: 0;
+	padding: 0;
+	font: $app-font;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	color: #333;
+	background-color: #e9f3f1;
+}
+h1, h2 {
+	color: #47727B;
+	margin-top: 0;
+}
+h1 {
+	font-size: 1.8em;
+}
+a {
+	color: #426d76;
+	&:active {
+		color: red;
+	}
+}
+button, input[type=button], input[type=submit] {
+	cursor: pointer;
+	font: $app-font;
+	background-color: #adc565;
+	color: white;
+	padding: 5px 13px;
+	margin: 0 4px;
+	border: 0;
+	border-radius: 2px;
+
+	&:active { // animação sutil no clique de botão
+		transform: translateY(1px);
+		background-color: #738f21;
+	}
+}
+input[type=text], input[type=password], select, textarea {
+	font: $app-font;
+	border: 1px solid #aeb6c3;
+	border-radius: 2px;
+	padding: 3px;
+}
+.txtBlack {
+	color: #333;
+}
+.txtBlue {
+	color: #738f21;
+}
+.txtGreen {
+	color: #738f21;
+}

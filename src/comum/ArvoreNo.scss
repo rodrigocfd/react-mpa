@@ -1,0 +1,53 @@
+$espaco-vert: 6px;
+$hover-bg: #e8e8e8;
+
+.arvoreNo {
+	display: flex;
+	padding-top: $espaco-vert;
+	border-left: 1px dotted #c0c8c0;
+
+	.barraEsquerda { // contém o botão expandir e dá a identação aos nós filhos
+		flex-basis: 1.5em;
+		flex-grow: 0;
+		flex-shrink: 0;
+
+		.btnAbre {
+			cursor: pointer;
+			color: #295273;
+			&:hover {
+				background-color: $hover-bg;
+			}
+			&:active {
+				color: white;
+				background-color: #47727b;
+			}
+		}
+	}
+	.dadosUnidade {
+		flex-grow: 1;
+
+		.iconeNome {
+			display: flex;
+
+			.icone {
+				flex-basis: 22px; // o ícone é 16px, o resto é espaçamento à direita
+				flex-grow: 0;
+				flex-shrink: 0;
+			}
+			.nomeUnidade {
+				cursor: pointer;
+				&:hover {
+					background-color: $hover-bg;
+				}
+			}
+		}
+
+		.filhas {
+			.carregando {
+				padding-top: $espaco-vert;
+				font-style: italic;
+				opacity: .75;
+			}
+		}
+	}
+}

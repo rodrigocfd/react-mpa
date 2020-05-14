@@ -1,0 +1,5 @@
+{
+	"baseJsf": "/siorg-gestao-webapp/private",
+	"baseApp": "/siorg-gestao-webapp/public/build",
+	"apiRest": "/siorg-gestao-webapp/api/"
+}

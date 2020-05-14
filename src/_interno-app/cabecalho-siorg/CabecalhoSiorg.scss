@@ -1,0 +1,24 @@
+.header {
+	background-repeat: repeat;
+
+	.logoRow {
+		display: flex;
+		flex-direction: row;
+		margin: 36px 22px 0 48px;
+
+		.left {
+			flex-grow: 1;
+
+			.logo {
+				display: inline-block;
+				width: 333px;
+				height: 68px;
+				background: url('logo-siorg.png') no-repeat center center;
+			}
+		}
+		.right {
+			flex-grow: 1;
+			text-align: right;
+		}
+	}
+}
