@@ -3,6 +3,13 @@ import PropTypes from 'prop-types';
 
 import c from './IconeUnidade.scss';
 
+IconeUnidade.propTypes = {
+	tipo: PropTypes.string.isRequired
+};
+
+/**
+ * Ícones que precedem o nome da unidade na árvore.
+ */
 function IconeUnidade(props) {
 	const defs = {
 		ET: { ico: c.icoET, lbl: 'Ente' },
@@ -21,9 +28,5 @@ function IconeUnidade(props) {
 			title={defs[props.tipo].lbl}></div>
 	);
 }
-
-IconeUnidade.propTypes = {
-	tipo: PropTypes.string.isRequired
-};
 
 export default IconeUnidade;

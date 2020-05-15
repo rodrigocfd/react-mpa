@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 import app from 'src/app';
 import c from './MenuVert2.scss';
 
+MenuVert2.propTypes = {
+	items: PropTypes.arrayOf(PropTypes.object).isRequired
+};
+
 /**
  * Menu vertical de segundo nível, filho do menu vertical de primeiro nível.
  */
@@ -21,9 +25,5 @@ function MenuVert2(props) {
 		</ul>
 	);
 }
-
-MenuVert2.propTypes = {
-	items: PropTypes.arrayOf(PropTypes.object).isRequired
-};
 
 export default MenuVert2;

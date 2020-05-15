@@ -5,6 +5,12 @@ import app from 'src/app';
 import MenuVert2 from './MenuVert2';
 import c from './MenuVert1Entry.scss';
 
+MenuVert1Entry.propTypes = {
+	label: PropTypes.string.isRequired,
+	oldLink: PropTypes.string,
+	menuVert2: PropTypes.arrayOf(PropTypes.object)
+};
+
 /**
  * Um único item de menu, do menu vertical de primeiro nível.
  */
@@ -26,11 +32,5 @@ function MenuVert1Entry(props) {
 		</li>
 	);
 }
-
-MenuVert1Entry.propTypes = {
-	label: PropTypes.string.isRequired,
-	oldLink: PropTypes.string,
-	menuVert2: PropTypes.arrayOf(PropTypes.object)
-};
 
 export default MenuVert1Entry;

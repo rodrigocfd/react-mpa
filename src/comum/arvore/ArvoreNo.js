@@ -5,6 +5,22 @@ import app from 'src/app';
 import IconeUnidade from './IconeUnidade';
 import c from './ArvoreNo.scss';
 
+ArvoreNo.propTypes = {
+	unidade: PropTypes.shape({ // unidade que será renderizada neste nó
+		id: PropTypes.number.isRequired,
+		codigo: PropTypes.number.isRequired,
+		denominacao: PropTypes.string.isRequired,
+		sigla: PropTypes.string.isRequired,
+		tipo: PropTypes.string.isRequired,
+		nivelNormatizacao: PropTypes.string.isRequired,
+		idPai: PropTypes.number,
+		temFilhas: PropTypes.bool.isRequired,
+		filhas: PropTypes.arrayOf(PropTypes.object).isRequired
+	}).isRequired,
+	onClick: PropTypes.func, // onClick([hierarquiaUnidades])
+	onMouseOver: PropTypes.func // onMouseOver([hierarquiaUnidades])
+};
+
 /**
  * Um nó da árvore de unidades. Este componente é recursivo.
  */
@@ -80,21 +96,5 @@ function ArvoreNo(props) {
 		</div>
 	);
 }
-
-ArvoreNo.propTypes = {
-	unidade: PropTypes.shape({ // unidade que será renderizada neste nó
-		id: PropTypes.number.isRequired,
-		codigo: PropTypes.number.isRequired,
-		denominacao: PropTypes.string.isRequired,
-		sigla: PropTypes.string.isRequired,
-		tipo: PropTypes.string.isRequired,
-		nivelNormatizacao: PropTypes.string.isRequired,
-		idPai: PropTypes.number,
-		temFilhas: PropTypes.bool.isRequired,
-		filhas: PropTypes.arrayOf(PropTypes.object).isRequired
-	}).isRequired,
-	onClick: PropTypes.func, // onClick([hierarquiaUnidades])
-	onMouseOver: PropTypes.func // onMouseOver([hierarquiaUnidades])
-};
 
 export default ArvoreNo;

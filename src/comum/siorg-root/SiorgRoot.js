@@ -2,10 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import app, {AppContext} from 'src/app';
-import CabecalhoSiorg from './cabecalhoSiorg/CabecalhoSiorg';
+import CabecalhoSiorg from './cabecalho-siorg/CabecalhoSiorg';
 import CuboFundo from './CuboFundo';
 import c from './SiorgRoot.scss';
 import _ from './global.scss'; // insere CSS global da aplicação
+
+SiorgRoot.propTypes = {
+	children: PropTypes.node.isRequired
+};
 
 /**
  * Componente de topo da aplicação.
@@ -68,9 +72,5 @@ function SiorgRoot(props) {
 		return null;
 	}
 }
-
-SiorgRoot.propTypes = {
-	children: PropTypes.node.isRequired
-};
 
 export default SiorgRoot;
