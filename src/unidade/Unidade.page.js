@@ -2,9 +2,9 @@ import React from 'react';
 
 import app from 'src/app';
 import Arvore from 'src/comum/arvore/Arvore';
-import c from './Listar.scss';
+import c from './Unidade.scss';
 
-function Listar() {
+function Unidade() {
 	const [uns, setUns] = React.useState([]);
 
 	let trilha = '';
@@ -16,7 +16,7 @@ function Listar() {
 
 	return (
 		<div>
-			<h1>Título aqui</h1>
+			<h1>Unidade</h1>
 			<div>{trilha}</div>
 			<div className={c.arvore} onMouseLeave={() => setUns([])}>
 				<Arvore idRaiz={1} onMouseOver={uns => setUns(uns)}
@@ -28,4 +28,4 @@ function Listar() {
 	);
 }
 
-app.constroiPagina(<Listar />);
+app.constroiPagina(<Unidade />);

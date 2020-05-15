@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import prodCfg from '../producao.config.json';
-import SiorgRoot from 'src/comum/siorg-root/SiorgRoot';
+import SiorgRoot from 'src/comum/siorgRoot/SiorgRoot';
 
 const DEV_PORT_JSF = 8080;
 const ISDEV = process.env.NODE_ENV === 'development';
