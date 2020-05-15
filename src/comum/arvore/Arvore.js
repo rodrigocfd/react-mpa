@@ -15,17 +15,25 @@ Arvore.propTypes = {
  * Árvore que mostra as unidades do Siorg de forma hierárquica.
  */
 function Arvore(props) {
-	const [raiz, setRaiz] = React.useState(null);
+	const [unidade, setUnidade] = React.useState({
+		raiz: null,
+		selecionada: null
+	});
 
 	React.useEffect(() => {
 		app.serverGet(`/arvore/unidade?id=${props.idRaiz}`)
-			.then(raiz => setRaiz(raiz));
+			.then(unid => setUnidade({raiz: unid, selecionada: unid}));
 	}, []);
 
-	return !raiz ? null : (
+	function click(unids) {
+		setUnidade({...unidade, selecionada: unids[unids.length - 1]}); // seleciona a unidade clicada
+		props.onClick && props.onClick(unids);
+	}
+
+	return !unidade.raiz ? null : (
 		<div className={c.arvore}>
-			<ArvoreNo unidade={raiz}
-				onClick={props.onClick} onMouseOver={props.onMouseOver} />
+			<ArvoreNo unidade={unidade.raiz} selecionada={unidade.selecionada}
+				onClick={click} onMouseOver={props.onMouseOver} />
 		</div>
 	);
 }

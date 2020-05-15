@@ -45,6 +45,13 @@ $hover-bg-nome-unidade: #e8e8e8;
 					background-color: $hover-bg-nome-unidade;
 				}
 			}
+			.nomeUnidadeSel {
+				color: white;
+				background-color: #47727B;
+				&:hover {
+					background-color: #47727B;
+				}
+			}
 		}
 
 		.filhas {

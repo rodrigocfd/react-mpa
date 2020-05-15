@@ -8,6 +8,7 @@ import c from './ArvoreNo.scss';
 
 ArvoreNo.propTypes = {
 	unidade: PTUnidade.isRequired, // unidade que será renderizada neste nó
+	selecionada: PTUnidade, // unidade atualmente selecionada na árvore toda
 	onClick: PropTypes.func, // onClick([hierarquiaUnidades])
 	onMouseOver: PropTypes.func // onMouseOver([hierarquiaUnidades])
 };
@@ -17,6 +18,9 @@ ArvoreNo.propTypes = {
  */
 function ArvoreNo(props) {
 	const [estado, setEstado] = React.useState('FECHADA'); // 'ABERTA', 'CARREGANDO'
+
+	const ehSel = props.selecionada && // estamos renderizando a unidade selecionada na árvore?
+		(props.selecionada.id == props.unidade.id);
 
 	const btnMaisMenos = {
 		FECHADA: '[+]',
@@ -70,7 +74,8 @@ function ArvoreNo(props) {
 						<IconeUnidade tipo={props.unidade.tipo} />
 						<IconeUnidade tipo={props.unidade.nivelNormatizacao} />
 					</div>
-					<div className={c.nomeUnidade} onClick={clickNome} onMouseOver={mouseOverNome}>
+					<div className={[c.nomeUnidade, ehSel ? c.nomeUnidadeSel : ''].join(' ')}
+						onClick={clickNome} onMouseOver={mouseOverNome}>
 						{props.unidade.denominacao}
 					</div>
 				</div>
@@ -79,7 +84,7 @@ function ArvoreNo(props) {
 						<div className={c.carregando}>Carregando...</div>
 					}
 					{estado === 'ABERTA' && props.unidade.filhas.map(filha =>
-						<ArvoreNo key={filha.id} unidade={filha}
+						<ArvoreNo key={filha.id} unidade={filha} selecionada={props.selecionada}
 							onClick={clickFilha} onMouseOver={mouseOverFilha} />
 					)}
 				</div>
