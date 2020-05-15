@@ -6,7 +6,7 @@ import IconeUnidade from './IconeUnidade';
 import c from './ArvoreNo.scss';
 
 function ArvoreNo(props) {
-	const [estado, setEstado] = React.useState('FECHADA');
+	const [estado, setEstado] = React.useState('FECHADA'); // 'ABERTA', 'CARREGANDO'
 
 	const btnMaisMenos = {
 		FECHADA: '[+]',
@@ -26,7 +26,7 @@ function ArvoreNo(props) {
 			} else {
 				setEstado('ABERTA'); // as filhas estão em cache, é só mostrar
 			}
-		} else if (estado === 'ABERTA') { // usuário clicou para fechar
+		} else if (estado === 'ABERTA' || estado === 'CARREGANDO') { // usuário clicou para fechar
 			setEstado('FECHADA');
 		}
 	}

@@ -70,9 +70,10 @@ const app = {
 	/**
 	 * Faz uma requisição GET ao servidor retornando uma Promise, e trata erros.
 	 * @param {string} caminho Caminho a ser requisitado do servidor.
-	 * @param {object} payload Opcional; dados a serem enviados na requisição GET.
+	 * @param {object} payload Opcional; dados a serem enviados na requisição GET. Se não há, passe undefined.
+	 * @param {boolean} semAlertaErro Opcional; se houver um erro não mostra popup.
 	 */
-	serverGet: function(caminho, payload) {
+	serverGet: function(caminho, payload, semAlertaErro) {
 		return fetch(prodCfg.apiRest + caminho, {
 			method: 'GET',
 			cache: 'no-cache',
@@ -82,27 +83,19 @@ const app = {
 			body: JSON.stringify(payload)
 		})
 		.then(resp => {
-			switch (resp.status) {
-			case 200:
+			if (resp.status === 200) {
 				return resp.json(); // tudo certo, encaminha resposta do servidor
-			case 401: // Unauthorized
-				return resp.json().then(d => {
-					throw new Error('Você não está logado.');
-				});
-			case 500: // Internal Server Error
-				return resp.json().then(d => {
-					alert(`500 - Internal Server Error - ${d.mensagem}`);
-					throw new Error('Erro 500');
-				});
-			case 504: // Gateway Timeout
-				sessionStorage.setItem('mensagem', 'Parece que o servidor está fora do ar (erro 504).')
-				app.redirecionaAgora('erro.html');
-				throw new Error('Erro 504');
-			default: // qualquer outro erro é redirecionado
-				sessionStorage.setItem('mensagem', `Erro ${resp.status} - ${resp.statusText}`)
-				app.redirecionaAgora('erro.html');
-				throw new Error('Erro genérico');
 			}
+
+			let msg = '';
+			switch (resp.status) {
+				case 401: msg = 'Você não está logado (erro 401).'; break;
+				case 500: msg = `500 - Internal Server Error - ${d.mensagem}`; break;
+				case 504: msg = 'Parece que o servidor está fora do ar (erro 504).'; break;
+				default:  msg = `Erro ${resp.status} - ${resp.statusText}`;
+			}
+			!semAlertaErro && alert(msg);
+			throw new Error(msg);
 		});
 	}
 };
