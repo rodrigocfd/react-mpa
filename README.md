@@ -4,7 +4,7 @@ A proof of concept of a [React](https://reactjs.org/) application using [Webpack
 
 ## Concepts
 
-* Every `FooBar.page.js` will become a static page `fooBar.html`.
+* Every `FooBar.page.js` will become a static page `foo-bar.html`.
 
 * **No** server side rendering, each HTML page acts like an ordinary small React app.
 

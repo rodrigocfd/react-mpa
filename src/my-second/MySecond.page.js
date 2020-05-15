@@ -4,9 +4,9 @@ import ReactDOM from 'react-dom';
 import Header from 'src/common/Header';
 import TitleFool from './TitleFool';
 import apple from './apple.jpg';
-import c from './Second.scss';
+import c from './MySecond.scss';
 
-function Second() {
+function MySecond() {
 	const url = new URL(window.location);
 	const name = url.searchParams.get('name');
 
@@ -21,5 +21,5 @@ function Second() {
 	</>);
 }
 
-ReactDOM.render(<Second />,
+ReactDOM.render(<MySecond />,
 	document.getElementById('mountPoint'));
