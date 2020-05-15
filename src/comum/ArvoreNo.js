@@ -8,6 +8,12 @@ import c from './ArvoreNo.scss';
 function ArvoreNo(props) {
 	const [estado, setEstado] = React.useState('FECHADA');
 
+	const btnMaisMenos = {
+		FECHADA: '[+]',
+		ABERTA: '[–]',
+		CARREGANDO: '[=]'
+	};
+
 	function abreFecha() {
 		if (estado === 'FECHADA') { // usuário clicou para abrir
 			if (!props.unidade.filhas.length) { // filhas não carregadas ainda
@@ -44,7 +50,7 @@ function ArvoreNo(props) {
 			<div className={c.barraEsquerda}>
 				{props.unidade.temFilhas &&
 					<span onClick={abreFecha} className={c.btnAbre}>
-						{estado === 'ABERTA' ? '[–]' : '[+]'}
+						{btnMaisMenos[estado]}
 					</span>
 				}
 			</div>
