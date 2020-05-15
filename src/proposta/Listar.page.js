@@ -1,7 +1,7 @@
 import React from 'react';
 
 import app from 'src/app';
-import Arvore from 'src/comum/Arvore';
+import Arvore from 'src/comum/arvore/Arvore';
 import c from './Listar.scss';
 
 function Listar() {
