@@ -1,21 +1,21 @@
-$espaco-vert: 6px;
-$hover-bg: #e8e8e8;
+$padding-vert-nome-unidade: 4px;
+$hover-bg-nome-unidade: #e8e8e8;
 
 .arvoreNo {
 	display: flex;
-	padding-top: $espaco-vert;
 	border-left: 1px dotted #c0c8c0;
 
 	.barraEsquerda { // contém o botão expandir e dá a identação aos nós filhos
 		flex-basis: 1.5em;
 		flex-grow: 0;
 		flex-shrink: 0;
+		padding-top: 2px; // empurra o [+] um pouco pra baixo, pra alinhar com o nome da unidade
 
 		.btnAbre {
 			cursor: pointer;
 			color: #295273;
 			&:hover {
-				background-color: $hover-bg;
+				background-color: $hover-bg-nome-unidade;
 			}
 			&:active {
 				color: white;
@@ -26,30 +26,32 @@ $hover-bg: #e8e8e8;
 	.dadosUnidade {
 		flex-grow: 1;
 
-		.iconeNome {
+		.iconesComNome {
 			display: flex;
 
-			.icone {
-				flex-basis: #{(16px + 2px) * 2 + 3px}; // +espaçamento antes do texto
+			.icones {
+				flex-basis: #{(16px + 2px) * 2}; // espaço para 2 ícones com espaçamento
 				flex-grow: 0;
 				flex-shrink: 0;
+				padding-top: 4px; // empura os ícones um pouco pra baixo, pra alinhar com o nome da unidade
 				& > div {
 					margin-right: 2px; // espaçamento entre cada ícone
 				}
 			}
 			.nomeUnidade {
 				cursor: pointer;
+				padding: $padding-vert-nome-unidade 5px;
 				&:hover {
-					background-color: $hover-bg;
+					background-color: $hover-bg-nome-unidade;
 				}
 			}
 		}
 
 		.filhas {
 			.carregando {
-				padding-top: $espaco-vert;
+				padding: $padding-vert-nome-unidade 0 $padding-vert-nome-unidade 40px;
 				font-style: italic;
-				opacity: .75;
+				opacity: .7;
 			}
 		}
 	}

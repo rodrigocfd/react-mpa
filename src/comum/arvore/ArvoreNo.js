@@ -5,6 +5,9 @@ import app from 'src/app';
 import IconeUnidade from './IconeUnidade';
 import c from './ArvoreNo.scss';
 
+/**
+ * Um nó da árvore de unidades. Este componente é recursivo.
+ */
 function ArvoreNo(props) {
 	const [estado, setEstado] = React.useState('FECHADA'); // 'ABERTA', 'CARREGANDO'
 
@@ -31,10 +34,10 @@ function ArvoreNo(props) {
 		}
 	}
 
-	function click() {
+	function clickNome() {
 		props.onClick && props.onClick([props.unidade]); // envia a hierarquia de unidades no callback
 	}
-	function mouseOver() {
+	function mouseOverNome() {
 		props.onMouseOver && props.onMouseOver([props.unidade]);
 	}
 
@@ -55,12 +58,12 @@ function ArvoreNo(props) {
 				}
 			</div>
 			<div className={c.dadosUnidade}>
-				<div className={c.iconeNome}>
-					<div className={c.icone}>
+				<div className={c.iconesComNome}>
+					<div className={c.icones}>
 						<IconeUnidade tipo={props.unidade.tipo} />
 						<IconeUnidade tipo={props.unidade.nivelNormatizacao} />
 					</div>
-					<div className={c.nomeUnidade} onClick={click} onMouseOver={mouseOver}>
+					<div className={c.nomeUnidade} onClick={clickNome} onMouseOver={mouseOverNome}>
 						{props.unidade.denominacao}
 					</div>
 				</div>
@@ -79,7 +82,7 @@ function ArvoreNo(props) {
 }
 
 ArvoreNo.propTypes = {
-	unidade: PropTypes.shape({
+	unidade: PropTypes.shape({ // unidade que será renderizada neste nó
 		id: PropTypes.number.isRequired,
 		codigo: PropTypes.number.isRequired,
 		denominacao: PropTypes.string.isRequired,
@@ -91,7 +94,7 @@ ArvoreNo.propTypes = {
 		filhas: PropTypes.arrayOf(PropTypes.object).isRequired
 	}).isRequired,
 	onClick: PropTypes.func, // onClick([hierarquiaUnidades])
-	onMouseOver: PropTypes.func
+	onMouseOver: PropTypes.func // onMouseOver([hierarquiaUnidades])
 };
 
 export default ArvoreNo;
