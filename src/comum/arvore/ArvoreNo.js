@@ -3,20 +3,11 @@ import PropTypes from 'prop-types';
 
 import app from 'src/app';
 import IconeUnidade from './IconeUnidade';
+import PTUnidade from './PTUnidade';
 import c from './ArvoreNo.scss';
 
 ArvoreNo.propTypes = {
-	unidade: PropTypes.shape({ // unidade que será renderizada neste nó
-		id: PropTypes.number.isRequired,
-		codigo: PropTypes.number.isRequired,
-		denominacao: PropTypes.string.isRequired,
-		sigla: PropTypes.string.isRequired,
-		tipo: PropTypes.string.isRequired,
-		nivelNormatizacao: PropTypes.string.isRequired,
-		idPai: PropTypes.number,
-		temFilhas: PropTypes.bool.isRequired,
-		filhas: PropTypes.arrayOf(PropTypes.object).isRequired
-	}).isRequired,
+	unidade: PTUnidade.isRequired, // unidade que será renderizada neste nó
 	onClick: PropTypes.func, // onClick([hierarquiaUnidades])
 	onMouseOver: PropTypes.func // onMouseOver([hierarquiaUnidades])
 };
