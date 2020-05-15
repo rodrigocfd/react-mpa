@@ -56,7 +56,10 @@ function ArvoreNo(props) {
 			</div>
 			<div className={c.dadosUnidade}>
 				<div className={c.iconeNome}>
-					<div className={c.icone}><IconeUnidade tipo={props.unidade.tipo} /></div>
+					<div className={c.icone}>
+						<IconeUnidade tipo={props.unidade.tipo} />
+						<IconeUnidade tipo={props.unidade.nivelNormatizacao} />
+					</div>
 					<div className={c.nomeUnidade} onClick={click} onMouseOver={mouseOver}>
 						{props.unidade.denominacao}
 					</div>
@@ -82,6 +85,7 @@ ArvoreNo.propTypes = {
 		denominacao: PropTypes.string.isRequired,
 		sigla: PropTypes.string.isRequired,
 		tipo: PropTypes.string.isRequired,
+		nivelNormatizacao: PropTypes.string.isRequired,
 		idPai: PropTypes.number,
 		temFilhas: PropTypes.bool.isRequired,
 		filhas: PropTypes.arrayOf(PropTypes.object).isRequired

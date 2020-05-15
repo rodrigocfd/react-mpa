@@ -49,7 +49,6 @@ function SiorgRoot(props) {
 	case 'ERRO':
 		return (
 			<div className={c.naoCarregado}>
-				<div>Você não está logado.</div>
 				<div>{rootContext.msgErro}</div>
 				<div><a href={app.montaUrlJsf('index.jsf')}>Ir para a página de login</a></div>
 				<CuboFundo />

@@ -10,7 +10,10 @@ function IconeUnidade(props) {
 		EN: { ico: c.icoEN, lbl: 'Entidade' },
 		UA: { ico: c.icoUA, lbl: 'Unidade Administrativa' },
 		UC: { ico: c.icoUC, lbl: 'Unidade Colegiada' },
-		RE: { ico: c.icoRE, lbl: 'Unidade Administrativa com Regulamento Específico' }
+		RE: { ico: c.icoRE, lbl: 'Unidade Administrativa com Regulamento Específico' },
+
+		LEID: { ico: c.icoLEID, lbl: 'Normatização: Lei/Decreto' },
+		ATOI: { ico: c.icoATOI, lbl: 'Normatização: Ato Interno' }
 	};
 
 	return (

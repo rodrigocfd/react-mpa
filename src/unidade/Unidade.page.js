@@ -17,7 +17,7 @@ function Unidade() {
 	return (
 		<div>
 			<h1>Unidade</h1>
-			<div>{trilha}</div>
+			<div className={c.trilha}>{trilha}</div>
 			<div className={c.arvore} onMouseLeave={() => setUns([])}>
 				<Arvore idRaiz={1} onMouseOver={uns => setUns(uns)}
 					onClick={uns => console.log(uns)} />

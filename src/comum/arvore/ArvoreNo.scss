@@ -30,9 +30,12 @@ $hover-bg: #e8e8e8;
 			display: flex;
 
 			.icone {
-				flex-basis: 22px; // o ícone é 16px, o resto é espaçamento à direita
+				flex-basis: #{(16px + 2px) * 2 + 3px}; // +espaçamento antes do texto
 				flex-grow: 0;
 				flex-shrink: 0;
+				& > div {
+					margin-right: 2px; // espaçamento entre cada ícone
+				}
 			}
 			.nomeUnidade {
 				cursor: pointer;
