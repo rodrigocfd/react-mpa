@@ -5,7 +5,7 @@ import app, {AppContext} from 'src/app';
 import CabecalhoSiorg from './cabecalho-siorg/CabecalhoSiorg';
 import CuboFundo from './CuboFundo';
 import c from './SiorgRoot.scss';
-import _ from '../global.scss'; // insere CSS global da aplicação
+import _ from './global.scss'; // insere CSS global da aplicação
 
 /**
  * Componente de topo da aplicação.

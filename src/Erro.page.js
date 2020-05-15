@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import app from 'src/app';
-import CuboFundo from 'src/_interno-app/CuboFundo';
+import CuboFundo from 'src/comum/siorg-root/CuboFundo';
 import c from './Erro.scss';
-import _ from './global.scss'; // insere CSS global da aplicação
+import _ from 'src/comum/siorg-root/global.scss'; // insere CSS global da aplicação, porque estamos renderizando diretamente
 
 /**
  * Página de erro da aplicação.
@@ -27,5 +27,5 @@ function Erro() {
 	</>);
 }
 
-ReactDOM.render(<Erro />, // renderiza diretamente, sem o wrapper <Siorg>
+ReactDOM.render(<Erro />, // renderiza diretamente, sem o wrapper <Siorg>, para o menu não aparecer
 	document.getElementById('root'));
