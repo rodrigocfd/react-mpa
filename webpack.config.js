@@ -43,7 +43,7 @@ for (const jsPath of enumFiles(PAGESDIR, JSEXTS)) {
 		new HtmlWebPackPlugin({
 			chunks: [chunkName, 'vendor'],
 			template: 'assets/template.html',
-			filename: unCapitalizeBaseName(chunkName) + '.html'
+			filename: camelToKebabCase(chunkName) + '.html'
 		})
 	);
 }
@@ -208,9 +208,6 @@ function removeExt(filePath, possibleExts) {
 	return filePath; // none of the extensions found
 }
 
-function unCapitalizeBaseName(filePath) {
-	if (filePath.indexOf('/') === -1) {
-		return filePath[0].toLowerCase() + filePath.slice(1);
-	}
-	return path.dirname(filePath) + '/' + unCapitalizeBaseName(path.basename(filePath));
+function camelToKebabCase(name) {
+	return name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 }
