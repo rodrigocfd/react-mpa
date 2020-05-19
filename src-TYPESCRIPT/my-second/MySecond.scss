@@ -1,0 +1,10 @@
+$theRed: red;
+
+.body {
+	background-image: url('../frog.jpg');
+
+	.red {
+		color: $theRed;
+		font-size: 140%;
+	}
+}

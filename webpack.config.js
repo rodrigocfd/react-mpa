@@ -10,7 +10,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const prodCfg = require('./production.config.json');
 
 const PAGESDIR = 'src/'; // where the *.page.js files will start being searched
-const JSEXTS = ['.page.js', '.page.jsx'];
+const JSEXTS = ['.page.js', '.page.jsx', '.page.ts', '.page.tsx'];
 
 /*
 const entry = { // points where the bundling process starts
@@ -92,6 +92,13 @@ module.exports = (env, argv) => ({
 					]
 				}
 			}
+		}, {
+			test: /\.(ts|tsx)$/,
+			use: 'ts-loader',
+			exclude: /node_modules/,
+			resolve: {
+				extensions: ['.ts', '.tsx']
+			},
 		}, {
 			test: /\.(css|sass|scss)$/,
 			exclude: /node_modules/,

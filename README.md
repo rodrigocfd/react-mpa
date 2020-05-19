@@ -12,6 +12,8 @@ A proof of concept of a [React](https://reactjs.org/) application using [Webpack
 
 * The build can be served by any HTTP server, a Node.js server is **not** needed.
 
+* [TypeScript](https://www.typescriptlang.org) support. Rename `src` to something else and use `src-TYPESCRIPT` as `src`.
+
 * [SASS](https://sass-lang.com) support, with all style files parsed as CSS modules.
 
 ## Environment
