@@ -1,6 +1,6 @@
 import React from 'react';
 
-import app from 'src/app';
+import app from '@src/app';
 
 /**
  * Primeira página da aplicação.

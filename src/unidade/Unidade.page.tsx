@@ -1,11 +1,28 @@
 import React from 'react';
 
-import app from 'src/app';
-import Arvore from 'src/comum/arvore/Arvore';
+import app from '@src/app';
+import UnidadeNoArvore from '@src/dto/UnidadeNoArvore';
+import Arvore from '@src/comum/arvore/Arvore';
 import c from './Unidade.scss';
 
 function Unidade() {
-	const [hieUnidsSel, setHieUnidsSel] = React.useState(null);
+	const [unid, setUnid] = React.useState({} as UnidadeNoArvore);
+
+	React.useEffect(() => {
+		app.serverGet(`/arvore/unidade?id=1`)
+			.then((u: UnidadeNoArvore) => setUnid(u));
+	}, []);
+
+	return (
+		<div>
+			<div className={c.arvore}>
+				<Arvore unidade={unid} />
+			</div>
+			<div><a href={app.montaUrlApp('index.html')}>Retornar</a></div>
+		</div>
+	);
+
+	/*const [hieUnidsSel, setHieUnidsSel] = React.useState(null);
 	const [trilhaUnids, setTrilhaUnids] = React.useState([]);
 
 	let trilhaStr = '';
@@ -26,7 +43,7 @@ function Unidade() {
 			<br /><br />
 			<div><a href={app.montaUrlApp('index.html')}>Retornar</a></div>
 		</div>
-	);
+	);*/
 }
 
 app.constroiPagina(<Unidade />);

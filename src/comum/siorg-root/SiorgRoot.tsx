@@ -1,56 +1,56 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-import app, {AppContext} from 'src/app';
+import app, {AppContext, EstadoAplicacao} from '@src/app';
+import InfoUsuario from '@src/dto/InfoUsuario';
 import CabecalhoSiorg from './cabecalho-siorg/CabecalhoSiorg';
 import CuboFundo from './CuboFundo';
 import c from './SiorgRoot.scss';
-import _ from './global.scss'; // insere CSS global da aplicação
+import './global.scss'; // insere CSS global da aplicação
 
-SiorgRoot.propTypes = {
-	children: PropTypes.node.isRequired
-};
+interface Props {
+	children: React.ReactNode;
+}
 
 /**
  * Componente de topo da aplicação.
  * Faz a primeira consulta para verificar se o usuário está autenticado.
  */
-function SiorgRoot(props) {
+function SiorgRoot(props: Props) {
 	const [rootContext, setRootContext] = React.useState({ // vai ser passado para AppContext.Provider
-		estado: 'CARREGANDO', // 'LOGADO', 'ERRO'
-		msgErro: '',
-		infoUsuario: null // informações da sessão do Siorg
+		estado: EstadoAplicacao.Carregando,
+		msgErro: '', // exibida por este componente
+		infoUsuario: {} as InfoUsuario // informações da sessão do Siorg
 	});
 
 	React.useEffect(() => {
-		if (rootContext.estado === 'CARREGANDO') {
-			app.serverGet('sessao/infoUsuario', undefined, true) // requisita informações sobre o usuário atual
-				.then(dados => { // usuário está logado
+		if (rootContext.estado === EstadoAplicacao.Carregando) {
+			app.serverGet('sessao/infoUsuario', {}, false) // requisita informações sobre o usuário atual
+				.then((dados: InfoUsuario) => { // usuário está logado
 					setRootContext({
-						estado: 'LOGADO',
+						estado: EstadoAplicacao.Logado,
 						msgErro: '',
 						infoUsuario: dados // guarda as informações do usuário
 					});
 				})
-				.catch(err => { // usuário não está logado
+				.catch((err: any) => { // usuário não está logado
 					setRootContext({
-						estado: 'ERRO',
+						estado: EstadoAplicacao.Erro,
 						msgErro: err.message,
-						infoUsuario: null
+						infoUsuario: {} as InfoUsuario
 					});
 				});
 		}
 	}, []);
 
 	switch (rootContext.estado) {
-	case 'CARREGANDO':
+	case EstadoAplicacao.Carregando:
 		return (
 			<div className={c.naoCarregado}>
 				<div>Carregando...</div>
 				<CuboFundo />
 			</div>
 		);
-	case 'ERRO':
+	case EstadoAplicacao.Erro:
 		return (
 			<div className={c.naoCarregado}>
 				<div>{rootContext.msgErro}</div>
@@ -58,7 +58,7 @@ function SiorgRoot(props) {
 				<CuboFundo />
 			</div>
 		);
-	case 'LOGADO': // carrega a aplicação normalmente
+	case EstadoAplicacao.Logado: // carrega a aplicação normalmente
 		return (
 			<AppContext.Provider value={[rootContext, setRootContext]}>
 				<CabecalhoSiorg />

@@ -1,17 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import c from './IconeUnidade.scss';
 
-IconeUnidade.propTypes = {
-	tipo: PropTypes.string.isRequired
-};
+interface Valores {
+	[key: string]: {
+		ico: string;
+		lbl: string;
+	}
+}
+
+interface Props {
+	chave: string;
+}
 
 /**
  * Ícones que precedem o nome da unidade na árvore.
  */
-function IconeUnidade(props) {
-	const defs = {
+function IconeUnidade({chave}: Props) {
+	const vals: Valores = {
 		ET: { ico: c.icoET, lbl: 'Ente' },
 		OR: { ico: c.icoOR, lbl: 'Órgão' },
 		EN: { ico: c.icoEN, lbl: 'Entidade' },
@@ -24,8 +30,8 @@ function IconeUnidade(props) {
 	};
 
 	return (
-		<div className={defs[props.tipo].ico}
-			title={defs[props.tipo].lbl}></div>
+		<div className={vals[chave].ico}
+			title={vals[chave].lbl}></div>
 	);
 }
 

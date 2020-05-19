@@ -1,47 +1,42 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
 
-import app from 'src/app';
+import app from '@src/app';
+import UnidadeNoArvore from '@src/dto/UnidadeNoArvore';
 import IconeUnidade from './IconeUnidade';
-import PTUnidade from './PTUnidade';
 import c from './ArvoreNo.scss';
 
-ArvoreNo.propTypes = {
-	unidade: PTUnidade.isRequired, // unidade que será renderizada neste nó
-	selecionada: PTUnidade, // unidade atualmente selecionada na árvore toda
-	onClick: PropTypes.func, // onClick([hierarquiaUnidades])
-	onMouseOver: PropTypes.func // onMouseOver([hierarquiaUnidades])
-};
+enum EstadoNo { Fechado, Aberto, Carregando }
+
+interface Props {
+	unidade: UnidadeNoArvore;
+	selecionada: UnidadeNoArvore;
+	onClick?: (tripaUnidades: UnidadeNoArvore[]) => void;
+	onMouseOver?: (tripaUnidades: UnidadeNoArvore[]) => void;
+}
 
 /**
  * Um nó da árvore de unidades. Este componente é recursivo.
  */
-function ArvoreNo(props) {
-	const [estado, setEstado] = React.useState('FECHADA'); // 'ABERTA', 'CARREGANDO'
+function ArvoreNo(props: Props) {
+	const [estado, setEstado] = React.useState(EstadoNo.Fechado);
 
 	const ehSel = props.selecionada && // estamos renderizando a unidade selecionada na árvore?
 		(props.selecionada.id == props.unidade.id);
 
-	const btnMaisMenos = {
-		FECHADA: '[+]',
-		ABERTA: '[–]',
-		CARREGANDO: '[=]'
-	};
-
 	function abreFecha() {
-		if (estado === 'FECHADA') { // usuário clicou para abrir
+		if (estado === EstadoNo.Fechado) { // usuário clicou para abrir
 			if (!props.unidade.filhas.length) { // filhas não carregadas ainda
-				setEstado('CARREGANDO');
+				setEstado(EstadoNo.Carregando);
 				app.serverGet(`/arvore/filhas?idPai=${props.unidade.id}`)
 					.then(filhas => {
 						props.unidade.filhas.push(...filhas);
-						setEstado('ABERTA');
+						setEstado(EstadoNo.Aberto);
 					});
 			} else {
-				setEstado('ABERTA'); // as filhas estão em cache, é só mostrar
+				setEstado(EstadoNo.Aberto); // as filhas estão em cache, é só mostrar
 			}
-		} else if (estado === 'ABERTA' || estado === 'CARREGANDO') { // usuário clicou para fechar
-			setEstado('FECHADA');
+		} else if (estado === EstadoNo.Aberto || estado === EstadoNo.Carregando) { // usuário clicou para fechar
+			setEstado(EstadoNo.Fechado);
 		}
 	}
 
@@ -52,10 +47,10 @@ function ArvoreNo(props) {
 		props.onMouseOver && props.onMouseOver([props.unidade]);
 	}
 
-	function clickFilha(tripaUnidades) {
+	function clickFilha(tripaUnidades: UnidadeNoArvore[]) {
 		props.onClick && props.onClick([props.unidade, ...tripaUnidades]);
 	}
-	function mouseOverFilha(tripaUnidades) {
+	function mouseOverFilha(tripaUnidades: UnidadeNoArvore[]) {
 		props.onMouseOver && props.onMouseOver([props.unidade, ...tripaUnidades]);
 	}
 
@@ -64,15 +59,21 @@ function ArvoreNo(props) {
 			<div className={c.barraEsquerda}>
 				{props.unidade.temFilhas &&
 					<span onClick={abreFecha} className={c.btnAbre}>
-						{btnMaisMenos[estado]}
+						{(() => {
+							switch (estado) {
+								case EstadoNo.Fechado:    return '[+]';
+								case EstadoNo.Aberto:     return '[–]';
+								case EstadoNo.Carregando: return '[=]';
+							}
+						})()}
 					</span>
 				}
 			</div>
 			<div className={c.dadosUnidade}>
 				<div className={c.iconesComNome}>
 					<div className={c.icones}>
-						<IconeUnidade tipo={props.unidade.tipo} />
-						<IconeUnidade tipo={props.unidade.nivelNormatizacao} />
+						<IconeUnidade chave={props.unidade.tipo} />
+						<IconeUnidade chave={props.unidade.nivelNormatizacao} />
 					</div>
 					<div className={[c.nomeUnidade, ehSel ? c.nomeUnidadeSel : ''].join(' ')}
 						onClick={clickNome} onMouseOver={mouseOverNome}>
@@ -80,10 +81,10 @@ function ArvoreNo(props) {
 					</div>
 				</div>
 				<div className={c.filhas}>
-					{estado === 'CARREGANDO' &&
+					{estado === EstadoNo.Carregando &&
 						<div className={c.carregando}>Carregando...</div>
 					}
-					{estado === 'ABERTA' && props.unidade.filhas.map(filha =>
+					{estado === EstadoNo.Aberto && props.unidade.filhas.map(filha =>
 						<ArvoreNo key={filha.id} unidade={filha} selecionada={props.selecionada}
 							onClick={clickFilha} onMouseOver={mouseOverFilha} />
 					)}

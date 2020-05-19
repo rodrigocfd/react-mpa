@@ -1,8 +1,11 @@
 import React from 'react';
 
+import {ItemHorz} from './Itens';
 import MenuVert1 from './MenuVert1';
-import itens from './itens.json';
+import _itens from './itens.json';
 import c from './Menu.scss';
+
+const itens = _itens as ItemHorz[];
 
 /**
  * Menu horizontal da aplicação, que aparece em todas as páginas.
@@ -17,7 +20,7 @@ function Menu() {
 							<div className={c.label}>{item.label}</div>
 							<div className={c.arrow}>▼</div>
 						</div>
-						<MenuVert1 {...item} />
+						<MenuVert1 item={item} />
 					</li>
 				)}
 			</ul>

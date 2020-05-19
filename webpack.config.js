@@ -10,7 +10,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const prodCfg = require('./producao.config.json');
 
 const PAGESDIR = 'src/'; // where the *.page.js files will start being searched
-const JSEXTS = ['.page.js', '.page.jsx'];
+const JSEXTS = ['.page.js', '.page.jsx', '.page.ts', '.page.tsx'];
 const PROXY_SERVER = 'http://localhost:8080';
 
 /*
@@ -37,9 +37,9 @@ let htmlPlugins = []; // all HTML files to be generated
 
 for (const jsPath of enumFiles(PAGESDIR, JSEXTS)) {
 	const chunkName = removeExt(jsPath, JSEXTS).substr(PAGESDIR.length); // remove extension and PAGESDIR
-	entry[chunkName] = './' + jsPath; // new chunk entry
+	entry[chunkName] = './' + jsPath;
 
-	htmlPlugins.push( // new html plugin entry
+	htmlPlugins.push(
 		new HtmlWebPackPlugin({
 			chunks: [chunkName, 'vendor'],
 			template: 'assets/template.html',
@@ -49,32 +49,33 @@ for (const jsPath of enumFiles(PAGESDIR, JSEXTS)) {
 }
 
 module.exports = (env, argv) => ({
-	stats: isDev(argv) ? 'errors-only' : 'normal',
+	stats: (argv.mode === 'development') ? 'errors-only' : 'normal',
 	entry, // each JS bundling point
 	output: {
-		path: path.resolve(__dirname, 'build'), // vai gerar um diretório "build"
-		filename: isDev(argv) ? '[name].js' : '[name].[hash:8].js'
+		path: path.resolve(__dirname, 'build'),
+		filename: (argv.mode === 'development') ? '[name].js' : '[name].[hash:8].js'
 	},
-	devtool: isDev(argv) ? 'eval-source-maps' : false,
+	devtool: (argv.mode === 'production') ? false : 'eval-source-maps',
 	plugins: [
-		new CopyWebpackPlugin([ // simple copy of files
+		new CopyWebpackPlugin([
 			{ from: 'assets/favicon.png', to: '.' }
 		]),
 		new MiniCssExtractPlugin({
-			filename: isDev(argv) ? '[name].css' : '[name].[hash:8].css'
+			filename: (argv.mode === 'development') ? '[name].css' : '[name].[hash:8].css'
 		}),
-		new HtmlReplaceWebpackPlugin([ // replaces strings in all HTML files
+		new HtmlReplaceWebpackPlugin([
 			{
-				pattern: '@BASE_APP@',
-				replacement: isDev(argv) ? '' : prodCfg.baseApp
+				pattern: '@BASE_URL@',
+				replacement: (argv.mode === 'production') ? prodCfg.baseUrl : ''
 			}
 		]),
-		...(isDev(argv) ? [] : [new CleanWebpackPlugin()]), // clean output directory before building
+		...(argv.mode === 'development' ? [] : [new CleanWebpackPlugin()]), // clean output directory before building
 		...htmlPlugins // each HTML page
 	],
 	resolve: {
 		alias: { // absolute paths available inside the app
-			src: path.resolve(__dirname, 'src')
+			'@assets': path.resolve(__dirname, 'assets'),
+			'@src': path.resolve(__dirname, 'src')
 		}
 	},
 	devServer: {
@@ -99,13 +100,20 @@ module.exports = (env, argv) => ({
 				}
 			}
 		}, {
+			test: /\.(ts|tsx)$/,
+			use: 'ts-loader',
+			exclude: /node_modules/,
+			resolve: {
+				extensions: ['.ts', '.tsx']
+			},
+		}, {
 			test: /\.(css|sass|scss)$/,
 			exclude: /node_modules/,
 			use: [
 				{
 					loader: MiniCssExtractPlugin.loader,
 					options: {
-						hmr: isDev(argv)
+						hmr: process.env.NODE_ENV === 'development'
 					}
 				},
 				{
@@ -113,7 +121,7 @@ module.exports = (env, argv) => ({
 					options: {
 						importLoaders: 1,
 						modules: {
-							localIdentName: isDev(argv) ? '[path][name]__[local]' : '[hash:base64]'
+							localIdentName: (argv.mode === 'development') ? '[path][name]__[local]' : '[hash:base64]'
 						}
 					}
 				},
@@ -133,22 +141,14 @@ module.exports = (env, argv) => ({
 			use: [{
 				loader: 'file-loader',
 				options: {
-					name: isDev(argv) ? '[name].[ext]' : '[name].[hash:8].[ext]',
+					name: (argv.mode === 'development') ? '[name].[ext]' : '[name].[hash:8].[ext]',
 					outputPath: (url, resourcePath, context) => { // where the target file will be placed
-						let relativePath = path.relative(context, resourcePath);
-						if (!isDev(argv)) {
-							relativePath = relativePath.substr(PAGESDIR.length); // remove o 'src/'
-						}
-						return `/${relativePath}`; // absolute domain path
+						return `assets/${url}`;
 					},
 					publicPath: (url, resourcePath, context) => { // will be written in the img/src
-						let relativePath = path.relative(context, resourcePath);
-						if (!isDev(argv)) {
-							relativePath = relativePath.substr(PAGESDIR.length); // remove o 'src/'
-						}
-						return isDev(argv)
-							? `/${relativePath}` // absolute domain path
-							: path.join(prodCfg.baseApp, `/${relativePath}`); // absolute domain path with baseUrl prefix
+						return (argv.mode === 'development')
+							? `/assets/${url}`
+							: `${prodCfg.baseUrl}/assets/${url}`;
 					}
 				}
 			}]
@@ -171,10 +171,6 @@ module.exports = (env, argv) => ({
 		}
 	}
 });
-
-function isDev(argv) {
-	return argv.mode === 'development'; // passed in package.json
-}
 
 function enumFiles(rootPath, fileExts) {
 	let ret = []; // 'src/pages/second/Second.page.js'
