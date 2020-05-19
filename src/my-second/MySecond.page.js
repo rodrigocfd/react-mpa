@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Header from 'src/common/Header';
+import apple from '@assets/apple.jpg';
+import Header from '@src/common/Header';
 import TitleFool from './TitleFool';
-import apple from './apple.jpg';
 import c from './MySecond.scss';
 
 function MySecond() {

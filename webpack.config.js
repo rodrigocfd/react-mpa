@@ -65,7 +65,7 @@ module.exports = (env, argv) => ({
 		new HtmlReplaceWebpackPlugin([
 			{
 				pattern: '@BASE_URL@',
-				replacement: (argv.mode === 'production') ? prodCfg.baseUrl : '/'
+				replacement: (argv.mode === 'production') ? prodCfg.baseUrl : ''
 			}
 		]),
 		...(argv.mode === 'development' ? [] : [new CleanWebpackPlugin()]), // clean output directory before building
@@ -73,7 +73,8 @@ module.exports = (env, argv) => ({
 	],
 	resolve: {
 		alias: { // absolute paths available inside the app
-			src: path.resolve(__dirname, 'src')
+			'@assets': path.resolve(__dirname, 'assets'),
+			'@src': path.resolve(__dirname, 'src')
 		}
 	},
 	module: {
@@ -136,20 +137,12 @@ module.exports = (env, argv) => ({
 				options: {
 					name: (argv.mode === 'development') ? '[name].[ext]' : '[name].[hash:8].[ext]',
 					outputPath: (url, resourcePath, context) => { // where the target file will be placed
-						let relativePath = path.relative(context, resourcePath);
-						if (argv.mode === 'production') {
-							relativePath = relativePath.substr(PAGESDIR.length); // remove o 'src/'
-						}
-						return `/${relativePath}`; // absolute domain path
+						return `assets/${url}`;
 					},
 					publicPath: (url, resourcePath, context) => { // will be written in the img/src
-						let relativePath = path.relative(context, resourcePath);
-						if (argv.mode === 'production') {
-							relativePath = relativePath.substr(PAGESDIR.length); // remove o 'src/'
-						}
 						return (argv.mode === 'development')
-							? `/${relativePath}` // absolute domain path
-							: path.join(prodCfg.baseUrl, `/${relativePath}`); // absolute domain path with baseUrl prefix
+							? `/assets/${url}`
+							: `${prodCfg.baseUrl}/assets/${url}`;
 					}
 				}
 			}]

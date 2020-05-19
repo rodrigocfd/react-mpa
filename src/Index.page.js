@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Header from 'src/common/Header';
-import frog from './frog.jpg';
+import frog from '@assets/frog.jpg';
+import Header from '@src/common/Header';
 
 function Index() {
 	return (<>
