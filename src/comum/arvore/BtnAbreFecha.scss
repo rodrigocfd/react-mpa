@@ -1,0 +1,13 @@
+.btnAbreFecha {
+	cursor: pointer;
+	color: #295273;
+
+	&:hover {
+		background-color: #e8e8e8;
+	}
+
+	&:active {
+		color: white;
+		background-color: #47727b;
+	}
+}

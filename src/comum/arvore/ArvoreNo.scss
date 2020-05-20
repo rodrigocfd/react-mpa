@@ -1,5 +1,4 @@
 $padding-vert-nome-unidade: 4px;
-$hover-bg-nome-unidade: #e8e8e8;
 
 .arvoreNo {
 	display: flex;
@@ -10,19 +9,8 @@ $hover-bg-nome-unidade: #e8e8e8;
 		flex-grow: 0;
 		flex-shrink: 0;
 		padding-top: 2px; // empurra o [+] um pouco pra baixo, pra alinhar com o nome da unidade
-
-		.btnAbre {
-			cursor: pointer;
-			color: #295273;
-			&:hover {
-				background-color: $hover-bg-nome-unidade;
-			}
-			&:active {
-				color: white;
-				background-color: #47727b;
-			}
-		}
 	}
+
 	.dadosUnidade {
 		flex-grow: 1;
 
@@ -42,7 +30,7 @@ $hover-bg-nome-unidade: #e8e8e8;
 				cursor: pointer;
 				padding: $padding-vert-nome-unidade 5px;
 				&:hover {
-					background-color: $hover-bg-nome-unidade;
+					background-color: #e8e8e8;
 				}
 			}
 			.nomeUnidadeSel {

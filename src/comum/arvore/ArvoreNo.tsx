@@ -2,10 +2,10 @@ import React from 'react'
 
 import UnidadeNoArvore from '@dto/UnidadeNoArvore';
 import app from '@src/app';
+import BtnAbreFecha from './BtnAbreFecha';
+import EstadoNo from './EstadoNo';
 import IconeUnidade from './IconeUnidade';
 import c from './ArvoreNo.scss';
-
-enum EstadoNo { Fechado, Aberto, Carregando }
 
 interface Props {
 	unidade: UnidadeNoArvore;
@@ -58,15 +58,7 @@ function ArvoreNo(props: Props) {
 		<div className={c.arvoreNo}>
 			<div className={c.barraEsquerda}>
 				{props.unidade.temFilhas &&
-					<span onClick={abreFecha} className={c.btnAbre}>
-						{(() => {
-							switch (estado) {
-								case EstadoNo.Fechado:    return '[+]';
-								case EstadoNo.Aberto:     return '[–]';
-								case EstadoNo.Carregando: return '[=]';
-							}
-						})()}
-					</span>
+					<BtnAbreFecha estado={estado} onClick={abreFecha} />
 				}
 			</div>
 			<div className={c.dadosUnidade}>
