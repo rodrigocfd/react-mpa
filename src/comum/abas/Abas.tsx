@@ -1,6 +1,6 @@
 import React from 'react';
 
-import c from './ComAbas.scss';
+import c from './Abas.scss';
 
 interface Aba {
 	titulo: string,
@@ -15,11 +15,11 @@ interface Props {
  * Container com abas que contém vários subcontainers, mostrando a aba
  * selecionada.
  */
-function ComAbas({abas}: Props) {
+function Abas({abas}: Props) {
 	const [sel, setSel] = React.useState(0); // primeira aba selecionada por padrão
 
 	return (
-		<div className={c.comAbas}>
+		<div className={c.wrap}>
 			<div className={c.topo}>
 				{abas.map((aba, index) => (
 					<span key={aba.titulo + index}
@@ -36,5 +36,4 @@ function ComAbas({abas}: Props) {
 	);
 }
 
-export {ComAbas};
-export type {Aba};
+export default Abas;

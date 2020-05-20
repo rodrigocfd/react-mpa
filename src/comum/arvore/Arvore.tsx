@@ -38,7 +38,11 @@ function Arvore(props: Props) {
 		props.onClick && props.onClick(unids);
 	}
 
-	return app.isEmpty(arvore.raiz) ? null : (
+	if (app.isEmpty(arvore.raiz)) {
+		return <div className={c.carregando}>Carregando árvore...</div>;
+	}
+
+	return (
 		<div className={c.arvore}>
 			<ArvoreNo unidade={arvore.raiz} selecionada={arvore.selecionada}
 				onClick={click} onMouseOver={props.onMouseOver} />

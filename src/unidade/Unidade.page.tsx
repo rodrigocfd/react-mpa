@@ -2,7 +2,7 @@ import React from 'react';
 
 import app from '@src/app';
 import Arvore from '@src/comum/arvore/Arvore';
-import {ComAbas, Aba} from '@src/comum/ComAbas';
+import Abas from '@src/comum/abas/Abas';
 import c from './Unidade.scss';
 
 function Unidade() {
@@ -15,7 +15,7 @@ function Unidade() {
 				<div><a href={app.montaUrlApp('index.html')}>Retornar</a></div>
 			</div>
 			<div className={c.direita}>
-				<ComAbas abas={[
+				<Abas abas={[
 					{titulo: 'Primeira', conteudo: <div>FOO FOO FOO FOO FOO</div>},
 					{titulo: 'Segunda', conteudo: <div>asdf asdf asdasd asdasd</div>},
 				]} />
