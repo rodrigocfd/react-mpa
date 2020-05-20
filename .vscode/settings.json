@@ -6,5 +6,6 @@
 		".vscode/": true,
 		"package-lock.json": true
 	},
-	"files.trimTrailingWhitespace": true
+	"files.trimTrailingWhitespace": true,
+	"typescript.tsdk": "node_modules/typescript/lib"
 }
