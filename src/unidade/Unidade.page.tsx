@@ -1,7 +1,7 @@
 import React from 'react';
 
+import UnidadeNoArvore from '@dto/UnidadeNoArvore';
 import app from '@src/app';
-import UnidadeNoArvore from '@src/dto/UnidadeNoArvore';
 import Arvore from '@src/comum/arvore/Arvore';
 import c from './Unidade.scss';
 

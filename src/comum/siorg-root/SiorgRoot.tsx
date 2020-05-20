@@ -1,7 +1,7 @@
 import React from 'react';
 
+import InfoUsuario from '@dto/InfoUsuario';
 import app, {AppContext, EstadoAplicacao} from '@src/app';
-import InfoUsuario from '@src/dto/InfoUsuario';
 import CabecalhoSiorg from './cabecalho-siorg/CabecalhoSiorg';
 import CuboFundo from './CuboFundo';
 import c from './SiorgRoot.scss';

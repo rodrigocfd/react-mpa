@@ -1,6 +1,6 @@
 import React from 'react';
 
-import UnidadeNoArvore from '@src/dto/UnidadeNoArvore';
+import UnidadeNoArvore from '@dto/UnidadeNoArvore';
 import ArvoreNo from './ArvoreNo';
 import c from './Arvore.scss';
 

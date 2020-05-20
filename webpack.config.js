@@ -66,7 +66,7 @@ module.exports = (env, argv) => ({
 		new HtmlReplaceWebpackPlugin([
 			{
 				pattern: '@BASE_URL@',
-				replacement: (argv.mode === 'production') ? prodCfg.baseUrl : ''
+				replacement: (argv.mode === 'production') ? prodCfg.baseApp : ''
 			}
 		]),
 		...(argv.mode === 'development' ? [] : [new CleanWebpackPlugin()]), // clean output directory before building
@@ -75,6 +75,7 @@ module.exports = (env, argv) => ({
 	resolve: {
 		alias: { // absolute paths available inside the app
 			'@assets': path.resolve(__dirname, 'assets'),
+			'@dto': path.resolve(__dirname, 'dto'),
 			'@src': path.resolve(__dirname, 'src')
 		}
 	},
@@ -148,7 +149,7 @@ module.exports = (env, argv) => ({
 					publicPath: (url, resourcePath, context) => { // will be written in the img/src
 						return (argv.mode === 'development')
 							? `/assets/${url}`
-							: `${prodCfg.baseUrl}/assets/${url}`;
+							: `${prodCfg.baseApp}/assets/${url}`;
 					}
 				}
 			}]
