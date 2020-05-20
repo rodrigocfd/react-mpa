@@ -3,10 +3,10 @@ import React from 'react';
 import UnidadeNoArvore from '@dto/UnidadeNoArvore';
 import app from '@src/app';
 import ArvoreNo from './ArvoreNo';
+import arvoreUtil from './arvoreUtil';
 import c from './Arvore.scss';
 
 interface Props {
-	idRaiz: number,
 	idSelecionada: number,
 	onClick?: (tripaUnidades: UnidadeNoArvore[]) => void,
 	onMouseOver?: (tripaUnidades: UnidadeNoArvore[]) => void,
@@ -22,18 +22,9 @@ function Arvore(props: Props) {
 	});
 
 	React.useEffect(() => {
-		app.serverGet(`/arvore/hierarquiaAcima?id=${props.idRaiz}`)
+		app.serverGet(`/arvore/hierarquiaAcima?id=${props.idSelecionada}`)
 			.then((unidRaiz: UnidadeNoArvore) => {
-				function achaSelecionada(unid: UnidadeNoArvore, id: number): UnidadeNoArvore | null {
-					if (unid.id === id) return unid;
-					for (const filha of unid.filhas) {
-						const encontrada = achaSelecionada(filha, id); // recursivamente
-						if (encontrada !== null) return encontrada;
-					}
-					return null;
-				}
-
-				const unidSel = achaSelecionada(unidRaiz, props.idSelecionada);
+				const unidSel = arvoreUtil.achaSelecionada(unidRaiz, props.idSelecionada);
 				if (unidSel === null) {
 					alert('Erro: a unidade seleciona não faz parte da árvore pesquisada.');
 				} else {

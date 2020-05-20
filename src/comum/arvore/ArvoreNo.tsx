@@ -2,6 +2,7 @@ import React from 'react'
 
 import UnidadeNoArvore from '@dto/UnidadeNoArvore';
 import app from '@src/app';
+import arvoreUtil from './arvoreUtil';
 import BtnAbreFecha from './BtnAbreFecha';
 import EstadoNo from './EstadoNo';
 import IconeUnidade from './IconeUnidade';
@@ -10,7 +11,7 @@ import c from './ArvoreNo.scss';
 interface Props {
 	unidade: UnidadeNoArvore,
 	selecionada: UnidadeNoArvore,
-	onClick?: (tripaUnidades: UnidadeNoArvore[]) => void,
+	onClick: (tripaUnidades: UnidadeNoArvore[]) => void,
 	onMouseOver?: (tripaUnidades: UnidadeNoArvore[]) => void,
 }
 
@@ -18,10 +19,14 @@ interface Props {
  * Um nó da árvore de unidades. Este componente é recursivo.
  */
 function ArvoreNo(props: Props) {
-	const [estado, setEstado] = React.useState(EstadoNo.Fechado);
-
 	const ehSel = props.selecionada && // estamos renderizando a unidade selecionada na árvore?
 		(props.selecionada.id === props.unidade.id);
+	const ehPaiDaSel = arvoreUtil.ehPaiDaUnidade( // estamos renderizando um dos pais da selecionada?
+		props.selecionada, props.unidade);
+
+	// Para que os nós-pai possam estar abertos até o filho, é necessário que
+	// os filhos já estejam preenchidos.
+	const [estado, setEstado] = React.useState(ehPaiDaSel ? EstadoNo.Aberto : EstadoNo.Fechado);
 
 	function abreFecha() {
 		if (estado === EstadoNo.Fechado) { // usuário clicou para abrir
@@ -41,14 +46,14 @@ function ArvoreNo(props: Props) {
 	}
 
 	function clickNome() {
-		props.onClick && props.onClick([props.unidade]); // envia um array somente com esta unidade
+		props.onClick([props.unidade]); // envia um array somente com esta unidade
 	}
 	function mouseOverNome() {
 		props.onMouseOver && props.onMouseOver([props.unidade]);
 	}
 
 	function clickFilha(tripaUnidades: UnidadeNoArvore[]) {
-		props.onClick && props.onClick([props.unidade, ...tripaUnidades]); // insere a unidade atual no início do array
+		props.onClick([props.unidade, ...tripaUnidades]); // insere a unidade atual no início do array
 	}
 	function mouseOverFilha(tripaUnidades: UnidadeNoArvore[]) {
 		props.onMouseOver && props.onMouseOver([props.unidade, ...tripaUnidades]);

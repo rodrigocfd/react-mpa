@@ -8,7 +8,7 @@ function Unidade() {
 	return (
 		<div>
 			<div className={c.arvore}>
- 				<Arvore idRaiz={23} idSelecionada={23} onClick={u => console.log(u[u.length  - 1])} />
+ 				<Arvore idSelecionada={23} onClick={u => console.log(u[u.length  - 1])} />
 			</div>
 			<div><a href={app.montaUrlApp('index.html')}>Retornar</a></div>
 		</div>

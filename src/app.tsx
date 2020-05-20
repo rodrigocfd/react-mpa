@@ -51,8 +51,8 @@ const app = {
 	},
 
 	/**
-	 * Adiciona, no começo do caminho, a URL completa da página JSF do Siorg antigo,
-	 * e retorna a URL pronta para o JSF.
+	 * Adiciona, no começo do caminho, a URL completa da página JSF do Siorg
+	 * antigo, e retorna a URL pronta para o JSF.
 	 * @param caminho Nome da página JSF.
 	 */
 	montaUrlJsf: function(caminho: string): string {
