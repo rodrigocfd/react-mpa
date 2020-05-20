@@ -74,7 +74,7 @@ function ArvoreNo(props: Props) {
 					</div>
 					<div className={[c.nomeUnidade, ehSel ? c.nomeUnidadeSel : ''].join(' ')}
 						onClick={clickNome} onMouseOver={mouseOverNome}>
-						{props.unidade.denominacao}
+							{props.unidade.denominacao}
 					</div>
 				</div>
 				<div className={c.filhas}>

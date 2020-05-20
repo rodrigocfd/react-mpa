@@ -2,15 +2,24 @@ import React from 'react';
 
 import app from '@src/app';
 import Arvore from '@src/comum/arvore/Arvore';
+import {ComAbas, Aba} from '@src/comum/ComAbas';
 import c from './Unidade.scss';
 
 function Unidade() {
 	return (
-		<div>
-			<div className={c.arvore}>
- 				<Arvore idSelecionada={23} onClick={u => console.log(u[u.length  - 1])} />
+		<div className={c.flex}>
+			<div className={c.esquerda}>
+				<div className={c.arvore}>
+					<Arvore idSelecionada={23} onClick={u => console.log(u[u.length  - 1])} />
+				</div>
+				<div><a href={app.montaUrlApp('index.html')}>Retornar</a></div>
 			</div>
-			<div><a href={app.montaUrlApp('index.html')}>Retornar</a></div>
+			<div className={c.direita}>
+				<ComAbas abas={[
+					{titulo: 'Primeira', conteudo: <div>FOO FOO FOO FOO FOO</div>},
+					{titulo: 'Segunda', conteudo: <div>asdf asdf asdasd asdasd</div>},
+				]} />
+			</div>
 		</div>
 	);
 

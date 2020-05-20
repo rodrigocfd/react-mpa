@@ -29,6 +29,7 @@ $padding-vert-nome-unidade: 4px;
 			.nomeUnidade {
 				cursor: pointer;
 				padding: $padding-vert-nome-unidade 5px;
+
 				&:hover {
 					background-color: #e8e8e8;
 				}
@@ -36,6 +37,7 @@ $padding-vert-nome-unidade: 4px;
 			.nomeUnidadeSel {
 				color: white;
 				background-color: #47727B;
+
 				&:hover {
 					background-color: #47727B;
 				}

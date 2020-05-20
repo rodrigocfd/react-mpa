@@ -1,0 +1,28 @@
+.comAbas {
+	.topo {
+		.clicavel, .atual {
+			display: inline-block;
+			padding: 8px 12px;
+		}
+
+		.atual {
+			border: 1px solid #aaba75;
+			border-bottom: 0;
+			background-color: white;
+		}
+
+		.clicavel {
+			cursor: pointer;
+
+			&:hover {
+				background-color: #cde3df;
+			}
+		}
+	}
+
+	.conteudo {
+		border: 1px solid #aaba75;
+		background-color: white;
+		padding: 10px;
+	}
+}

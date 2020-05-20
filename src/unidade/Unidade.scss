@@ -1,8 +1,17 @@
-.trilha {
-	margin-bottom: 6px;
-}
-.arvore {
-	display: inline-block;
-	width: 380px;
-	height: 400px;
+.flex {
+	display: flex;
+
+	.esquerda {
+		margin-right: 20px;
+
+		.arvore {
+			display: inline-block;
+			width: 380px;
+			height: 400px;
+		}
+	}
+
+	.direita {
+
+	}
 }
