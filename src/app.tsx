@@ -110,6 +110,14 @@ const app = {
 			alertaErro && alert(msg);
 			throw new Error(msg);
 		});
+	},
+
+	/**
+	 * Diz se o objeto está vazio, isto é, se não tem nenhuma propriedade setada.
+	 * @param obj Objeto a ser analisada.
+	 */
+	isEmpty: function(obj: object): boolean {
+		return Object.keys(obj).length === 0;
 	}
 };
 

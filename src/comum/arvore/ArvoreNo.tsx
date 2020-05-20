@@ -41,14 +41,14 @@ function ArvoreNo(props: Props) {
 	}
 
 	function clickNome() {
-		props.onClick && props.onClick([props.unidade]); // envia a hierarquia de unidades no callback
+		props.onClick && props.onClick([props.unidade]); // envia um array somente com esta unidade
 	}
 	function mouseOverNome() {
 		props.onMouseOver && props.onMouseOver([props.unidade]);
 	}
 
 	function clickFilha(tripaUnidades: UnidadeNoArvore[]) {
-		props.onClick && props.onClick([props.unidade, ...tripaUnidades]);
+		props.onClick && props.onClick([props.unidade, ...tripaUnidades]); // insere a unidade atual no início do array
 	}
 	function mouseOverFilha(tripaUnidades: UnidadeNoArvore[]) {
 		props.onMouseOver && props.onMouseOver([props.unidade, ...tripaUnidades]);

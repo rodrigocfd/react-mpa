@@ -1,22 +1,14 @@
 import React from 'react';
 
-import UnidadeNoArvore from '@dto/UnidadeNoArvore';
 import app from '@src/app';
 import Arvore from '@src/comum/arvore/Arvore';
 import c from './Unidade.scss';
 
 function Unidade() {
-	const [unid, setUnid] = React.useState({} as UnidadeNoArvore);
-
-	React.useEffect(() => {
-		app.serverGet(`/arvore/unidade?id=1`)
-			.then((u: UnidadeNoArvore) => setUnid(u));
-	}, []);
-
 	return (
 		<div>
 			<div className={c.arvore}>
-				<Arvore unidade={unid} />
+				<Arvore idRaiz={1} idSelecionada={1} />
 			</div>
 			<div><a href={app.montaUrlApp('index.html')}>Retornar</a></div>
 		</div>
