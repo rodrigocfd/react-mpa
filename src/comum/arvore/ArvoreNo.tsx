@@ -8,10 +8,10 @@ import IconeUnidade from './IconeUnidade';
 import c from './ArvoreNo.scss';
 
 interface Props {
-	unidade: UnidadeNoArvore;
-	selecionada: UnidadeNoArvore;
-	onClick?: (tripaUnidades: UnidadeNoArvore[]) => void;
-	onMouseOver?: (tripaUnidades: UnidadeNoArvore[]) => void;
+	unidade: UnidadeNoArvore,
+	selecionada: UnidadeNoArvore,
+	onClick?: (tripaUnidades: UnidadeNoArvore[]) => void,
+	onMouseOver?: (tripaUnidades: UnidadeNoArvore[]) => void,
 }
 
 /**

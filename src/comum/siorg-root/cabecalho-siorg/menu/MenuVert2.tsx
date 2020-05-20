@@ -5,7 +5,7 @@ import {ItemVert2} from './Itens';
 import c from './MenuVert2.scss';
 
 interface Props {
-	itens: ItemVert2[];
+	itens: ItemVert2[],
 }
 
 /**

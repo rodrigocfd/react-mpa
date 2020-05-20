@@ -4,13 +4,13 @@ import c from './IconeUnidade.scss';
 
 interface Valores {
 	[key: string]: {
-		ico: string;
-		lbl: string;
+		ico: string,
+		lbl: string,
 	}
 }
 
 interface Props {
-	chave: string;
+	chave: string,
 }
 
 /**
@@ -26,7 +26,7 @@ function IconeUnidade({chave}: Props) {
 		RE: { ico: c.icoRE, lbl: 'Unidade Administrativa com Regulamento Específico' },
 
 		LEID: { ico: c.icoLEID, lbl: 'Normatização: Lei/Decreto' },
-		ATOI: { ico: c.icoATOI, lbl: 'Normatização: Ato Interno' }
+		ATOI: { ico: c.icoATOI, lbl: 'Normatização: Ato Interno' },
 	};
 
 	return (

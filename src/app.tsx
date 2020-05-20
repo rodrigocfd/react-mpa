@@ -14,9 +14,9 @@ enum EstadoAplicacao { Carregando, Logado, Erro }
  * Tipo dos dados armazenados no contexto global da aplicação.
  */
 interface ContextoApp {
-	estado: EstadoAplicacao;
-	msgErro: string;
-	infoUsuario: InfoUsuario;
+	estado: EstadoAplicacao,
+	msgErro: string,
+	infoUsuario: InfoUsuario,
 }
 
 /**
@@ -93,7 +93,7 @@ const app = {
 			credentials: 'include',
 			headers: {'Content-Type': 'application/json'},
 			redirect: 'follow',
-			body: Object.keys(payload).length ? JSON.stringify(payload) : undefined
+			body: Object.keys(payload).length ? JSON.stringify(payload) : undefined,
 		})
 		.then(resp => {
 			if (resp.status === 200) {
@@ -118,7 +118,7 @@ const app = {
 	 */
 	isEmpty: function(obj: object): boolean {
 		return Object.keys(obj).length === 0;
-	}
+	},
 };
 
 export default app;

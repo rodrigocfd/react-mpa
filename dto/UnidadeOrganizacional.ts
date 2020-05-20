@@ -1,8 +1,8 @@
 interface UnidadeOrganizacional {
-	id: number;
-	codigo: number;
-	denominacao: string;
-	sigla: string;
+	id: number,
+	codigo: number,
+	denominacao: string,
+	sigla: string,
 }
 
 export default UnidadeOrganizacional;

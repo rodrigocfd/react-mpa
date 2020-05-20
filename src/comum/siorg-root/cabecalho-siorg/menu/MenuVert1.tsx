@@ -5,7 +5,7 @@ import MenuVert1Entry from './MenuVert1Entry';
 import c from './MenuVert1.scss';
 
 interface Props {
-	item: ItemHorz;
+	item: ItemHorz,
 }
 
 /**

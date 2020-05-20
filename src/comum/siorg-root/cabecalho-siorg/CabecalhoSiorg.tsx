@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Menu from './menu/Menu';
-// import UserInfo from './UserInfo';
 import c from './CabecalhoSiorg.scss';
 
 /**

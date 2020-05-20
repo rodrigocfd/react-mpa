@@ -6,10 +6,10 @@ import ArvoreNo from './ArvoreNo';
 import c from './Arvore.scss';
 
 interface Props {
-	idRaiz: number;
-	idSelecionada: number;
-	onClick?: (tripaUnidades: UnidadeNoArvore[]) => void;
-	onMouseOver?: (tripaUnidades: UnidadeNoArvore[]) => void;
+	idRaiz: number,
+	idSelecionada: number,
+	onClick?: (tripaUnidades: UnidadeNoArvore[]) => void,
+	onMouseOver?: (tripaUnidades: UnidadeNoArvore[]) => void,
 }
 
 /**
@@ -18,7 +18,7 @@ interface Props {
 function Arvore(props: Props) {
 	const [arvore, setArvore] = React.useState({
 		raiz: {} as UnidadeNoArvore,
-		selecionada: {} as UnidadeNoArvore
+		selecionada: {} as UnidadeNoArvore,
 	});
 
 	React.useEffect(() => {

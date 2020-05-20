@@ -1,6 +1,6 @@
 interface Perfil {
-	codigo: string;
-	nome: string;
+	codigo: string,
+	nome: string,
 }
 
 export default Perfil;

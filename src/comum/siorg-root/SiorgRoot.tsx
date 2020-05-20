@@ -8,7 +8,7 @@ import c from './SiorgRoot.scss';
 import './global.scss'; // insere CSS global da aplicação
 
 interface Props {
-	children: React.ReactNode;
+	children: React.ReactNode,
 }
 
 /**
@@ -19,7 +19,7 @@ function SiorgRoot(props: Props) {
 	const [rootContext, setRootContext] = React.useState({ // vai ser passado para AppContext.Provider
 		estado: EstadoAplicacao.Carregando,
 		msgErro: '', // exibida por este componente
-		infoUsuario: {} as InfoUsuario // informações da sessão do Siorg
+		infoUsuario: {} as InfoUsuario, // informações da sessão do Siorg
 	});
 
 	React.useEffect(() => {
@@ -29,14 +29,14 @@ function SiorgRoot(props: Props) {
 					setRootContext({
 						estado: EstadoAplicacao.Logado,
 						msgErro: '',
-						infoUsuario: dados // guarda as informações do usuário
+						infoUsuario: dados, // guarda as informações do usuário
 					});
 				})
 				.catch((err: any) => { // usuário não está logado
 					setRootContext({
 						estado: EstadoAplicacao.Erro,
 						msgErro: err.message,
-						infoUsuario: {} as InfoUsuario
+						infoUsuario: {} as InfoUsuario,
 					});
 				});
 		}
