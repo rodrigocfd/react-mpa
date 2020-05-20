@@ -21,7 +21,7 @@ function ArvoreNo(props: Props) {
 	const [estado, setEstado] = React.useState(EstadoNo.Fechado);
 
 	const ehSel = props.selecionada && // estamos renderizando a unidade selecionada na árvore?
-		(props.selecionada.id == props.unidade.id);
+		(props.selecionada.id === props.unidade.id);
 
 	function abreFecha() {
 		if (estado === EstadoNo.Fechado) { // usuário clicou para abrir

@@ -22,12 +22,13 @@ function Arvore(props: Props) {
 	});
 
 	React.useEffect(() => {
-		app.serverGet(`/arvore/unidade?id=${props.idRaiz}`)
+		app.serverGet(`/arvore/hierarquiaAcima?id=${props.idRaiz}`)
 			.then((unidRaiz: UnidadeNoArvore) => {
 				function achaSelecionada(unid: UnidadeNoArvore, id: number): UnidadeNoArvore | null {
 					if (unid.id === id) return unid;
 					for (const filha of unid.filhas) {
-						if (achaSelecionada(filha, id) !== null) return filha; // recursivamente
+						const encontrada = achaSelecionada(filha, id); // recursivamente
+						if (encontrada !== null) return encontrada;
 					}
 					return null;
 				}
