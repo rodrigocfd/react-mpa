@@ -14,17 +14,10 @@ $cubo-tam: 400px;
 }
 
 .gira {
-	animation-name: gira;
-	animation-duration: 60s;
-	animation-iteration-count: infinite;
-	animation-timing-function: linear;
+	animation: spinc 120s linear infinite;
 }
 
-@keyframes gira {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(359deg);
-	}
+@keyframes spinc {
+	from { transform: rotate(0deg); }
+	to   { transform: rotate(359deg); }
 }

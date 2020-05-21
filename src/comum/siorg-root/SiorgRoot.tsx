@@ -2,6 +2,7 @@ import React from 'react';
 
 import InfoUsuario from '@dto/InfoUsuario';
 import app, {AppContext, EstadoAplicacao} from '@src/app';
+import Carregando from '@src/comum/carregando/Carregando';
 import CabecalhoSiorg from './cabecalho-siorg/CabecalhoSiorg';
 import CuboFundo from './CuboFundo';
 import c from './SiorgRoot.scss';
@@ -45,7 +46,7 @@ function SiorgRoot(props: Props) {
 	case EstadoAplicacao.Carregando:
 		return (
 			<div className={c.naoCarregado}>
-				<div>Carregando...</div>
+				<Carregando />
 				<CuboFundo gira />
 			</div>
 		);

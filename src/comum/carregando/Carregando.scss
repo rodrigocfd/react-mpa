@@ -1,0 +1,25 @@
+@import '@src/variaveis';
+
+.wrap {
+	white-space: nowrap;
+
+	.texto {
+		@include fonte-carregando;
+		display: inline-block;
+		margin-right: 8px;
+	}
+	.cubo {
+		display: inline-block;
+		background-image: url('/assets/favicon.png');
+		width: 16px;
+		height: 16px;
+		animation: loadc 1s linear infinite;
+	}
+}
+
+@keyframes loadc {
+	0%  { transform: rotate(0deg); margin-left: 0; }
+	25% { transform: rotate(360deg); margin-left: 26px; }
+	50% { transform: rotate(360deg); margin-left: 26px; }
+	75% { transform: rotate(0deg); margin-left: 0; }
+}

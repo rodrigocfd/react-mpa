@@ -2,6 +2,7 @@ import React from 'react';
 
 import UnidadeNoArvore from '@dto/UnidadeNoArvore';
 import app from '@src/app';
+import Carregando from '@src/comum/carregando/Carregando';
 import ArvoreNo from './ArvoreNo';
 import arvoreUtil from './arvoreUtil';
 import c from './Arvore.scss';
@@ -38,14 +39,15 @@ function Arvore(props: Props) {
 		props.onClick && props.onClick(unids);
 	}
 
-	if (app.isEmpty(arvore.raiz)) {
-		return <div className={c.carregando}>Carregando árvore...</div>;
-	}
-
 	return (
 		<div className={c.arvore}>
-			<ArvoreNo unidade={arvore.raiz} selecionada={arvore.selecionada}
-				onClick={click} onMouseOver={props.onMouseOver} />
+			{app.isEmpty(arvore.raiz) &&
+				<Carregando texto="Carregando árvore..." />
+			}
+			{!app.isEmpty(arvore.raiz) &&
+				<ArvoreNo unidade={arvore.raiz} selecionada={arvore.selecionada}
+					onClick={click} onMouseOver={props.onMouseOver} />
+			}
 		</div>
 	);
 }
