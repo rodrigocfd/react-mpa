@@ -46,17 +46,17 @@ function SiorgRoot(props: Props) {
 		return (
 			<div className={c.naoCarregado}>
 				<div>Carregando...</div>
-				<CuboFundo />
+				<CuboFundo gira />
 			</div>
 		);
 	case EstadoAplicacao.Erro:
-		// return (
-		// 	<div className={c.naoCarregado}>
-		// 		<div>{rootContext.msgErro}</div>
-		// 		<div><a href={app.montaUrlJsf('index.jsf')}>Ir para a página de login</a></div>
-		// 		<CuboFundo />
-		// 	</div>
-		// );
+		return (
+			<div className={c.naoCarregado}>
+				<div>{rootContext.msgErro}</div>
+				<div><a href={app.montaUrlJsf('index.jsf')}>Ir para a página de login</a></div>
+				<CuboFundo gira />
+			</div>
+		);
 	case EstadoAplicacao.Logado: // carrega a aplicação normalmente
 		return (
 			<AppContext.Provider value={[rootContext, setRootContext]}>

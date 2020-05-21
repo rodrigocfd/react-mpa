@@ -12,3 +12,19 @@ $cubo-tam: 400px;
 	height: $cubo-tam;
 	opacity: .04;
 }
+
+.gira {
+	animation-name: gira;
+	animation-duration: 60s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+@keyframes gira {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(359deg);
+	}
+}
