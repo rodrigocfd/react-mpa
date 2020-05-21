@@ -1,9 +1,8 @@
 /**
- * Estilos globais da aplicação.
+ * Estilos dos elementos básicos da página.
  */
 
-$app-font: 10pt arial, helvetica, Trebuchet MS, clean, sans-serif;
-$cor-fundo: #e9f3f1;
+@import '@src/variaveis';
 
 html {
 	box-sizing: border-box;
@@ -14,11 +13,11 @@ html {
 body {
 	margin: 0;
 	padding: 0;
-	font: $app-font;
+	font: $fonte-geral;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	color: #333;
-	background-color: $cor-fundo;
+	background-color: $cor-fundo-pagina;
 }
 h1, h2 {
 	color: #47727B;
@@ -35,7 +34,7 @@ a {
 }
 button, input[type=button], input[type=submit] {
 	cursor: pointer;
-	font: $app-font;
+	font: $fonte-geral;
 	background-color: #adc565;
 	color: white;
 	padding: 5px 13px;
@@ -49,17 +48,8 @@ button, input[type=button], input[type=submit] {
 	}
 }
 input[type=text], input[type=password], select, textarea {
-	font: $app-font;
+	font: $fonte-geral;
 	border: 1px solid #aeb6c3;
 	border-radius: 2px;
 	padding: 3px;
-}
-.txtBlack {
-	color: #333;
-}
-.txtBlue {
-	color: #738f21;
-}
-.txtGreen {
-	color: #738f21;
 }

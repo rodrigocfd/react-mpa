@@ -4,7 +4,6 @@ import InfoUsuario from '@dto/InfoUsuario';
 import app, {AppContext, EstadoAplicacao} from '@src/app';
 import CabecalhoSiorg from './cabecalho-siorg/CabecalhoSiorg';
 import CuboFundo from './CuboFundo';
-import '@src/global.scss'; // insere CSS global da aplicação
 import c from './SiorgRoot.scss';
 
 interface Props {
@@ -51,13 +50,13 @@ function SiorgRoot(props: Props) {
 			</div>
 		);
 	case EstadoAplicacao.Erro:
-		return (
-			<div className={c.naoCarregado}>
-				<div>{rootContext.msgErro}</div>
-				<div><a href={app.montaUrlJsf('index.jsf')}>Ir para a página de login</a></div>
-				<CuboFundo />
-			</div>
-		);
+		// return (
+		// 	<div className={c.naoCarregado}>
+		// 		<div>{rootContext.msgErro}</div>
+		// 		<div><a href={app.montaUrlJsf('index.jsf')}>Ir para a página de login</a></div>
+		// 		<CuboFundo />
+		// 	</div>
+		// );
 	case EstadoAplicacao.Logado: // carrega a aplicação normalmente
 		return (
 			<AppContext.Provider value={[rootContext, setRootContext]}>

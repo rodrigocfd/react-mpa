@@ -1,3 +1,5 @@
+@import '@src/variaveis';
+
 .menu {
 	display: inline-block;
 	font-size: 10pt; // override app font
@@ -6,7 +8,7 @@
 	border: 1px solid #88AEA2;
 	border-radius: 7px;
 	background-image: linear-gradient(#f7f7f7, #e2e2e2);
-	color: #44788d;
+	color: $cor-fonte-menu;
 
 	.ul {
 		margin: 0;

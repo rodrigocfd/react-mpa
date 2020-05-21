@@ -1,5 +1,4 @@
-$cor-fundo: #e9f3f1;
-$borda-verde: 1px solid #aaba75;
+@import '@src/variaveis';
 
 .wrap {
 	.topoFlex {
@@ -7,31 +6,32 @@ $borda-verde: 1px solid #aaba75;
 
 		.clicavel, .atual, .filler {
 			display: inline-block;
+			color: $cor-fonte-menu;
 			padding: 8px 12px;
+			user-select: none;
+			border-top-left-radius: 6px;
+			border-top-right-radius: 6px;
 		}
 
-		.atual {
+		.atual { // aba atualmente selecionada
 			border: $borda-verde;
 			border-bottom: 1px solid white;
 			background-color: white;
 		}
-
-		.clicavel {
+		.clicavel { // todas as outras abas não selecionadas
 			cursor: pointer;
-			border: 1px solid $cor-fundo;
+			border: 1px solid $cor-fundo-pagina;
 			border-bottom: $borda-verde;
-			background-color: $cor-fundo;
-
+			background-color: $cor-fundo-pagina;
 			&:hover {
 				background-color: #d2e6e2;
 				border: 1px solid #d2e6e2;
 				border-bottom: $borda-verde;
 			}
 		}
-
-		.filler {
+		.filler { // ocupa o espaço restante das abas do topo
 			flex-grow: 1;
-			border: 1px solid $cor-fundo;
+			border: 1px solid $cor-fundo-pagina;
 			border-bottom: $borda-verde;
 		}
 	}

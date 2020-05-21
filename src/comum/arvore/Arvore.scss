@@ -1,11 +1,12 @@
+@import '@src/variaveis';
+
 .carregando {
+	@include fonte-carregando;
 	padding: 20px;
-	font-style: italic;
-	opacity: .7;
 }
 
 .arvore {
-	border: 1px solid #aaba75;
+	border: $borda-verde;
 	background-color: white;
 	overflow: auto;
 	padding: 6px 8px;

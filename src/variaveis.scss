@@ -1,0 +1,13 @@
+/**
+ * Variáveis SCSS globais da aplicação.
+ */
+
+$fonte-geral: 10pt arial, helvetica, Trebuchet MS, clean, sans-serif;
+$cor-fundo-pagina: #e9f3f1;
+$cor-fonte-menu: #44788d;
+$borda-verde: 1px solid #aaba75;
+
+@mixin fonte-carregando {
+	color: #666;
+	font-style: italic;
+}

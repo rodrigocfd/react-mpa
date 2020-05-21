@@ -8,7 +8,6 @@ interface UnidadeNoArvore {
 	idPai: number,
 	temFilhas: boolean,
 	filhas: UnidadeNoArvore[],
-
 }
 
 export default UnidadeNoArvore;

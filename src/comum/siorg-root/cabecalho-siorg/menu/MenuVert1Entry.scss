@@ -1,3 +1,6 @@
+@import '@src/variaveis';
+@import './variaveis-vert';
+
 .li {
 	list-style-type: none;
 	position: relative; // so nested UL can be relatively positioned
@@ -12,12 +15,12 @@
 		user-select: none;
 		margin: 0 8px;
 		padding: 12px 2px 12px 10px;
-		border-bottom: 1px dotted #aebc82; // horizontal separator between menu items
+		border-bottom: $separador-verde-dotted; // horizontal separator between menu items
 		align-items: center;
 
 		.label {
 			flex-grow: 1;
-			color: #44788d;
+			color: $cor-fonte-menu;
 			text-decoration: none;
 		}
 		.arrow {
@@ -34,6 +37,6 @@
 		}
 	}
 	&:hover {
-		background-color: #eee;
+		background-color: $cinza-hover;
 	}
 }
