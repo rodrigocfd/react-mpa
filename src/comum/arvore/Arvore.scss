@@ -13,12 +13,6 @@
 
 	.topo {
 		border-bottom: 1px dotted $cor-borda-verde;
-		& > div {
-			color: $cor-fonte-menu;
-			padding: 6px;
-			white-space: nowrap;
-			overflow: hidden;
-		}
 	}
 	.nosDaArvore {
 		overflow: auto;

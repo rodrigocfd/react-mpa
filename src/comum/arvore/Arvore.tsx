@@ -4,6 +4,7 @@ import UnidadeNoArvore from '@dto/UnidadeNoArvore';
 import app from '@src/app';
 import Carregando from '@src/comum/carregando/Carregando';
 import ArvoreNo from './ArvoreNo';
+import TopoSiglas from './TopoSiglas';
 import arvoreUtil from './arvoreUtil';
 import c from './Arvore.scss';
 
@@ -45,23 +46,10 @@ function Arvore(props: Props) {
 		props.onMouseOver && props.onMouseOver(tripaUnids);
 	}
 
-	function geraSiglasTopo(): string {
-		let trilha = '';
-		const maxN = 6; // quantidade máxima de níveis hierárquicos a serem exibidos
-		if (tripaUnids.length > maxN + 1) trilha += '... › '
-		const inicio = Math.max(1, tripaUnids.length - maxN); // pula "República Federativa do Brasil", que não tem sigla
-		for (let i = inicio; i < tripaUnids.length; ++i) {
-			trilha += tripaUnids[i].sigla + ' › ';
-		}
-		trilha = trilha.substr(0, trilha.length - 3);
-		if (!trilha.length) trilha = '\u00A0'; // &nbsp; pra não colapsar verticalmente a div
-		return trilha;
-	}
-
 	return (
 		<div className={c.arvoreFlex}>
 			<div className={c.topo}>
-				<div>{geraSiglasTopo()}</div>
+				<TopoSiglas tripaUnids={tripaUnids} />
 			</div>
 			<div className={c.nosDaArvore} onMouseLeave={() => setTripaUnids([])}>
 				{app.isEmpty(arvore.raiz) &&

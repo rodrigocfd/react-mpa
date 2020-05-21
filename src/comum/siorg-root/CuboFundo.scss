@@ -14,10 +14,10 @@ $cubo-tam: 400px;
 }
 
 .gira {
-	animation: spinc 120s linear infinite;
+	animation: giralento 120s linear infinite;
 }
 
-@keyframes spinc {
+@keyframes giralento {
 	from { transform: rotate(0deg); }
 	to   { transform: rotate(359deg); }
 }

@@ -1,0 +1,8 @@
+@import '@src/variaveis';
+
+.siglas {
+	color: $cor-fonte-menu;
+	padding: 6px;
+	white-space: nowrap;
+	overflow: hidden;
+}

@@ -14,13 +14,13 @@
 		background-image: url('/assets/favicon.png');
 		width: 16px;
 		height: 16px;
-		animation: loadc 1s linear infinite;
+		animation: vaivem 1s linear infinite;
 	}
 }
 
 $distancia: 24px;
 
-@keyframes loadc {
+@keyframes vaivem {
 	0%  { transform: translateX(0) rotate(0deg); }
 	25% { transform: translateX($distancia) rotate(360deg); }
 	50% { transform: translateX($distancia) rotate(360deg); }
