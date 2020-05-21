@@ -4,21 +4,21 @@
 	.topoFlex {
 		display: flex;
 
-		.clicavel, .atual, .filler {
+		.atual, .naoAtual { // todas as abas
 			display: inline-block;
 			color: $cor-fonte-menu;
 			padding: 8px 12px;
 			user-select: none;
-			border-top-left-radius: 6px;
-			border-top-right-radius: 6px;
+			transform: translateY(1px);
 		}
 
 		.atual { // aba atualmente selecionada
-			border: $borda-verde;
-			border-bottom: 1px solid white;
+			border-left: $borda-verde;
+			border-top: $borda-verde;
+			border-right: $borda-verde;
 			background-color: white;
 		}
-		.clicavel { // todas as outras abas não selecionadas
+		.naoAtual { // todas as outras abas não selecionadas
 			cursor: pointer;
 			border: 1px solid $cor-fundo-pagina;
 			border-bottom: $borda-verde;
@@ -29,16 +29,10 @@
 				border-bottom: $borda-verde;
 			}
 		}
-		.filler { // ocupa o espaço restante das abas do topo
-			flex-grow: 1;
-			border: 1px solid $cor-fundo-pagina;
-			border-bottom: $borda-verde;
-		}
 	}
 
 	.conteudo {
 		border: $borda-verde;
-		border-top: 0;
 		background-color: white;
 		padding: 10px;
 		min-width: 400px;

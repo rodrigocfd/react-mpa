@@ -12,13 +12,12 @@
 	height: 100%; // a ideia é que a caixa da árvore se expanda dentro do elemento pai
 
 	.topo {
-		border-bottom: 1px solid #eee;
+		border-bottom: 1px dotted $cor-borda-verde;
 		& > div {
 			color: $cor-fonte-menu;
 			padding: 6px;
 			white-space: nowrap;
 			overflow: hidden;
-			box-shadow: 0 4px 8px -2px #bbb;
 		}
 	}
 	.nosDaArvore {

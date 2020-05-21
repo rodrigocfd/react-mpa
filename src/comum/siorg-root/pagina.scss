@@ -35,7 +35,7 @@ a {
 button, input[type=button], input[type=submit] {
 	cursor: pointer;
 	font: $fonte-geral;
-	background-color: #adc565;
+	background-color: $cor-botao-verde;
 	color: white;
 	padding: 5px 13px;
 	margin: 0 4px;

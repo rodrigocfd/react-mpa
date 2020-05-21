@@ -1,6 +1,7 @@
 @import '@src/variaveis';
 
 $padding-vert-nome-unidade: 4px;
+$margin-vert-nome-unidade: 0;
 
 .arvoreNo {
 	display: flex;
@@ -32,6 +33,7 @@ $padding-vert-nome-unidade: 4px;
 			.nomeUnidade {
 				cursor: pointer;
 				padding: $padding-vert-nome-unidade 5px;
+				margin: $margin-vert-nome-unidade 0;
 
 				&:hover {
 					background-color: #e8e8e8;
@@ -50,6 +52,7 @@ $padding-vert-nome-unidade: 4px;
 		.filhas {
 			.carregando {
 				padding: #{$padding-vert-nome-unidade - 3px} 0 $padding-vert-nome-unidade 40px;
+				margin: $margin-vert-nome-unidade 0;
 			}
 		}
 	}
