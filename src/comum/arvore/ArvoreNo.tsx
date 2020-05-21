@@ -2,6 +2,7 @@ import React from 'react'
 
 import UnidadeNoArvore from '@dto/UnidadeNoArvore';
 import app from '@src/app';
+import Carregando from '@src/comum/carregando/Carregando';
 import arvoreUtil from './arvoreUtil';
 import BtnAbreFecha from './BtnAbreFecha';
 import EstadoNo from './EstadoNo';
@@ -79,7 +80,7 @@ function ArvoreNo(props: Props) {
 				</div>
 				<div className={c.filhas}>
 					{estado === EstadoNo.Carregando &&
-						<div className={c.carregando}>Carregando...</div>
+						<div className={c.carregando}><Carregando /></div>
 					}
 					{estado === EstadoNo.Aberto && props.unidade.filhas.map(filha =>
 						<ArvoreNo key={filha.id} unidade={filha} selecionada={props.selecionada}

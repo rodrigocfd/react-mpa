@@ -42,7 +42,7 @@ function Arvore(props: Props) {
 	return (
 		<div className={c.arvore}>
 			{app.isEmpty(arvore.raiz) &&
-				<Carregando texto="Carregando árvore..." />
+				<div className={c.carregando}><Carregando texto="Carregando árvore..." /></div>
 			}
 			{!app.isEmpty(arvore.raiz) &&
 				<ArvoreNo unidade={arvore.raiz} selecionada={arvore.selecionada}

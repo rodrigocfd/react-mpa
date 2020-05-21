@@ -4,9 +4,10 @@
 	white-space: nowrap;
 
 	.texto {
-		@include fonte-carregando;
+		color: #707f3f;
+		font-style: italic;
 		display: inline-block;
-		margin-right: 8px;
+		margin-right: 2px;
 	}
 	.cubo {
 		display: inline-block;
@@ -17,9 +18,11 @@
 	}
 }
 
+$distancia: 24px;
+
 @keyframes loadc {
 	0%  { transform: translateX(0) rotate(0deg); }
-	25% { transform: translateX(26px) rotate(360deg); }
-	50% { transform: translateX(26px) rotate(360deg); }
+	25% { transform: translateX($distancia) rotate(360deg); }
+	50% { transform: translateX($distancia) rotate(360deg); }
 	75% { transform: translateX(0) rotate(0deg); }
 }

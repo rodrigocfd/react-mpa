@@ -48,8 +48,7 @@ $padding-vert-nome-unidade: 4px;
 
 		.filhas {
 			.carregando {
-				@include fonte-carregando;
-				padding: $padding-vert-nome-unidade 0 $padding-vert-nome-unidade 40px;
+				padding: #{$padding-vert-nome-unidade - 3px} 0 $padding-vert-nome-unidade 40px;
 			}
 		}
 	}
