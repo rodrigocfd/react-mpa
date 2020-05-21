@@ -2,6 +2,7 @@
 
 .ul {
 	position: absolute;
+	z-index: 9998; // so it stays over non-static page elements
 	top: -1px; // relative to parent, because parent LI has "position: relative"
 	width: 284px; // empirically found
 	margin: 2px;

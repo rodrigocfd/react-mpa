@@ -3,7 +3,7 @@
 
 .ul {
 	position: absolute;
-	z-index: 999; // so it stays over the parent component LIs which are rendered after us
+	z-index: 9999; // so it stays over the parent component LIs which are rendered after us
 	top: 1px; // relative to parent, because parent LI has "position: relative"
 	width: 284px; // empirically found
 	left: 268px;
