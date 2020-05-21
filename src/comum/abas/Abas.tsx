@@ -20,7 +20,7 @@ function Abas({abas}: Props) {
 
 	return (
 		<div className={c.wrap}>
-			<div className={c.topo}>
+			<div className={c.topoFlex}>
 				{abas.map((aba, index) => (
 					<span key={aba.titulo + index}
 						className={index === sel ? c.atual : c.clicavel}
@@ -28,6 +28,7 @@ function Abas({abas}: Props) {
 							{aba.titulo}
 					</span>
 				))}
+				<span className={c.filler} />
 			</div>
 			<div className={c.conteudo}>
 				{abas.filter((aba, index) => sel === index)[0].conteudo}

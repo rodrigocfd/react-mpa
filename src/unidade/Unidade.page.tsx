@@ -18,6 +18,7 @@ function Unidade() {
 				<Abas abas={[
 					{titulo: 'Primeira', conteudo: <div>FOO FOO FOO FOO FOO</div>},
 					{titulo: 'Segunda', conteudo: <div>asdf asdf asdasd asdasd</div>},
+					{titulo: 'Terceira', conteudo: <div>3</div>},
 				]} />
 			</div>
 		</div>

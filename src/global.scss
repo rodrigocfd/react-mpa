@@ -3,6 +3,7 @@
  */
 
 $app-font: 10pt arial, helvetica, Trebuchet MS, clean, sans-serif;
+$cor-fundo: #e9f3f1;
 
 html {
 	box-sizing: border-box;
@@ -17,7 +18,7 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	color: #333;
-	background-color: #e9f3f1;
+	background-color: $cor-fundo;
 }
 h1, h2 {
 	color: #47727B;

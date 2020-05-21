@@ -4,8 +4,8 @@ import InfoUsuario from '@dto/InfoUsuario';
 import app, {AppContext, EstadoAplicacao} from '@src/app';
 import CabecalhoSiorg from './cabecalho-siorg/CabecalhoSiorg';
 import CuboFundo from './CuboFundo';
+import '@src/global.scss'; // insere CSS global da aplicação
 import c from './SiorgRoot.scss';
-import './global.scss'; // insere CSS global da aplicação
 
 interface Props {
 	children: React.ReactNode,
