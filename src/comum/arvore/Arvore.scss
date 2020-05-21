@@ -4,11 +4,25 @@
 	padding: 4px;
 }
 
-.arvore {
+.arvoreFlex {
+	display: flex;
+	flex-direction: column;
 	border: $borda-verde;
 	background-color: white;
-	overflow: auto;
-	padding: 6px 8px;
-	width: 100%; // a ideia é que a caixa da árvore se expanda dentro do elemento pai
-	height: 100%;
+	height: 100%; // a ideia é que a caixa da árvore se expanda dentro do elemento pai
+
+	.topo {
+		border-bottom: 1px solid #eee;
+		& > div {
+			color: $cor-fonte-menu;
+			padding: 6px;
+			white-space: nowrap;
+			overflow: hidden;
+			box-shadow: 0 4px 8px -2px #bbb;
+		}
+	}
+	.nosDaArvore {
+		overflow: auto;
+		padding: 6px 8px;
+	}
 }

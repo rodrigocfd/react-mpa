@@ -21,6 +21,7 @@ function Arvore(props: Props) {
 		raiz: {} as UnidadeNoArvore,
 		selecionada: {} as UnidadeNoArvore,
 	});
+	const [tripaUnids, setTripaUnids] = React.useState([] as UnidadeNoArvore[]); // setada no onMouseOver
 
 	React.useEffect(() => {
 		app.serverGet(`/arvore/hierarquiaAcima?id=${props.idSelecionada}`)
@@ -34,20 +35,43 @@ function Arvore(props: Props) {
 			});
 	}, []);
 
-	function click(unids: UnidadeNoArvore[]) {
-		setArvore({...arvore, selecionada: unids[unids.length - 1]}); // seleciona a unidade clicada
-		props.onClick && props.onClick(unids);
+	function click(tripaUnids: UnidadeNoArvore[]) {
+		setArvore({...arvore, selecionada: tripaUnids[tripaUnids.length - 1]}); // seleciona a unidade clicada
+		props.onClick && props.onClick(tripaUnids);
+	}
+
+	function mouseOver(tripaUnids: UnidadeNoArvore[]) {
+		setTripaUnids(tripaUnids); // mostra trilha de unidades no topo da árvore ao passar com o cursor
+		props.onMouseOver && props.onMouseOver(tripaUnids);
+	}
+
+	function geraSiglasTopo(): string {
+		let trilha = '';
+		const maxN = 6; // quantidade máxima de níveis hierárquicos a serem exibidos
+		if (tripaUnids.length > maxN + 1) trilha += '... › '
+		const inicio = Math.max(1, tripaUnids.length - maxN); // pula "República Federativa do Brasil", que não tem sigla
+		for (let i = inicio; i < tripaUnids.length; ++i) {
+			trilha += tripaUnids[i].sigla + ' › ';
+		}
+		trilha = trilha.substr(0, trilha.length - 3);
+		if (!trilha.length) trilha = '\u00A0'; // &nbsp; pra não colapsar verticalmente a div
+		return trilha;
 	}
 
 	return (
-		<div className={c.arvore}>
-			{app.isEmpty(arvore.raiz) &&
-				<div className={c.carregando}><Carregando texto="Carregando árvore..." /></div>
-			}
-			{!app.isEmpty(arvore.raiz) &&
-				<ArvoreNo unidade={arvore.raiz} selecionada={arvore.selecionada}
-					onClick={click} onMouseOver={props.onMouseOver} />
-			}
+		<div className={c.arvoreFlex}>
+			<div className={c.topo}>
+				<div>{geraSiglasTopo()}</div>
+			</div>
+			<div className={c.nosDaArvore} onMouseLeave={() => setTripaUnids([])}>
+				{app.isEmpty(arvore.raiz) &&
+					<div className={c.carregando}><Carregando texto="Carregando árvore..." /></div>
+				}
+				{!app.isEmpty(arvore.raiz) &&
+					<ArvoreNo unidade={arvore.raiz} selecionada={arvore.selecionada}
+						onClick={click} onMouseOver={mouseOver} />
+				}
+			</div>
 		</div>
 	);
 }
