@@ -18,6 +18,7 @@ interface Props {
  * Árvore que mostra as unidades do Siorg de forma hierárquica.
  */
 function Arvore(props: Props) {
+	const divScrollRef = React.useRef<HTMLDivElement>(null);
 	const [arvore, setArvore] = React.useState({
 		raiz: {} as UnidadeNoArvore,
 		tripaSel: [] as UnidadeNoArvore[], // tripa com a hierarquia, a última unidade no array é a selecionada
@@ -46,19 +47,26 @@ function Arvore(props: Props) {
 		props.onMouseOver && props.onMouseOver(tripaMouseOver);
 	}
 
+	function abreNo() { // quando um nó é expandido
+		if (divScrollRef.current) {
+			const el = divScrollRef.current;
+			el.scrollLeft = el.scrollWidth - el.clientWidth; // força scroll para a direita
+		}
+	}
+
 	return (
 		<div className={c.arvoreFlex}>
 			<div className={c.topo}>
 				<TopoSiglas tripaUnids={arvore.tripaTopo} />
 			</div>
-			<div className={c.nosDaArvore}
+			<div className={c.nosDaArvore} ref={divScrollRef}
 				onMouseLeave={() => setArvore({...arvore, tripaTopo: arvore.tripaSel})}>
 					{app.isEmpty(arvore.raiz) &&
 						<div className={c.carregando}><Carregando texto="Carregando árvore..." /></div>
 					}
 					{!app.isEmpty(arvore.raiz) &&
 						<ArvoreNo unidade={arvore.raiz} selecionada={arvore.tripaSel[arvore.tripaSel.length - 1]}
-							onClick={click} onMouseOver={mouseOver} />
+							onClick={click} onMouseOver={mouseOver} onAbreNo={abreNo} />
 					}
 			</div>
 		</div>

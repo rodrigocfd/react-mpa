@@ -14,6 +14,7 @@ interface Props {
 	selecionada: UnidadeNoArvore,
 	onClick: (tripaSel: UnidadeNoArvore[]) => void,
 	onMouseOver: (tripaMouseOver: UnidadeNoArvore[]) => void,
+	onAbreNo: () => void;
 }
 
 /**
@@ -37,9 +38,11 @@ function ArvoreNo(props: Props) {
 					.then(filhas => {
 						props.unidade.filhas.push(...filhas);
 						setEstado(EstadoNo.Aberto);
+						props.onAbreNo();
 					});
 			} else {
 				setEstado(EstadoNo.Aberto); // as filhas estão em cache, é só mostrar
+				props.onAbreNo();
 			}
 		} else if (estado === EstadoNo.Aberto || estado === EstadoNo.Carregando) { // usuário clicou para fechar
 			setEstado(EstadoNo.Fechado);
@@ -84,7 +87,7 @@ function ArvoreNo(props: Props) {
 					}
 					{estado === EstadoNo.Aberto && props.unidade.filhas.map(filha =>
 						<ArvoreNo key={filha.id} unidade={filha} selecionada={props.selecionada}
-							onClick={clickFilha} onMouseOver={mouseOverFilha} />
+							onClick={clickFilha} onMouseOver={mouseOverFilha} onAbreNo={props.onAbreNo} />
 					)}
 				</div>
 			</div>
