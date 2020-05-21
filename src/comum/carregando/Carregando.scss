@@ -18,8 +18,8 @@
 }
 
 @keyframes loadc {
-	0%  { transform: rotate(0deg); margin-left: 0; }
-	25% { transform: rotate(360deg); margin-left: 26px; }
-	50% { transform: rotate(360deg); margin-left: 26px; }
-	75% { transform: rotate(0deg); margin-left: 0; }
+	0%  { transform: translateX(0) rotate(0deg); }
+	25% { transform: translateX(26px) rotate(360deg); }
+	50% { transform: translateX(26px) rotate(360deg); }
+	75% { transform: translateX(0) rotate(0deg); }
 }
