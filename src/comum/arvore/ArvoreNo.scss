@@ -18,6 +18,7 @@ $padding-vert-nome-unidade: 4px;
 
 		.iconesComNome {
 			display: flex;
+			min-width: 240px; // força aparecimento da barra de rolagem horizontal
 
 			.icones {
 				flex-basis: #{(16px + 2px) * 2}; // espaço para 2 ícones com espaçamento
