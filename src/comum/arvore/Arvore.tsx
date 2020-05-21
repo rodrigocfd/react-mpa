@@ -20,45 +20,46 @@ interface Props {
 function Arvore(props: Props) {
 	const [arvore, setArvore] = React.useState({
 		raiz: {} as UnidadeNoArvore,
-		selecionada: {} as UnidadeNoArvore,
+		tripaSel: [] as UnidadeNoArvore[], // tripa com a hierarquia, a última unidade no array é a selecionada
+		tripaTopo: [] as UnidadeNoArvore[], // siglas que aparecem no topo da árvore ao passar com o cursor
 	});
-	const [tripaUnids, setTripaUnids] = React.useState([] as UnidadeNoArvore[]); // setada no onMouseOver
 
 	React.useEffect(() => {
 		app.serverGet(`/arvore/hierarquiaAcima?id=${props.idSelecionada}`)
-			.then((unidRaiz: UnidadeNoArvore) => {
-				const unidSel = arvoreUtil.achaSelecionada(unidRaiz, props.idSelecionada);
-				if (unidSel === null) {
-					alert('Erro: a unidade seleciona não faz parte da árvore pesquisada.');
+			.then((raiz: UnidadeNoArvore) => {
+				const tripaSel = arvoreUtil.montaHierarquiaTripa(raiz, props.idSelecionada);
+				if (tripaSel.length === 0) {
+					alert('Erro: a unidade selecionada não faz parte da árvore pesquisada.');
 				} else {
-					setArvore({raiz: unidRaiz, selecionada: unidSel});
+					setArvore({raiz, tripaSel, tripaTopo: tripaSel}); // sem passar com o cursor, o topo mostra a selecionada
 				}
 			});
 	}, []);
 
-	function click(tripaUnids: UnidadeNoArvore[]) {
-		setArvore({...arvore, selecionada: tripaUnids[tripaUnids.length - 1]}); // seleciona a unidade clicada
-		props.onClick && props.onClick(tripaUnids);
+	function click(tripaSel: UnidadeNoArvore[]) {
+		setArvore({...arvore, tripaSel}); // seleciona a unidade clicada
+		props.onClick && props.onClick(tripaSel);
 	}
 
-	function mouseOver(tripaUnids: UnidadeNoArvore[]) {
-		setTripaUnids(tripaUnids); // mostra trilha de unidades no topo da árvore ao passar com o cursor
-		props.onMouseOver && props.onMouseOver(tripaUnids);
+	function mouseOver(tripaMouseOver: UnidadeNoArvore[]) {
+		setArvore({...arvore, tripaTopo: tripaMouseOver}); // mostra trilha de unidades no topo da árvore ao passar com o cursor
+		props.onMouseOver && props.onMouseOver(tripaMouseOver);
 	}
 
 	return (
 		<div className={c.arvoreFlex}>
 			<div className={c.topo}>
-				<TopoSiglas tripaUnids={tripaUnids} />
+				<TopoSiglas tripaUnids={arvore.tripaTopo} />
 			</div>
-			<div className={c.nosDaArvore} onMouseLeave={() => setTripaUnids([])}>
-				{app.isEmpty(arvore.raiz) &&
-					<div className={c.carregando}><Carregando texto="Carregando árvore..." /></div>
-				}
-				{!app.isEmpty(arvore.raiz) &&
-					<ArvoreNo unidade={arvore.raiz} selecionada={arvore.selecionada}
-						onClick={click} onMouseOver={mouseOver} />
-				}
+			<div className={c.nosDaArvore}
+				onMouseLeave={() => setArvore({...arvore, tripaTopo: arvore.tripaSel})}>
+					{app.isEmpty(arvore.raiz) &&
+						<div className={c.carregando}><Carregando texto="Carregando árvore..." /></div>
+					}
+					{!app.isEmpty(arvore.raiz) &&
+						<ArvoreNo unidade={arvore.raiz} selecionada={arvore.tripaSel[arvore.tripaSel.length - 1]}
+							onClick={click} onMouseOver={mouseOver} />
+					}
 			</div>
 		</div>
 	);

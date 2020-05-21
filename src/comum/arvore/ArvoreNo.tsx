@@ -12,8 +12,8 @@ import c from './ArvoreNo.scss';
 interface Props {
 	unidade: UnidadeNoArvore,
 	selecionada: UnidadeNoArvore,
-	onClick: (tripaUnids: UnidadeNoArvore[]) => void,
-	onMouseOver: (tripaUnids: UnidadeNoArvore[]) => void,
+	onClick: (tripaSel: UnidadeNoArvore[]) => void,
+	onMouseOver: (tripaMouseOver: UnidadeNoArvore[]) => void,
 }
 
 /**

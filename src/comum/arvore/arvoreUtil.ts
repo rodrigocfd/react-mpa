@@ -5,20 +5,19 @@ import UnidadeNoArvore from '@dto/UnidadeNoArvore';
  */
 const arvoreUtil = {
 	/**
-	 * Vasculha a árvore recursivamente por uma unidade com ID igual ao
-	 * informado.
-	 * @param unid Unidade raiz onde começa a busca.
-	 * @param idSel ID da unidade selecionada a ser encontrado.
+	 * Retorna um array com a hierarquia da raiz até a unidade selecionada.
+	 * @param raiz Unidade raiz onde começa a busca.
+	 * @param idSel ID da unidade selecionada a ser encontrada.
 	 */
-	achaSelecionada: function achaSelecionada(
-		unid: UnidadeNoArvore, idSel: number): UnidadeNoArvore | null
+	montaHierarquiaTripa: function montaHierarquiaTripa(
+		raiz: UnidadeNoArvore, idSel: number): UnidadeNoArvore[]
 	{
-		if (unid.id === idSel) return unid;
-		for (const filha of unid.filhas) {
-			const encontrada = achaSelecionada(filha, idSel); // recursivamente
-			if (encontrada !== null) return encontrada;
+		if (raiz.id === idSel) return [raiz];
+		for (const filha of raiz.filhas) {
+			const encontradas = montaHierarquiaTripa(filha, idSel); // recursivamente
+			if (encontradas.length > 0) return [raiz, ...encontradas];
 		}
-		return null; // unidade não encontrada
+		return []; // unidade não encontrada
 	},
 
 	/**
