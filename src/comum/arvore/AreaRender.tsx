@@ -39,6 +39,9 @@ function AreaRender(props: Props) {
 
 	function click(tripaSel: UnidadeNoArvore[]) {
 		setArvore({...arvore, tripaSel}); // seleciona a unidade clicada
+		setTimeout(() => {
+			abreNo(); // força scroll para a direita.
+		}, 160); // duração maior que a animação que encolhe
 		props.onSelecionaUnidade && props.onSelecionaUnidade(tripaSel);
 	}
 
