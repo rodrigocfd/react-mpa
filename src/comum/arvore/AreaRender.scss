@@ -1,0 +1,21 @@
+@import '@src/variaveis';
+
+.arvoreFlex {
+	display: flex;
+	flex-direction: column;
+	border: $borda-verde;
+	background-color: white;
+	height: 100%; // a ideia é que a caixa da árvore se expanda dentro do elemento pai
+
+	.topo {
+		border-bottom: 1px dotted $cor-borda-verde;
+	}
+	.nosDaArvore {
+		overflow: auto;
+		padding: 6px 8px;
+
+		.carregando {
+			padding: 4px;
+		}
+	}
+}

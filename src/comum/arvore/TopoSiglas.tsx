@@ -25,10 +25,10 @@ function TopoSiglas({tripaUnids}: Props) {
 			trilha += sigla + ' › ';
 		}
 		trilha = trilha.substr(0, trilha.length - 3);
+	}
 
-		if (!trilha.length) { // vazio?
-			trilha = '\u00A0'; // &nbsp; pra não colapsar verticalmente a div
-		}
+	if (!trilha.length) { // vazio?
+		trilha = '\u00A0'; // &nbsp; pra não colapsar verticalmente a div
 	}
 
 	return (

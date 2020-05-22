@@ -1,21 +1,53 @@
 @import '@src/variaveis';
 
-.carregando {
-	padding: 4px;
+$borda-tela-toda: 8px;
+
+.normal {
+	position: relative; // para position:absolute funcionar dentro
+	height: 100%;
 }
 
-.arvoreFlex {
-	display: flex;
-	flex-direction: column;
-	border: $borda-verde;
-	background-color: white;
-	height: 100%; // a ideia é que a caixa da árvore se expanda dentro do elemento pai
+@mixin tela-toda {
+	position: fixed;
+	left: $borda-tela-toda;
+	top: $borda-tela-toda;
+	width: calc(100vw - #{$borda-tela-toda} - 20px);
+	height: calc(100vh - #{$borda-tela-toda} - 20px);
+	z-index: 1;
+}
+.telaToda {
+	@include tela-toda; // o estilo final é aplicado antes da animação começar
+	animation: expande .15s linear;
 
-	.topo {
-		border-bottom: 1px dotted $cor-borda-verde;
+	@keyframes expande {
+		from { transform: scaleY(0); }
+		to   { transform: scaleY(100%); }
 	}
-	.nosDaArvore {
-		overflow: auto;
-		padding: 6px 8px;
+}
+.encolhendo {
+	@include tela-toda; // o estilo final é mantido durante a animação
+	animation: encolhe .15s linear;
+
+	@keyframes encolhe {
+		from { transform: scaleX(100%); }
+		to   { transform: scaleY(0); }
+	}
+}
+
+.btnFullScreen {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	color: $cor-fonte-menu;
+	background-color: #fafafa;
+	font-weight: bold;
+	cursor: pointer;
+	font-size: 1.4em;
+	border: $borda-verde;
+	padding: 0 5px;
+
+	&:hover {
+		color: white;
+		background-color: $cor-fonte-menu;
 	}
 }

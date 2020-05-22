@@ -15,14 +15,14 @@
 		width: 16px;
 		height: 16px;
 		animation: vaivem 1s linear infinite;
+
+		$distancia: 24px;
+
+		@keyframes vaivem {
+			0%  { transform: translateX(0) rotate(0deg); }
+			25% { transform: translateX($distancia) rotate(360deg); }
+			50% { transform: translateX($distancia) rotate(360deg); }
+			75% { transform: translateX(0) rotate(0deg); }
+		}
 	}
-}
-
-$distancia: 24px;
-
-@keyframes vaivem {
-	0%  { transform: translateX(0) rotate(0deg); }
-	25% { transform: translateX($distancia) rotate(360deg); }
-	50% { transform: translateX($distancia) rotate(360deg); }
-	75% { transform: translateX(0) rotate(0deg); }
 }

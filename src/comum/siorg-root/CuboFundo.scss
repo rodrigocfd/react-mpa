@@ -15,9 +15,9 @@ $cubo-tam: 400px;
 
 .gira {
 	animation: giralento 120s linear infinite;
-}
 
-@keyframes giralento {
-	from { transform: rotate(0deg); }
-	to   { transform: rotate(359deg); }
+	@keyframes giralento {
+		from { transform: rotate(0deg); }
+		to   { transform: rotate(359deg); }
+	}
 }

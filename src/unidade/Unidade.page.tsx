@@ -10,7 +10,7 @@ function Unidade() {
 		<div className={c.flex}>
 			<div className={c.esquerda}>
 				<div className={c.arvore}>
-					<Arvore idSelecionada={23} onClick={u => console.log(u)} />
+					<Arvore idSelecionada={23} onSelecionaUnidade={u => console.log(u)} />
 				</div>
 				<div><a href={app.montaUrlApp('index.html')}>Retornar</a></div>
 			</div>

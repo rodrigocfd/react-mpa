@@ -1,7 +1,7 @@
 import React from 'react'
 
 import EstadoNo from './EstadoNo';
-import c from './BtnAbreFecha.scss';
+import c from './BtnAbreFechaNo.scss';
 
 interface Props {
 	estado: EstadoNo,
@@ -11,7 +11,7 @@ interface Props {
 /**
  * Botão +/- que expande ou recolhe um nó da árvore.
  */
-function BtnAbreFecha({estado, onClick}: Props) {
+function BtnAbreFechaNo({estado, onClick}: Props) {
 	function texto() {
 		switch (estado) {
 			case EstadoNo.Fechado:    return '[+]';
@@ -25,4 +25,4 @@ function BtnAbreFecha({estado, onClick}: Props) {
 	);
 }
 
-export default BtnAbreFecha;
+export default BtnAbreFechaNo;

@@ -4,23 +4,23 @@ import UnidadeNoArvore from '@dto/UnidadeNoArvore';
 import app from '@src/app';
 import Carregando from '@src/comum/carregando/Carregando';
 import arvoreUtil from './arvoreUtil';
-import BtnAbreFecha from './BtnAbreFecha';
+import BtnAbreFechaNo from './BtnAbreFechaNo';
 import EstadoNo from './EstadoNo';
 import IconeUnidade from './IconeUnidade';
-import c from './ArvoreNo.scss';
+import c from './NoUnidade.scss';
 
 interface Props {
 	unidade: UnidadeNoArvore,
 	selecionada: UnidadeNoArvore,
-	onClick: (tripaSel: UnidadeNoArvore[]) => void,
-	onMouseOver: (tripaMouseOver: UnidadeNoArvore[]) => void,
+	onClicaUnidade: (tripaSel: UnidadeNoArvore[]) => void,
+	onMouseOverUnidade: (tripaMouseOver: UnidadeNoArvore[]) => void,
 	onAbreNo: () => void;
 }
 
 /**
  * Um nó da árvore de unidades. Este componente é recursivo.
  */
-function ArvoreNo(props: Props) {
+function NoUnidade(props: Props) {
 	const ehSel = props.selecionada && // estamos renderizando a unidade selecionada na árvore?
 		(props.selecionada.id === props.unidade.id);
 	const ehPaiDaSel = arvoreUtil.ehPaiDaUnidade( // estamos renderizando um dos pais da selecionada?
@@ -50,24 +50,24 @@ function ArvoreNo(props: Props) {
 	}
 
 	function clickNome() {
-		props.onClick([props.unidade]); // envia um array somente com esta unidade
+		props.onClicaUnidade([props.unidade]); // envia um array somente com esta unidade
 	}
 	function mouseOverNome() {
-		props.onMouseOver && props.onMouseOver([props.unidade]);
+		props.onMouseOverUnidade && props.onMouseOverUnidade([props.unidade]);
 	}
 
 	function clickFilha(tripaUnidades: UnidadeNoArvore[]) {
-		props.onClick([props.unidade, ...tripaUnidades]); // insere a unidade atual no início do array
+		props.onClicaUnidade([props.unidade, ...tripaUnidades]); // insere a unidade atual no início do array
 	}
 	function mouseOverFilha(tripaUnidades: UnidadeNoArvore[]) {
-		props.onMouseOver && props.onMouseOver([props.unidade, ...tripaUnidades]);
+		props.onMouseOverUnidade && props.onMouseOverUnidade([props.unidade, ...tripaUnidades]);
 	}
 
 	return (
 		<div className={c.arvoreNo}>
 			<div className={c.barraEsquerda}>
 				{props.unidade.temFilhas &&
-					<BtnAbreFecha estado={estado} onClick={abreFecha} />
+					<BtnAbreFechaNo estado={estado} onClick={abreFecha} />
 				}
 			</div>
 			<div className={c.dadosUnidade}>
@@ -86,8 +86,9 @@ function ArvoreNo(props: Props) {
 						<div className={c.carregando}><Carregando /></div>
 					}
 					{estado === EstadoNo.Aberto && props.unidade.filhas.map(filha =>
-						<ArvoreNo key={filha.id} unidade={filha} selecionada={props.selecionada}
-							onClick={clickFilha} onMouseOver={mouseOverFilha} onAbreNo={props.onAbreNo} />
+						<NoUnidade key={filha.id} unidade={filha} selecionada={props.selecionada}
+							onClicaUnidade={clickFilha} onMouseOverUnidade={mouseOverFilha}
+							onAbreNo={props.onAbreNo} />
 					)}
 				</div>
 			</div>
@@ -95,4 +96,4 @@ function ArvoreNo(props: Props) {
 	);
 }
 
-export default ArvoreNo;
+export default NoUnidade;
