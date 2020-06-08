@@ -56,9 +56,11 @@ module.exports = (env, argv) => ({
 	},
 	devtool: (argv.mode === 'production') ? false : 'eval-source-maps',
 	plugins: [
-		new CopyWebpackPlugin([
-			{ from: 'assets/favicon.ico', to: '.' }
-		]),
+		new CopyWebpackPlugin({
+			patterns: [
+				{ from: 'assets/favicon.ico', to: '.' }
+			]
+		}),
 		new MiniCssExtractPlugin({
 			filename: (argv.mode === 'development') ? '[name].css' : '[name].[hash:8].css'
 		}),
