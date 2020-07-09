@@ -12,14 +12,18 @@ npm i
 Suba o servidor http://localhost:3000 de desenvolvimento:
 npm start
 
-A aplicação assume que o Siorg JSF está rodando em http://localhost:8080
+O Siorg JSF será usado como back-end REST. A aplicação assume que ele está
+rodando em http://localhost:8080 .
 
 ---------------
 Gerar uma build
 ---------------
 
-O script gera-e-copia-build.sh irá gerar a build e copiá-la para dentro do
-workspace do Siorg.
+Dentro de gera-e-copia-build.sh, altere WORKSPACE_DIR para o caminho onde está
+seu workspace do Siorg.
+
+O script gera-e-copia-build.sh irá gerar a build com os arquivos HTML, JS e CSS,
+e copiá-la para dentro do workspace do Siorg.
 
 Gere novamente o .war do Gestão WebApp, e publique no JBoss.
 
