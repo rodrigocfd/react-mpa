@@ -4,7 +4,7 @@ import UnidadeNoArvore from '@dto/UnidadeNoArvore';
 import AreaRender from './AreaRender';
 import c from './Arvore.scss';
 
-enum Estado { Normal, TelaToda, Encolhendo }
+enum Estado { Normal, TelaInteira, Encolhendo }
 
 interface Props {
 	idSelecionada: number,
@@ -16,44 +16,44 @@ interface Props {
  * Container da árvore que mostra as unidades do Siorg de forma hierárquica.
  */
 function Arvore(props: Props) {
-	const [estado, setEstado] = React.useState(Estado.Normal);
+	const [estado, setEstado] = React.useState(Estado.Normal); // controla árvore expandida para tela inteira
 
 	function selecionaUnidade(tripaUnidades: UnidadeNoArvore[]) {
-		if (estado) toggle(); // selecionar um nó restaura da tela inteira
+		if (estado) toggleTelaInteira(); // selecionar um nó restaura da tela inteira
 		props.onSelecionaUnidade && props.onSelecionaUnidade(tripaUnidades);
 	}
 
-	function toggle() {
+	function toggleTelaInteira() { // botão que expande/retorna árvore tela inteira
 		switch (estado) {
 		case Estado.Normal:
-			setEstado(Estado.TelaToda);
+			setEstado(Estado.TelaInteira);
 			break;
-		case Estado.TelaToda:
-			setEstado(Estado.Encolhendo);
+		case Estado.TelaInteira:
+			setEstado(Estado.Encolhendo); // entra no estado de animação para encolher
 			setTimeout(() => {
-				setEstado(Estado.Normal);
+				setEstado(Estado.Normal); // sai do estado de animação para encolher
 			}, 150); // mesma duração da animação que encolhe
 		}
 	}
 
-	function classe(): string {
+	function geraClasseCss(): string { // gera o CSS de acordo com o estado atual
 		switch (estado) {
-			case Estado.Normal:     return c.normal;
-			case Estado.TelaToda:   return c.telaToda;
-			case Estado.Encolhendo: return c.encolhendo;
+			case Estado.Normal:      return c.normal;
+			case Estado.TelaInteira: return c.telaInteira;
+			case Estado.Encolhendo:  return c.encolhendo; // animação em curso
 		}
 	}
 
-	const tit = estado
+	const tit = (estado == Estado.TelaInteira)
 		? 'Restaurar a árvore ao tamanho original'
 		: 'Expandir árvore para tela inteira';
 
 	return (
-		<div className={classe()}>
+		<div className={geraClasseCss()}>
 			<AreaRender idSelecionada={props.idSelecionada}
 				onSelecionaUnidade={selecionaUnidade} onMouseOverUnidade={props.onMouseOverUnidade} />
-			<div className={c.btnFullScreen} onClick={toggle} title={tit}>
-				{estado ? '⇱' : '⇲'}
+			<div className={c.btnFullScreen} onClick={toggleTelaInteira} title={tit}>
+				{estado == Estado.TelaInteira ? '⇱' : '⇲'}
 			</div>
 		</div>
 	);

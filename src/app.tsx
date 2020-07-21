@@ -87,6 +87,10 @@ const app = {
 	 * @param semAlertaErro Opcional; se houver um erro não mostra popup.
 	 */
 	serverGet: function(caminho: string, payload = {}, alertaErro = true): Promise<any> {
+		if (caminho[0] === '/') {
+			caminho = caminho.substr(1); // remove '/' inicial, se houver
+		}
+
 		return fetch(`${prodCfg.apiRest}/${caminho}`, {
 			method: 'GET',
 			cache: 'no-cache',

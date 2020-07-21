@@ -1,32 +1,35 @@
 @import '@src/variaveis';
 
-$borda-tela-toda: 8px;
-
+// Quando a árvore não está ocupando tela inteira.
 .normal {
 	position: relative; // para position:absolute funcionar dentro
 	height: 100%;
 }
 
-@mixin tela-toda {
+// Árvore ocupando a tela inteira, e animação.
+$borda-tela-inteira: 8px;
+$tempo-animacao-tela-inteira: .15s;
+
+@mixin tela-inteira { // estilo final da árvore ocupando a tela inteira
 	position: fixed;
-	left: $borda-tela-toda;
-	top: $borda-tela-toda;
-	width: calc(100vw - #{$borda-tela-toda} - 20px);
-	height: calc(100vh - #{$borda-tela-toda} - 20px);
+	left: $borda-tela-inteira;
+	top: $borda-tela-inteira;
+	width: calc(100vw - #{$borda-tela-inteira} - 20px);
+	height: calc(100vh - #{$borda-tela-inteira} - 20px);
 	z-index: 1;
 }
-.telaToda {
-	@include tela-toda; // o estilo final é aplicado antes da animação começar
-	animation: expande .15s linear;
+.telaInteira { // aplicado quando a árvore irá para tela inteira
+	@include tela-inteira; // o estilo final é aplicado antes da animação começar
+	animation: expande $tempo-animacao-tela-inteira linear;
 
 	@keyframes expande {
 		from { transform: scaleY(0); }
 		to   { transform: scaleY(100%); }
 	}
 }
-.encolhendo {
-	@include tela-toda; // o estilo final é mantido durante a animação
-	animation: encolhe .15s linear;
+.encolhendo { // aplicado quando a árvore voltará da tela inteira, depois removido
+	@include tela-inteira; // o estilo final é mantido durante a animação
+	animation: encolhe $tempo-animacao-tela-inteira linear;
 
 	@keyframes encolhe {
 		from { transform: scaleX(100%); }
@@ -34,6 +37,7 @@ $borda-tela-toda: 8px;
 	}
 }
 
+// Botão que expande/retorna árvore tela inteira.
 .btnFullScreen {
 	position: absolute;
 	left: 0;

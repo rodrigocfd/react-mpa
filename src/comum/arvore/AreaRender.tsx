@@ -26,7 +26,7 @@ function AreaRender(props: Props) {
 	});
 
 	React.useEffect(() => {
-		app.serverGet(`/arvore/hierarquiaAcima?id=${props.idSelecionada}`)
+		app.serverGet(`arvore/hierarquiaAcima?id=${props.idSelecionada}`)
 			.then((raiz: UnidadeNoArvore) => {
 				const tripaSel = arvoreUtil.montaHierarquiaTripa(raiz, props.idSelecionada);
 				if (tripaSel.length === 0) {

@@ -42,7 +42,7 @@ Após isto, o diretório build deverá aparecer aqui:
    - webapp
     - public
 
-Dê um "Full Publish" no siorg-gestão-webapp, e reinicie o JBoss.
+Em Servers, dê um "Full Publish" no siorg-gestao-webapp, e reinicie o JBoss.
 
 A URL é http://localhost:8080/siorg-gestao-webapp/public/build/index.html
 

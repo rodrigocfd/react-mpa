@@ -34,7 +34,7 @@ function NoUnidade(props: Props) {
 		if (estado === EstadoNo.Fechado) { // usuário clicou para abrir
 			if (!props.unidade.filhas.length) { // filhas não carregadas ainda
 				setEstado(EstadoNo.Carregando);
-				app.serverGet(`/arvore/filhas?idPai=${props.unidade.id}`)
+				app.serverGet(`arvore/filhas?idPai=${props.unidade.id}`)
 					.then(filhas => {
 						props.unidade.filhas.push(...filhas);
 						setEstado(EstadoNo.Aberto);

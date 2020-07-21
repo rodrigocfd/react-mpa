@@ -9,8 +9,8 @@ WORKSPACE_DIR=~/siorg/workspace
 # Destino da build.
 FINAL_DEST="$WORKSPACE_DIR/novosiorg/siorg-gestao/siorg-gestao-webapp/src/main/webapp/public"
 
-# O nome do diretório da build deve ser o mesmo que está em webpack.config.js:
-# module.exports -> output -> path
+# O nome do diretório da build deve ser o mesmo que está no final de "baseApp"
+# no arquivo "producao.config.json".
 BUILD_DIR=build
 
 # Checa se o diretório do workspace Siorg existe.

@@ -52,14 +52,14 @@ module.exports = (env, argv) => ({
 	stats: (argv.mode === 'development') ? 'errors-only' : 'normal',
 	entry, // each JS bundling point
 	output: {
-		path: path.resolve(__dirname, 'build'),
+		path: path.resolve(__dirname, path.parse(prodCfg.baseApp).base), // name of output folder
 		filename: (argv.mode === 'development') ? '[name].js' : '[name].[hash:8].js'
 	},
 	devtool: (argv.mode === 'production') ? false : 'eval-source-maps',
 	plugins: [
 		new CopyWebpackPlugin({
 			patterns: [
-				{ from: 'assets/favicon.png', to: '.' }
+				{ from: 'assets/favicon.png', to: '.' } // favicon moved to root folder
 			]
 		}),
 		new MiniCssExtractPlugin({
@@ -67,7 +67,7 @@ module.exports = (env, argv) => ({
 		}),
 		new HtmlReplaceWebpackPlugin([
 			{
-				pattern: '@BASE_URL@',
+				pattern: '@BASE_APP@',
 				replacement: (argv.mode === 'production') ? prodCfg.baseApp : ''
 			}
 		]),
