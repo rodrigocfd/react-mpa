@@ -87,7 +87,7 @@ const app = {
 	 * @param semAlertaErro Opcional; se houver um erro não mostra popup.
 	 */
 	serverGet: function(caminho: string, payload = {}, alertaErro = true): Promise<any> {
-		return fetch(prodCfg.apiRest + caminho, {
+		return fetch(`${prodCfg.apiRest}/${caminho}`, {
 			method: 'GET',
 			cache: 'no-cache',
 			credentials: 'include',

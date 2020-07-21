@@ -9,8 +9,8 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const prodCfg = require('./producao.config.json');
 
-const PAGESDIR = 'src/'; // where the *.page.js files will start being searched
-const JSEXTS = ['.page.js', '.page.jsx', '.page.ts', '.page.tsx'];
+const PAGESDIR = 'src/'; // where the soon-to-be HTML files will start being searched
+const JSEXTS = ['.page.js', '.page.jsx', '.page.ts', '.page.tsx']; // extensions that will become HTML
 const PROXY_SERVER = 'http://localhost:8080';
 
 /*
@@ -35,7 +35,7 @@ const plugins: [ // generate HTML files with JS included
 let entry = {}; // all JS files where to start the bundling process
 let htmlPlugins = []; // all HTML files to be generated
 
-for (const jsPath of enumFiles(PAGESDIR, JSEXTS)) {
+for (const jsPath of enumFilesByExt(PAGESDIR, JSEXTS)) {
 	const chunkName = removeExt(jsPath, JSEXTS).substr(PAGESDIR.length); // remove extension and PAGESDIR
 	entry[chunkName] = './' + jsPath;
 
@@ -83,12 +83,12 @@ module.exports = (env, argv) => ({
 	},
 	devServer: {
 		proxy: {
-			[prodCfg.apiRest]: PROXY_SERVER
+			[prodCfg.apiRest + '/']: PROXY_SERVER
 		}
 	},
 	module: {
 		rules: [{
-			test: /\.(js|jsx)$/,
+			test: /\.(js|jsx)$/, // what to to with JS files
 			exclude: /node_modules/,
 			resolve: {
 				extensions: ['.js', '.jsx']
@@ -103,14 +103,14 @@ module.exports = (env, argv) => ({
 				}
 			}
 		}, {
-			test: /\.(ts|tsx)$/,
+			test: /\.(ts|tsx)$/, // what to do with TS/TSX files
 			use: 'ts-loader',
 			exclude: /node_modules/,
 			resolve: {
 				extensions: ['.ts', '.tsx']
 			},
 		}, {
-			test: /\.(css|sass|scss)$/,
+			test: /\.(css|sass|scss)$/, // what to do with CSS files
 			exclude: /node_modules/,
 			use: [
 				{
@@ -139,7 +139,7 @@ module.exports = (env, argv) => ({
 			],
 			exclude: /node_modules/,
 		}, {
-			test: /\.(svg|jpg|gif|png)$/,
+			test: /\.(svg|jpg|gif|png)$/, // what to do with image files
 			exclude: /node_modules/,
 			use: [{
 				loader: 'file-loader',
@@ -175,7 +175,7 @@ module.exports = (env, argv) => ({
 	}
 });
 
-function enumFiles(rootPath, fileExts) {
+function enumFilesByExt(rootPath, fileExts) {
 	let ret = []; // 'src/pages/second/Second.page.js'
 
 	function enumRecursively(curPath) {

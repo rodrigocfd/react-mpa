@@ -1,5 +1,7 @@
 {
+	"_COMENTARIO": "Os caminhos abaixo não devem terminar com '/' (barra).",
+
 	"baseJsf": "/siorg-gestao-webapp/private",
 	"baseApp": "/siorg-gestao-webapp/public/build",
-	"apiRest": "/siorg-gestao-webapp/api/"
+	"apiRest": "/siorg-gestao-webapp/api"
 }
