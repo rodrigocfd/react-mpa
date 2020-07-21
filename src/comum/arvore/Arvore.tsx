@@ -44,17 +44,17 @@ function Arvore(props: Props) {
 		}
 	}
 
-	const tit = (estado == Estado.TelaInteira)
+	const titExpRest = (estado == Estado.TelaInteira)
 		? 'Restaurar a árvore ao tamanho original'
 		: 'Expandir árvore para tela inteira';
+	const cssExpRest = c.btnFullScreen + ' '
+		+ (estado == Estado.TelaInteira ? c.btnRestaurar : c.btnExpandir);
 
 	return (
 		<div className={geraClasseCss()}>
 			<AreaRender idSelecionada={props.idSelecionada}
 				onSelecionaUnidade={selecionaUnidade} onMouseOverUnidade={props.onMouseOverUnidade} />
-			<div className={c.btnFullScreen} onClick={toggleTelaInteira} title={tit}>
-				{estado == Estado.TelaInteira ? '⇱' : '⇲'}
-			</div>
+			<div className={cssExpRest} onClick={toggleTelaInteira} title={titExpRest} />
 		</div>
 	);
 }
