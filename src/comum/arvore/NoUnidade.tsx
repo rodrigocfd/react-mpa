@@ -3,9 +3,8 @@ import React from 'react'
 import UnidadeNoArvore from '@dto/UnidadeNoArvore';
 import app from '@src/app';
 import Carregando from '@src/comum/carregando/Carregando';
-import arvoreUtil from './arvoreUtil';
+import arvoreUtil, {EstadoNo} from './arvoreUtil';
 import BtnAbreFechaNo from './BtnAbreFechaNo';
-import EstadoNo from './EstadoNo';
 import IconeUnidade from './IconeUnidade';
 import c from './NoUnidade.scss';
 

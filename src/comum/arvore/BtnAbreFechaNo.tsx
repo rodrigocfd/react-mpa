@@ -1,6 +1,6 @@
 import React from 'react'
 
-import EstadoNo from './EstadoNo';
+import {EstadoNo} from './arvoreUtil';
 import c from './BtnAbreFechaNo.scss';
 
 interface Props {

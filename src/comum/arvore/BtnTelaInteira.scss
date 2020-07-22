@@ -1,0 +1,27 @@
+@import '@src/variaveis';
+
+.btn {
+	display: block;
+	width: 24px; // os SVGs têm que estar com este mesmo tamanho
+	height: 24px;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	color: $cor-fonte-menu;
+	background-color: #fafafa;
+	cursor: pointer;
+	border: $borda-verde;
+
+	&:hover {
+		color: white;
+		background-color: $cor-fonte-menu;
+	}
+}
+
+.expandir {
+	background-image: url('~@assets/screen-expand.svg');
+}
+
+.restaurar {
+	background-image: url('~@assets/screen-restore.svg');
+}

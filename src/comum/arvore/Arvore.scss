@@ -36,28 +36,3 @@ $tempo-animacao-tela-inteira: .15s;
 		to   { transform: scaleY(0); }
 	}
 }
-
-// Botão que expande/retorna árvore tela inteira.
-.btnFullScreen {
-	display: block;
-	width: 24px; // os SVGs têm que estar com este mesmo tamanho
-	height: 24px;
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	color: $cor-fonte-menu;
-	background-color: #fafafa;
-	cursor: pointer;
-	border: $borda-verde;
-
-	&:hover {
-		color: white;
-		background-color: $cor-fonte-menu;
-	}
-}
-.btnExpandir {
-	background-image: url('~@assets/screen-expand.svg');
-}
-.btnRestaurar {
-	background-image: url('~@assets/screen-restore.svg');
-}

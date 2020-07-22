@@ -1,5 +1,9 @@
 import UnidadeNoArvore from '@dto/UnidadeNoArvore';
 
+enum EstadoTelaInteira { Normal, TelaInteira, Encolhendo }
+
+enum EstadoNo { Fechado, Aberto, Carregando }
+
 /**
  * Conjunto de funções utilizadas na árvore de unidades.
  */
@@ -38,3 +42,4 @@ const arvoreUtil = {
 };
 
 export default arvoreUtil;
+export {EstadoTelaInteira, EstadoNo};
