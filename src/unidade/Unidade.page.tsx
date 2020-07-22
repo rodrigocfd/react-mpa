@@ -1,6 +1,7 @@
 import React from 'react';
 
 import app from '@src/app';
+import LinkApp from '@src/comum/LinkApp';
 import Arvore from '@src/comum/arvore/Arvore';
 import Abas from '@src/comum/abas/Abas';
 import c from './Unidade.scss';
@@ -12,7 +13,7 @@ function Unidade() {
 				<div className={c.arvore}>
 					<Arvore idSelecionada={23} onSelecionaUnidade={u => console.log(u)} />
 				</div>
-				<div><a href={app.montaUrlApp('index.html')}>Retornar</a></div>
+				<div><LinkApp href="index.html">Retornar</LinkApp></div>
 			</div>
 			<div className={c.direita}>
 				<Abas abas={[

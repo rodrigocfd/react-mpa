@@ -1,6 +1,7 @@
 import React from 'react';
 
 import app from '@src/app';
+import LinkApp from '@src/comum/LinkApp';
 
 /**
  * Primeira página da aplicação.
@@ -16,7 +17,7 @@ function Index() {
 				ainda, {context.infoUsuario.nome.split(' ')[0]}.
 			</div>
 			<div>
-				<a href={app.montaUrlApp('unidade/unidade.html')}>Unidade</a>
+				<LinkApp href={'unidade/unidade.html'}>Unidade</LinkApp>
 			</div>
 		</div>
 	);

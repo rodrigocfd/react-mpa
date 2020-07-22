@@ -37,7 +37,7 @@ function AreaRender(props: Props) {
 			});
 	}, []);
 
-	function click(tripaSel: UnidadeNoArvore[]) {
+	function clicouUnidade(tripaSel: UnidadeNoArvore[]) {
 		setArvore({...arvore, tripaSel}); // seleciona a unidade clicada
 		setTimeout(() => {
 			abreNo(); // força scroll para a direita.
@@ -69,7 +69,7 @@ function AreaRender(props: Props) {
 					}
 					{!app.isEmpty(arvore.raiz) &&
 						<NoUnidade unidade={arvore.raiz} selecionada={arvore.tripaSel[arvore.tripaSel.length - 1]}
-							onClicaUnidade={click} onMouseOverUnidade={mouseOver} onAbreNo={abreNo} />
+							onClicaUnidade={clicouUnidade} onMouseOverUnidade={mouseOver} onAbreNo={abreNo} />
 					}
 			</div>
 		</div>

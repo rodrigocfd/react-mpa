@@ -1,6 +1,6 @@
 import React from 'react';
 
-import app from '@src/app';
+import LinkJsf from '@src/comum/LinkJsf';
 import {ItemVert1} from './Itens';
 import MenuVert2 from './MenuVert2';
 import c from './MenuVert1Entry.scss';
@@ -17,7 +17,7 @@ function MenuVert1Entry({item}: Props) {
 		<li className={c.li}>
 			<div className={c.flexWrap}>
 				{item.oldLink
-					? <a className={c.label} href={app.montaUrlJsf(item.oldLink)}>{item.label}</a>
+					? <LinkJsf className={c.label} href={item.oldLink}>{item.label}</LinkJsf>
 					: <span className={c.label}>{item.label}</span>
 				}
 				{item.menuVert2 &&

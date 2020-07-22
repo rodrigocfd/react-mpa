@@ -2,6 +2,7 @@ import React from 'react';
 
 import InfoUsuario from '@dto/InfoUsuario';
 import app, {AppContext, EstadoAplicacao} from '@src/app';
+import LinkJsf from '@src/comum/LinkJsf';
 import Carregando from '@src/comum/carregando/Carregando';
 import CabecalhoSiorg from './cabecalho-siorg/CabecalhoSiorg';
 import CuboFundo from './CuboFundo';
@@ -54,7 +55,7 @@ function SiorgRoot(props: Props) {
 		return (
 			<div className={c.naoCarregado}>
 				<div>{rootContext.msgErro}</div>
-				<div><a href={app.montaUrlJsf('index.jsf')}>Ir para a página de login</a></div>
+				<div><LinkJsf href="index.jsf">Ir para a página de login</LinkJsf></div>
 				<CuboFundo gira />
 			</div>
 		);

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import app from '@src/app';
+import LinkJsf from '@src/comum/LinkJsf';
 import {ItemVert2} from './Itens';
 import c from './MenuVert2.scss';
 
@@ -17,7 +17,7 @@ function MenuVert2({itens}: Props) {
 			{itens.map(item =>
 				<li key={item.label} className={c.li}>
 					{item.oldLink
-						? <a className={c.label} href={app.montaUrlJsf(item.oldLink)}>{item.label}</a>
+						? <LinkJsf className={c.label} href={item.oldLink}>{item.label}</LinkJsf>
 						: <span className={c.label}>{item.label}</span>
 					}
 				</li>
