@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LinkJsf from '@src/comum/LinkJsf';
+import LinkJsf from '@comum/LinkJsf';
 import {ItemVert1} from './Itens';
 import MenuVert2 from './MenuVert2';
 import c from './MenuVert1Entry.scss';

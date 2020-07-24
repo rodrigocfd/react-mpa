@@ -9,7 +9,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const prodCfg = require('./producao.config.json');
 
-const PAGESDIR = 'src/'; // where the soon-to-be HTML files will start being searched
+const PAGESDIR = 'src/paginas/'; // where the soon-to-be HTML files will start being searched
 const JSEXTS = ['.page.js', '.page.jsx', '.page.ts', '.page.tsx']; // extensions that will become HTML
 const PROXY_SERVER = 'http://localhost:8080';
 
@@ -77,8 +77,9 @@ module.exports = (env, argv) => ({
 	resolve: {
 		alias: { // absolute paths available inside the app
 			'@assets': path.resolve(__dirname, 'assets'),
-			'@dto': path.resolve(__dirname, 'dto'),
-			'@src': path.resolve(__dirname, 'src')
+			'@comum': path.resolve(__dirname, 'src/comum'),
+			'@dto': path.resolve(__dirname, 'src/dto'),
+			'@paginas': path.resolve(__dirname, 'src/paginas')
 		}
 	},
 	devServer: {

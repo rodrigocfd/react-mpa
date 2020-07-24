@@ -1,9 +1,9 @@
 import React from 'react';
 
-import app from '@src/app';
-import LinkApp from '@src/comum/LinkApp';
-import Arvore from '@src/comum/arvore/Arvore';
-import Abas from '@src/comum/abas/Abas';
+import app from '@comum/app';
+import LinkApp from '@comum/LinkApp';
+import Arvore from '@comum/arvore/Arvore';
+import Abas from '@comum/abas/Abas';
 import c from './Unidade.scss';
 
 function Unidade() {

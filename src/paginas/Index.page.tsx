@@ -1,7 +1,7 @@
 import React from 'react';
 
-import app from '@src/app';
-import LinkApp from '@src/comum/LinkApp';
+import app from '@comum/app';
+import LinkApp from '@comum/LinkApp';
 
 /**
  * Primeira página da aplicação.

@@ -7,6 +7,9 @@ interface Props {
 	tripaUnids: UnidadeNoArvore[],
 }
 
+/**
+ * Hierarquia de siglas que fica acima da árvore.
+ */
 function TopoSiglas({tripaUnids}: Props) {
 	let trilha = '';
 

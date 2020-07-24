@@ -1,12 +1,12 @@
 import React from 'react';
 
 import Menu from './menu/Menu';
-import c from './CabecalhoSiorg.scss';
+import c from './Cabecalho.scss';
 
 /**
  * Cabeçalho da aplicação, que aparece em todas as páginas.
  */
-function CabecalhoSiorg() {
+function Cabecalho() {
 	return (
 		<div className={c.header}>
 			<div className={c.logoRow}>
@@ -22,4 +22,4 @@ function CabecalhoSiorg() {
 	);
 }
 
-export default CabecalhoSiorg;
+export default Cabecalho;

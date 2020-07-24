@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import prodCfg from '../producao.config.json';
+import prodCfg from '../../producao.config.json';
 import InfoUsuario from '@dto/InfoUsuario';
-import SiorgRoot from '@src/comum/siorg-root/SiorgRoot';
+import Layout from '@comum/layout/Layout';
 
 const DEV_PORT_JSF = 8080;
 const ISDEV = process.env.NODE_ENV === 'development';
@@ -46,7 +46,7 @@ const app = {
 	 * @param elemento Componente React que será renderizado na página.
 	 */
 	constroiPagina: function(componente: React.ReactNode) {
-		ReactDOM.render(<SiorgRoot>{componente}</SiorgRoot>,
+		ReactDOM.render(<Layout>{componente}</Layout>,
 			document.getElementById('root'));
 	},
 

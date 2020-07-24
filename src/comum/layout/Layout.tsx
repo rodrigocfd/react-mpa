@@ -1,12 +1,12 @@
 import React from 'react';
 
+import app, {AppContext, EstadoAplicacao} from '@comum/app';
+import LinkJsf from '@comum/LinkJsf';
+import Carregando from '@comum/carregando/Carregando';
 import InfoUsuario from '@dto/InfoUsuario';
-import app, {AppContext, EstadoAplicacao} from '@src/app';
-import LinkJsf from '@src/comum/LinkJsf';
-import Carregando from '@src/comum/carregando/Carregando';
-import CabecalhoSiorg from './cabecalho-siorg/CabecalhoSiorg';
+import Cabecalho from './cabecalho/Cabecalho';
 import CuboFundo from './CuboFundo';
-import c from './SiorgRoot.scss';
+import c from './Layout.scss';
 
 interface Props {
 	children: React.ReactNode,
@@ -16,7 +16,7 @@ interface Props {
  * Componente de topo da aplicação.
  * Faz a primeira consulta para verificar se o usuário está autenticado.
  */
-function SiorgRoot(props: Props) {
+function Layout({children}: Props) {
 	const [rootContext, setRootContext] = React.useState({ // vai ser passado para AppContext.Provider
 		estado: EstadoAplicacao.Carregando,
 		msgErro: '', // exibida por este componente
@@ -62,9 +62,9 @@ function SiorgRoot(props: Props) {
 	case EstadoAplicacao.Logado: // carrega a aplicação normalmente
 		return (
 			<AppContext.Provider value={[rootContext, setRootContext]}>
-				<CabecalhoSiorg />
+				<Cabecalho />
 				<div className={c.conteudoNormal}>
-					{props.children}
+					{children}
 				</div>
 				<CuboFundo />
 			</AppContext.Provider>
@@ -74,4 +74,4 @@ function SiorgRoot(props: Props) {
 	}
 }
 
-export default SiorgRoot;
+export default Layout;

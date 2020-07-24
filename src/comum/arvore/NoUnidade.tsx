@@ -1,8 +1,8 @@
 import React from 'react'
 
+import app from '@comum/app';
+import Carregando from '@comum/carregando/Carregando';
 import UnidadeNoArvore from '@dto/UnidadeNoArvore';
-import app from '@src/app';
-import Carregando from '@src/comum/carregando/Carregando';
 import arvoreUtil, {EstadoNo} from './arvoreUtil';
 import BtnAbreFechaNo from './BtnAbreFechaNo';
 import IconeUnidade from './IconeUnidade';

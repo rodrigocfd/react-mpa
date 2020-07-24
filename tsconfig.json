@@ -20,8 +20,9 @@
 		"baseUrl": ".",
 		"paths": {
 			"@assets/*": ["assets/*"],
-			"@dto/*": ["dto/*"],
-			"@src/*": ["src/*"]
+			"@comum/*": ["src/comum/*"],
+			"@dto/*": ["src/dto/*"],
+			"@paginas/*": ["src/paginas/*"]
 		}
 	},
 	"include": [
