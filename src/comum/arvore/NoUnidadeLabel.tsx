@@ -8,7 +8,6 @@ interface Props {
 	unidade: UnidadeNoArvore,
 	ehSel: boolean,
 	onClick: () => void,
-	onMouseOver: () => void,
 }
 
 /**
@@ -21,8 +20,8 @@ function NoUnidadeLabel(props: Props) {
 				<IconeUnidade chave={props.unidade.tipo} />
 				<IconeUnidade chave={props.unidade.nivelNormatizacao} />
 			</div>
-			<div className={[c.nome, props.ehSel ? c.nomeSel : ''].join(' ')}
-				onClick={props.onClick} onMouseOver={props.onMouseOver}>
+			<div onClick={props.onClick}
+				className={[c.nome, props.ehSel ? c.nomeSel : ''].join(' ')}>
 					{props.unidade.denominacao}
 			</div>
 		</div>

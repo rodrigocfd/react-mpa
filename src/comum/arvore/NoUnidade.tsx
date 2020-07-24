@@ -12,7 +12,6 @@ interface Props {
 	unidade: UnidadeNoArvore, // unidade a ser renderizada neste nó
 	selecionada: UnidadeNoArvore, // unidade selecionada na árvore inteira, passado a todos os nós
 	onClicaUnidade: (tripaSel: UnidadeNoArvore[]) => void,
-	onMouseOverUnidade: (tripaMouseOver: UnidadeNoArvore[]) => void,
 	onExpandeNo: () => void;
 }
 
@@ -51,15 +50,9 @@ function NoUnidade(props: Props) {
 	function clicouNome() {
 		props.onClicaUnidade([props.unidade]); // envia um array somente com esta unidade
 	}
-	function mouseOverNome() {
-		props.onMouseOverUnidade && props.onMouseOverUnidade([props.unidade]);
-	}
 
 	function clicouFilha(tripaUnidades: UnidadeNoArvore[]) {
 		props.onClicaUnidade([props.unidade, ...tripaUnidades]); // insere a unidade atual no início do array
-	}
-	function mouseOverFilha(tripaUnidades: UnidadeNoArvore[]) {
-		props.onMouseOverUnidade && props.onMouseOverUnidade([props.unidade, ...tripaUnidades]);
 	}
 
 	return (
@@ -70,15 +63,16 @@ function NoUnidade(props: Props) {
 				}
 			</div>
 			<div className={c.dadosUnidade}>
-				<NoUnidadeLabel unidade={props.unidade} ehSel={ehSel}
-					onClick={clicouNome} onMouseOver={mouseOverNome} />
+				<NoUnidadeLabel unidade={props.unidade} ehSel={ehSel} onClick={clicouNome} />
 				<div className={c.filhas}>
 					{estado === EstadoNo.Carregando &&
 						<div className={c.carregando}><Carregando /></div>
 					}
 					{estado === EstadoNo.Aberto && props.unidade.filhas.map(filha =>
-						<NoUnidade key={filha.id} unidade={filha} selecionada={props.selecionada}
-							onClicaUnidade={clicouFilha} onMouseOverUnidade={mouseOverFilha}
+						<NoUnidade key={filha.id}
+							unidade={filha}
+							selecionada={props.selecionada}
+							onClicaUnidade={clicouFilha}
 							onExpandeNo={props.onExpandeNo} />
 					)}
 				</div>

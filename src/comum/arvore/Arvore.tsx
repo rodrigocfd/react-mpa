@@ -9,7 +9,6 @@ import c from './Arvore.scss';
 interface Props {
 	idSelecionada: number,
 	onSelecionaUnidade?: (tripaUnidades: UnidadeNoArvore[]) => void,
-	onMouseOverUnidade?: (tripaUnidades: UnidadeNoArvore[]) => void,
 }
 
 /**
@@ -45,9 +44,9 @@ function Arvore(props: Props) {
 	}
 
 	return (
-		<div className={geraClasseCss()}>
+		<div className={[geraClasseCss()].join(' ')}>
 			<AreaRender idSelecionada={props.idSelecionada}
-				onSelecionaUnidade={selecionaUnidade} onMouseOverUnidade={props.onMouseOverUnidade} />
+				onSelecionaUnidade={selecionaUnidade} />
 			<BtnTelaInteira estado={estado} onClick={toggleTelaInteira} />
 		</div>
 	);
