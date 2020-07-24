@@ -7,7 +7,7 @@
 }
 
 // Árvore ocupando a tela inteira, e animação.
-$tempo-animacao: .15s;
+$tempo-animacao: .15s; // mesmo valor em arvoreUtil.ts
 
 @mixin tela-inteira { // estilo final da árvore ocupando a tela inteira
 	position: fixed;

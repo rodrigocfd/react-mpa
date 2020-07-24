@@ -9,6 +9,12 @@ enum EstadoNo { Fechado, Aberto, Carregando }
  */
 const arvoreUtil = {
 	/**
+	 * Tempo de animação de expandir a árvore para tela inteira.
+	 * Deve ser igual ao que está no CSS.
+	 */
+	tempoAnimacao: 150,
+
+	/**
 	 * Retorna um array com a hierarquia da raiz até a unidade selecionada.
 	 * @param raiz Unidade raiz onde começa a busca.
 	 * @param idSel ID da unidade selecionada a ser encontrada.

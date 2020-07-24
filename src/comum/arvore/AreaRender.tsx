@@ -38,11 +38,8 @@ function AreaRender(props: Props) {
 		setArvore({...arvore, tripaSel}); // seleciona a unidade clicada
 		setTimeout(() => {
 			scrollParaDireita();
-			if (divScrollRef.current && divNo) {
-				const el = divScrollRef.current;
-				el.scrollTop = divNo.offsetTop - el.clientHeight / 2 + 24; // scroll vertical para centralizar o nó clicado
-			}
-		}, 160); // duração maior que a animação que restaura a árvore da tela inteira
+			centralizaNoVerticalmente(divNo);
+		}, arvoreUtil.tempoAnimacao + 10); // duração maior que a animação que restaura a árvore da tela inteira
 		props.onSelecionaUnidade && props.onSelecionaUnidade(tripaSel);
 	}
 
@@ -50,6 +47,13 @@ function AreaRender(props: Props) {
 		if (divScrollRef.current) {
 			const el = divScrollRef.current;
 			el.scrollLeft = el.scrollWidth - el.clientWidth; // força scroll para a direita
+		}
+	}
+
+	function centralizaNoVerticalmente(divNo: HTMLDivElement | null) { // quando um nó é clicado na tela inteira
+		if (divScrollRef.current && divNo) {
+			const el = divScrollRef.current;
+			el.scrollTop = divNo.offsetTop - el.clientHeight / 2 + 24; // esse +24 compensa a altura do próprio nó
 		}
 	}
 
