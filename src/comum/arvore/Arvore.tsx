@@ -18,8 +18,14 @@ function Arvore(props: Props) {
 	const [estado, setEstado] = React.useState(EstadoTelaInteira.Normal); // controla árvore expandida para tela inteira
 
 	function selecionaUnidade(tripaUnidades: UnidadeNoArvore[]) {
-		if (estado) toggleTelaInteira(); // selecionar um nó restaura da tela inteira
-		props.onSelecionaUnidade && props.onSelecionaUnidade(tripaUnidades);
+		if (estado === EstadoTelaInteira.TelaInteira) {
+			toggleTelaInteira(); // selecionar um nó restaura da tela inteira
+			setTimeout(() => {
+				props.onSelecionaUnidade && props.onSelecionaUnidade(tripaUnidades);
+			}, 150); // mesmo tempo de toggleTelaInteira()
+		} else {
+			props.onSelecionaUnidade && props.onSelecionaUnidade(tripaUnidades);
+		}
 	}
 
 	function toggleTelaInteira() { // clique no botão que expande/retorna árvore tela inteira
