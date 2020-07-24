@@ -7,20 +7,23 @@ import c from './NoUnidadeLabel.scss';
 interface Props {
 	unidade: UnidadeNoArvore,
 	ehSel: boolean,
-	onClick: () => void,
+	onClick: (divNo: HTMLDivElement | null) => void,
 }
 
 /**
  * Em um nó da árvore, exibe os ícones e o nome da unidade.
  */
 function NoUnidadeLabel(props: Props) {
+	const divNomeRef = React.useRef<HTMLDivElement>(null);
+
 	return (
 		<div className={c.noUnidadeLabelFlex}>
 			<div className={c.icones}>
 				<IconeUnidade chave={props.unidade.tipo} />
 				<IconeUnidade chave={props.unidade.nivelNormatizacao} />
 			</div>
-			<div onClick={props.onClick}
+			<div ref={divNomeRef}
+				onClick={() => props.onClick(divNomeRef.current)}
 				className={[c.nome, props.ehSel ? c.nomeSel : ''].join(' ')}>
 					{props.unidade.denominacao}
 			</div>

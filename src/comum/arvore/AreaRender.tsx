@@ -34,11 +34,15 @@ function AreaRender(props: Props) {
 			});
 	}, []);
 
-	function clicouUnidade(tripaSel: UnidadeNoArvore[]) {
+	function clicouUnidade(tripaSel: UnidadeNoArvore[], divNo: HTMLDivElement | null) {
 		setArvore({...arvore, tripaSel}); // seleciona a unidade clicada
 		setTimeout(() => {
 			scrollParaDireita();
-		}, 160); // duração maior que a animação que encolhe
+			if (divScrollRef.current && divNo) {
+				const el = divScrollRef.current;
+				el.scrollTop = divNo.offsetTop - el.clientHeight / 2 + 24; // scroll vertical para centralizar o nó clicado
+			}
+		}, 160); // duração maior que a animação que restaura a árvore da tela inteira
 		props.onSelecionaUnidade && props.onSelecionaUnidade(tripaSel);
 	}
 

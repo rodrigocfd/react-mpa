@@ -11,7 +11,7 @@ import c from './NoUnidade.scss';
 interface Props {
 	unidade: UnidadeNoArvore, // unidade a ser renderizada neste nó
 	selecionada: UnidadeNoArvore, // unidade selecionada na árvore inteira, passado a todos os nós
-	onClicaUnidade: (tripaSel: UnidadeNoArvore[]) => void,
+	onClicaUnidade: (tripaSel: UnidadeNoArvore[], divNo: HTMLDivElement | null) => void,
 	onExpandeNo: () => void;
 }
 
@@ -28,7 +28,7 @@ function NoUnidade(props: Props) {
 	// os filhos já estejam preenchidos.
 	const [estado, setEstado] = React.useState(ehPaiDaSel ? EstadoNo.Aberto : EstadoNo.Fechado);
 
-	function abreFecha() {
+	function expandeOuFecha() {
 		if (estado === EstadoNo.Fechado) { // usuário clicou para abrir
 			if (!props.unidade.filhas.length) { // filhas não carregadas ainda
 				setEstado(EstadoNo.Carregando);
@@ -47,19 +47,24 @@ function NoUnidade(props: Props) {
 		}
 	}
 
-	function clicouNome() {
-		props.onClicaUnidade([props.unidade]); // envia um array somente com esta unidade
+	function clicouNome(divNo: HTMLDivElement | null) {
+		// Envia um array somente com esta unidade.
+		// O nó pai vai receber esta notificação em clicouFilha(),
+		// e assim a notificação sobre até a raiz.
+		props.onClicaUnidade([props.unidade], divNo);
 	}
 
-	function clicouFilha(tripaUnidades: UnidadeNoArvore[]) {
-		props.onClicaUnidade([props.unidade, ...tripaUnidades]); // insere a unidade atual no início do array
+	function clicouFilha(tripaUnidades: UnidadeNoArvore[], divNo: HTMLDivElement | null) {
+		// Pega o array de unidades que veio da filha,
+		// e insere nossa unidade no início dele.
+		props.onClicaUnidade([props.unidade, ...tripaUnidades], divNo);
 	}
 
 	return (
 		<div className={c.noUnidadeFlex}>
 			<div className={c.lateralEsquerda}>
 				{props.unidade.temFilhas &&
-					<BtnAbreFechaNo estado={estado} onClick={abreFecha} />
+					<BtnAbreFechaNo estado={estado} onClick={expandeOuFecha} />
 				}
 			</div>
 			<div className={c.dadosUnidade}>
