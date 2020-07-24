@@ -14,7 +14,7 @@ interface Props {
 }
 
 /**
- * Ícones que precedem o nome da unidade na árvore.
+ * Ícones que precedem o nome da unidade num nó da árvore.
  */
 function IconeUnidade({chave}: Props) {
 	const vals: Valores = {

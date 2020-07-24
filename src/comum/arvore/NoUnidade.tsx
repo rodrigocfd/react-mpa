@@ -5,7 +5,7 @@ import Carregando from '@comum/carregando/Carregando';
 import UnidadeNoArvore from '@dto/UnidadeNoArvore';
 import arvoreUtil, {EstadoNo} from './arvoreUtil';
 import BtnAbreFechaNo from './BtnAbreFechaNo';
-import IconeUnidade from './IconeUnidade';
+import NoUnidadeLabel from './NoUnidadeLabel';
 import c from './NoUnidade.scss';
 
 interface Props {
@@ -63,23 +63,15 @@ function NoUnidade(props: Props) {
 	}
 
 	return (
-		<div className={c.arvoreNo}>
+		<div className={c.arvoreNoFlex}>
 			<div className={c.barraEsquerda}>
 				{props.unidade.temFilhas &&
 					<BtnAbreFechaNo estado={estado} onClick={abreFecha} />
 				}
 			</div>
-			<div className={c.dadosUnidade}>
-				<div className={c.iconesComNome}>
-					<div className={c.icones}>
-						<IconeUnidade chave={props.unidade.tipo} />
-						<IconeUnidade chave={props.unidade.nivelNormatizacao} />
-					</div>
-					<div className={[c.nomeUnidade, ehSel ? c.nomeUnidadeSel : ''].join(' ')}
-						onClick={clickNome} onMouseOver={mouseOverNome}>
-							{props.unidade.denominacao}
-					</div>
-				</div>
+			<div className={c.dadosUnidadeFlex}>
+				<NoUnidadeLabel unidade={props.unidade} ehSel={ehSel}
+					onClick={clickNome} onMouseOver={mouseOverNome} />
 				<div className={c.filhas}>
 					{estado === EstadoNo.Carregando &&
 						<div className={c.carregando}><Carregando /></div>

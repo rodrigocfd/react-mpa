@@ -75,7 +75,7 @@ module.exports = (env, argv) => ({
 		...htmlPlugins // each HTML page
 	],
 	resolve: {
-		alias: { // absolute paths available inside the app
+		alias: { // absolute paths available inside the app, also in tsconfig
 			'@assets': path.resolve(__dirname, 'assets'),
 			'@comum': path.resolve(__dirname, 'src/comum'),
 			'@dto': path.resolve(__dirname, 'src/dto'),

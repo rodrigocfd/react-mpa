@@ -16,8 +16,10 @@ function BtnTelaInteira(props: Props) {
 		? 'Restaurar a árvore ao tamanho original'
 		: 'Expandir árvore para tela inteira';
 
-	const cssBtn = c.btn + ' '
-		+ (props.estado == EstadoTelaInteira.TelaInteira ? c.restaurar : c.expandir);
+	const cssBtn = [
+		c.btn,
+		(props.estado == EstadoTelaInteira.TelaInteira ? c.restaurar : c.expandir)
+	].join(' ');
 
 	return (
 		<div className={cssBtn} title={tooltip} onClick={props.onClick} />

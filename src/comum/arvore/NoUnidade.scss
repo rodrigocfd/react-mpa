@@ -1,10 +1,10 @@
 @import '@comum/variaveis';
 
-$padding-vert-nome-unidade: 4px;
-$margin-vert-nome-unidade: 0;
+$padding-vert-nome-unidade: 4px; // ver NoUnidadeLabel.scss
 
-.arvoreNo {
+.arvoreNoFlex {
 	display: flex;
+	flex-direction: row;
 	border-left: 1px dotted #c0c8c0;
 
 	.barraEsquerda { // contém o botão expandir e dá a identação aos nós filhos
@@ -14,45 +14,12 @@ $margin-vert-nome-unidade: 0;
 		padding-top: 2px; // empurra o [+] um pouco pra baixo, pra alinhar com o nome da unidade
 	}
 
-	.dadosUnidade {
+	.dadosUnidadeFlex {
 		flex-grow: 1;
-
-		.iconesComNome {
-			display: flex;
-			min-width: 280px; // largura do nome da unidade; força aparecimento da barra de rolagem horizontal
-
-			.icones {
-				flex-basis: #{(16px + 2px) * 2}; // espaço para 2 ícones com espaçamento
-				flex-grow: 0;
-				flex-shrink: 0;
-				padding-top: 4px; // empura os ícones um pouco pra baixo, pra alinhar com o nome da unidade
-				& > div {
-					margin-right: 2px; // espaçamento entre cada ícone
-				}
-			}
-			.nomeUnidade {
-				cursor: pointer;
-				padding: $padding-vert-nome-unidade 5px;
-				margin: $margin-vert-nome-unidade 0;
-
-				&:hover {
-					background-color: #e8e8e8;
-				}
-			}
-			.nomeUnidadeSel {
-				color: white;
-				background-color: #47727B;
-
-				&:hover {
-					background-color: #47727B;
-				}
-			}
-		}
 
 		.filhas {
 			.carregando {
 				padding: #{$padding-vert-nome-unidade - 3px} 0 $padding-vert-nome-unidade 40px;
-				margin: $margin-vert-nome-unidade 0;
 			}
 		}
 	}
