@@ -40,7 +40,7 @@ function AreaRender(props: Props) {
 	function clicouUnidade(tripaSel: UnidadeNoArvore[]) {
 		setArvore({...arvore, tripaSel}); // seleciona a unidade clicada
 		setTimeout(() => {
-			abreNo(); // força scroll para a direita.
+			scrollParaDireita();
 		}, 160); // duração maior que a animação que encolhe
 		props.onSelecionaUnidade && props.onSelecionaUnidade(tripaSel);
 	}
@@ -50,7 +50,7 @@ function AreaRender(props: Props) {
 		props.onMouseOverUnidade && props.onMouseOverUnidade(tripaMouseOver);
 	}
 
-	function abreNo() { // quando um nó é expandido
+	function scrollParaDireita() { // quando um nó é expandido
 		if (divScrollRef.current) {
 			const el = divScrollRef.current;
 			el.scrollLeft = el.scrollWidth - el.clientWidth; // força scroll para a direita
@@ -58,7 +58,7 @@ function AreaRender(props: Props) {
 	}
 
 	return (
-		<div className={c.arvoreFlex}>
+		<div className={c.areaRenderFlex}>
 			<div className={c.topo}>
 				<TopoSiglas tripaUnids={arvore.tripaTopo} />
 			</div>
@@ -68,8 +68,11 @@ function AreaRender(props: Props) {
 						<div className={c.carregando}><Carregando texto="Carregando árvore..." /></div>
 					}
 					{!app.isEmpty(arvore.raiz) &&
-						<NoUnidade unidade={arvore.raiz} selecionada={arvore.tripaSel[arvore.tripaSel.length - 1]}
-							onClicaUnidade={clicouUnidade} onMouseOverUnidade={mouseOver} onAbreNo={abreNo} />
+						<NoUnidade unidade={arvore.raiz}
+							selecionada={arvore.tripaSel[arvore.tripaSel.length - 1]}
+							onClicaUnidade={clicouUnidade}
+							onMouseOverUnidade={mouseOver}
+							onExpandeNo={scrollParaDireita} />
 					}
 			</div>
 		</div>

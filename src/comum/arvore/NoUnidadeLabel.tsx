@@ -16,7 +16,7 @@ interface Props {
  */
 function NoUnidadeLabel(props: Props) {
 	return (
-		<div className={c.labelFlex}>
+		<div className={c.noUnidadeLabelFlex}>
 			<div className={c.icones}>
 				<IconeUnidade chave={props.unidade.tipo} />
 				<IconeUnidade chave={props.unidade.nivelNormatizacao} />

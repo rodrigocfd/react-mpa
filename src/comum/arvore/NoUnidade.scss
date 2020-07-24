@@ -2,19 +2,19 @@
 
 $padding-vert-nome-unidade: 4px; // ver NoUnidadeLabel.scss
 
-.arvoreNoFlex {
+.noUnidadeFlex {
 	display: flex;
 	flex-direction: row;
 	border-left: 1px dotted #c0c8c0;
 
-	.barraEsquerda { // contém o botão expandir e dá a identação aos nós filhos
+	.lateralEsquerda { // contém o botão expandir e dá a identação aos nós filhos
 		flex-basis: 1.5em;
 		flex-grow: 0;
 		flex-shrink: 0;
 		padding-top: 2px; // empurra o [+] um pouco pra baixo, pra alinhar com o nome da unidade
 	}
 
-	.dadosUnidadeFlex {
+	.dadosUnidade {
 		flex-grow: 1;
 
 		.filhas {

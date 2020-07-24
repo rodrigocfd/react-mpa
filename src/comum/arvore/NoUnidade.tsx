@@ -9,11 +9,11 @@ import NoUnidadeLabel from './NoUnidadeLabel';
 import c from './NoUnidade.scss';
 
 interface Props {
-	unidade: UnidadeNoArvore,
-	selecionada: UnidadeNoArvore,
+	unidade: UnidadeNoArvore, // unidade a ser renderizada neste nó
+	selecionada: UnidadeNoArvore, // unidade selecionada na árvore inteira, passado a todos os nós
 	onClicaUnidade: (tripaSel: UnidadeNoArvore[]) => void,
 	onMouseOverUnidade: (tripaMouseOver: UnidadeNoArvore[]) => void,
-	onAbreNo: () => void;
+	onExpandeNo: () => void;
 }
 
 /**
@@ -37,25 +37,25 @@ function NoUnidade(props: Props) {
 					.then(filhas => {
 						props.unidade.filhas.push(...filhas);
 						setEstado(EstadoNo.Aberto);
-						props.onAbreNo();
+						props.onExpandeNo();
 					});
-			} else {
-				setEstado(EstadoNo.Aberto); // as filhas estão em cache, é só mostrar
-				props.onAbreNo();
+			} else { // as filhas estão em cache, é só mostrar
+				setEstado(EstadoNo.Aberto);
+				props.onExpandeNo();
 			}
 		} else if (estado === EstadoNo.Aberto || estado === EstadoNo.Carregando) { // usuário clicou para fechar
 			setEstado(EstadoNo.Fechado);
 		}
 	}
 
-	function clickNome() {
+	function clicouNome() {
 		props.onClicaUnidade([props.unidade]); // envia um array somente com esta unidade
 	}
 	function mouseOverNome() {
 		props.onMouseOverUnidade && props.onMouseOverUnidade([props.unidade]);
 	}
 
-	function clickFilha(tripaUnidades: UnidadeNoArvore[]) {
+	function clicouFilha(tripaUnidades: UnidadeNoArvore[]) {
 		props.onClicaUnidade([props.unidade, ...tripaUnidades]); // insere a unidade atual no início do array
 	}
 	function mouseOverFilha(tripaUnidades: UnidadeNoArvore[]) {
@@ -63,23 +63,23 @@ function NoUnidade(props: Props) {
 	}
 
 	return (
-		<div className={c.arvoreNoFlex}>
-			<div className={c.barraEsquerda}>
+		<div className={c.noUnidadeFlex}>
+			<div className={c.lateralEsquerda}>
 				{props.unidade.temFilhas &&
 					<BtnAbreFechaNo estado={estado} onClick={abreFecha} />
 				}
 			</div>
-			<div className={c.dadosUnidadeFlex}>
+			<div className={c.dadosUnidade}>
 				<NoUnidadeLabel unidade={props.unidade} ehSel={ehSel}
-					onClick={clickNome} onMouseOver={mouseOverNome} />
+					onClick={clicouNome} onMouseOver={mouseOverNome} />
 				<div className={c.filhas}>
 					{estado === EstadoNo.Carregando &&
 						<div className={c.carregando}><Carregando /></div>
 					}
 					{estado === EstadoNo.Aberto && props.unidade.filhas.map(filha =>
 						<NoUnidade key={filha.id} unidade={filha} selecionada={props.selecionada}
-							onClicaUnidade={clickFilha} onMouseOverUnidade={mouseOverFilha}
-							onAbreNo={props.onAbreNo} />
+							onClicaUnidade={clicouFilha} onMouseOverUnidade={mouseOverFilha}
+							onExpandeNo={props.onExpandeNo} />
 					)}
 				</div>
 			</div>
