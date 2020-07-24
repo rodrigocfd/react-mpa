@@ -7,20 +7,22 @@
 }
 
 // Árvore ocupando a tela inteira, e animação.
-$borda-tela-inteira: 8px;
-$tempo-animacao-tela-inteira: .15s;
+$tempo-animacao: .15s;
 
 @mixin tela-inteira { // estilo final da árvore ocupando a tela inteira
 	position: fixed;
-	left: $borda-tela-inteira;
-	top: $borda-tela-inteira;
-	width: calc(100vw - #{$borda-tela-inteira} - 20px);
-	height: calc(100vh - #{$borda-tela-inteira} - 20px);
+	left: 0;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	border: 8px solid $cor-fundo-pagina;
+	border-bottom-width: 20px;
+	border-right-width: 20px; // por algum motivo o tamanho 100% está maior do que devia
 	z-index: 1;
 }
 .telaInteira { // aplicado quando a árvore irá para tela inteira
 	@include tela-inteira; // o estilo final é aplicado antes da animação começar
-	animation: expande $tempo-animacao-tela-inteira linear;
+	animation: expande $tempo-animacao linear;
 
 	@keyframes expande {
 		from { transform: scaleY(0); }
@@ -29,7 +31,7 @@ $tempo-animacao-tela-inteira: .15s;
 }
 .encolhendo { // aplicado quando a árvore voltará da tela inteira, depois removido
 	@include tela-inteira; // o estilo final é mantido durante a animação
-	animation: encolhe $tempo-animacao-tela-inteira linear;
+	animation: encolhe $tempo-animacao linear;
 
 	@keyframes encolhe {
 		from { transform: scaleX(100%); }

@@ -13,7 +13,7 @@ interface Props {
 }
 
 /**
- * Renderiza a árvore.
+ * Renderiza o nó raiz da árvore.
  */
 function AreaRender(props: Props) {
 	const divScrollRef = React.useRef<HTMLDivElement>(null);

@@ -11,6 +11,8 @@ interface Props {
 	onSelecionaUnidade?: (tripaUnidades: UnidadeNoArvore[]) => void,
 }
 
+const tempoAnimacao = 150; // mesmo de Arvore.scss
+
 /**
  * Container da árvore que mostra as unidades do Siorg de forma hierárquica.
  */
@@ -22,7 +24,7 @@ function Arvore(props: Props) {
 			toggleTelaInteira(); // selecionar um nó restaura da tela inteira
 			setTimeout(() => {
 				props.onSelecionaUnidade && props.onSelecionaUnidade(tripaUnidades);
-			}, 150); // mesmo tempo de toggleTelaInteira()
+			}, tempoAnimacao);
 		} else {
 			props.onSelecionaUnidade && props.onSelecionaUnidade(tripaUnidades);
 		}
@@ -37,7 +39,7 @@ function Arvore(props: Props) {
 			setEstado(EstadoTelaInteira.Encolhendo); // entra no estado de animação para encolher
 			setTimeout(() => {
 				setEstado(EstadoTelaInteira.Normal); // sai do estado de animação para encolher
-			}, 150); // importante: mesma duração da animação que encolhe
+			}, tempoAnimacao);
 		}
 	}
 
