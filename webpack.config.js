@@ -1,3 +1,11 @@
+/**
+ * Arquivo de configuração do webpack, lido automaticamente pelo NPM.
+ * Consome as variáveis de: producao.config.json
+ *
+ * Subir ambiente em modo de desenvolvimento: npm start
+ * Gerar build: npm run build
+ */
+
 const fs = require('fs');
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -6,37 +14,45 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlReplaceWebpackPlugin = require('html-replace-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const prodCfg = require('./producao.config.json');
 
-const PAGESDIR = 'src/paginas/'; // where the soon-to-be HTML files will start being searched
-const JSEXTS = ['.page.js', '.page.jsx', '.page.ts', '.page.tsx']; // extensions that will become HTML
-const PROXY_SERVER = 'http://localhost:8080';
+const PAGESDIR = 'src/paginas/'; // onde procurar os arquivos que virarão páginas HTML
+const JSEXTS = ['.page.js', '.page.jsx', '.page.ts', '.page.tsx']; // extensões que virarão páginas HTML
+const PROXY_SERVER = 'http://localhost:8080'; // onde o Siorg JSF está rodando
 
-/*
-const entry = { // points where the bundling process starts
-	'Index': './src/Index.page.js',
-	'second/Second': './src/pages/second/Second.page.js'
-};
-const plugins: [ // generate HTML files with JS included
-	new HtmlWebPackPlugin({
-		chunks: ['Index', 'vendor'], // compiled JS files that will go inside this HTML
-		template: 'assets/template.html', // webpack relative or absolute path to the template
-		filename: 'index.html' // file to write the HTML to, relative to PAGESDIR
-	}),
-	new HtmlWebPackPlugin({ // for each HTML page
-		chunks: ['second/Second', 'vendor'],
-		template: 'assets/template.html',
-		filename: 'second/second.html'
-	})
-];
-*/
+/**
+ * Arquivos JS que serão pontos de entrada do processo de bundling.
+ *
+ * const entry = {
+ *   'Index': './src/Index.page.js',
+ *   'second/Second': './src/pages/second/Second.page.js'
+ * };
+ */
+let entry = {};
 
-let entry = {}; // all JS files where to start the bundling process
-let htmlPlugins = []; // all HTML files to be generated
+/**
+ * Todos os arquivos HTML que serão gerados, e que terão JS dentro.
+ *
+ * const htmlPlugins: [ // este array contém uma entrada para cada página HTML que será gerada
+ *   new HtmlWebPackPlugin({
+ *     chunks: ['Index', 'vendor'],      // arquivos JS compilados que irão dentro deste HTML, vendor são as dependências externas
+ *     template: 'assets/template.html', // caminho absoluto ou relativo para o template HTML
+ *     filename: 'index.html'            // arquivo de saída do HTML, relativo a PAGESDIR
+ *   }),
+ *   new HtmlWebPackPlugin({
+ *     chunks: ['second/Second', 'vendor'],
+ *     template: 'assets/template.html',
+ *     filename: 'second/second.html'
+ *   })
+ * ];
+ */
+let htmlPlugins = [];
 
+// Varre o diretório em busca dos JS que virarão páginas HTML,
+// e popula entry e htmlPlugins.
 for (const jsPath of enumFilesByExt(PAGESDIR, JSEXTS)) {
-	const chunkName = removeExt(jsPath, JSEXTS).substr(PAGESDIR.length); // remove extension and PAGESDIR
+	const chunkName = removeExt(jsPath, JSEXTS).substr(PAGESDIR.length); // remove extensão e PAGESDIR
 	entry[chunkName] = './' + jsPath;
 
 	htmlPlugins.push(
@@ -48,34 +64,37 @@ for (const jsPath of enumFilesByExt(PAGESDIR, JSEXTS)) {
 	);
 }
 
+// Objeto que contém a configuração do webpack.
 module.exports = (env, argv) => ({
 	stats: (argv.mode === 'development') ? 'errors-only' : 'normal',
-	entry, // each JS bundling point
+	entry, // todos os pontos de entrada do processo de bundling
 	output: {
-		path: path.resolve(__dirname, path.parse(prodCfg.baseApp).base), // name of output folder
-		filename: (argv.mode === 'development') ? '[name].js' : '[name].[hash:8].js'
+		path: path.resolve(__dirname, path.parse(prodCfg.baseApp).base), // caminho do diretório de saída
+		filename: (argv.mode === 'development')
+			? '[name].js'          // em desenvolvimento, usa o nome normal do arquivo .js
+			: '[name].[hash:8].js' // em produção, adiciona um hash; útil para evitar cache no navegador
 	},
 	devtool: (argv.mode === 'production') ? false : 'eval-source-maps',
 	plugins: [
 		new CopyWebpackPlugin({
 			patterns: [
-				{ from: 'assets/favicon.png', to: '.' } // favicon moved to root folder
+				{from: 'assets/favicon.png', to: '.'} // favicon movido direto para o diretório raiz
 			]
 		}),
 		new MiniCssExtractPlugin({
-			filename: (argv.mode === 'development') ? '[name].css' : '[name].[hash:8].css'
+			filename: (argv.mode === 'development') ? '[name].css' : '[name].[hash:8].css' // hash também é aplicado nos CSS
 		}),
 		new HtmlReplaceWebpackPlugin([
 			{
-				pattern: '@BASE_APP@',
+				pattern: '@BASE_APP@', // nos HTML, este símbolo será trocado
 				replacement: (argv.mode === 'production') ? prodCfg.baseApp : ''
 			}
 		]),
-		...(argv.mode === 'development' ? [] : [new CleanWebpackPlugin()]), // clean output directory before building
-		...htmlPlugins // each HTML page
+		...(argv.mode === 'development' ? [] : [new CleanWebpackPlugin()]), // limpa diretório de saída antes de começar
+		...htmlPlugins // cada arquivo HTML que será gerado
 	],
 	resolve: {
-		alias: { // absolute paths available inside the app, also in tsconfig
+		alias: { // caminhos absolutos disponíveis dentro da aplicação, também mapeados no tsconfig.json
 			'@assets': path.resolve(__dirname, 'assets'),
 			'@comum': path.resolve(__dirname, 'src/comum'),
 			'@dto': path.resolve(__dirname, 'src/dto'),
@@ -83,13 +102,14 @@ module.exports = (env, argv) => ({
 		}
 	},
 	devServer: {
+		watchContentBase: true,
 		proxy: {
 			[prodCfg.apiRest + '/']: PROXY_SERVER
 		}
 	},
 	module: {
 		rules: [{
-			test: /\.(js|jsx)$/, // what to to with JS files
+			test: /\.(js|jsx)$/, // o que fazer com os arquivos JS
 			exclude: /node_modules/,
 			resolve: {
 				extensions: ['.js', '.jsx']
@@ -104,14 +124,14 @@ module.exports = (env, argv) => ({
 				}
 			}
 		}, {
-			test: /\.(ts|tsx)$/, // what to do with TS/TSX files
+			test: /\.(ts|tsx)$/, // o que fazer com os arquivos TS e TSX
 			use: 'ts-loader',
 			exclude: /node_modules/,
 			resolve: {
 				extensions: ['.ts', '.tsx']
 			},
 		}, {
-			test: /\.(css|sass|scss)$/, // what to do with CSS files
+			test: /\.(css|sass|scss)$/, // o que fazer com os arquivos CSS
 			exclude: /node_modules/,
 			use: [
 				{
@@ -125,7 +145,9 @@ module.exports = (env, argv) => ({
 					options: {
 						importLoaders: 1,
 						modules: {
-							localIdentName: (argv.mode === 'development') ? '[path][name]__[local]' : '[hash:base64]'
+							localIdentName: (argv.mode === 'development') // nomes das classes CSS gerados via CSS Modules
+								? '[path][name]__[local]' // em desenvolvimento, gera um padrão BEM
+								: '[hash:base64]'         // em produção, gera um hash
 						}
 					}
 				},
@@ -140,16 +162,16 @@ module.exports = (env, argv) => ({
 			],
 			exclude: /node_modules/,
 		}, {
-			test: /\.(svg|jpg|gif|png)$/, // what to do with image files
+			test: /\.(svg|jpg|gif|png)$/, // o que fazer com arquivos de imagem
 			exclude: /node_modules/,
 			use: [{
 				loader: 'file-loader',
 				options: {
 					name: (argv.mode === 'development') ? '[name].[ext]' : '[name].[hash:8].[ext]',
-					outputPath: (url, resourcePath, context) => { // where the target file will be placed
+					outputPath: (url, resourcePath, context) => { // onde ficará o arquivo na saída
 						return `assets/${url}`;
 					},
-					publicPath: (url, resourcePath, context) => { // will be written in the img/src
+					publicPath: (url, resourcePath, context) => { // o que será escrito no <img src="?">
 						return (argv.mode === 'development')
 							? `/assets/${url}`
 							: `${prodCfg.baseApp}/assets/${url}`;
@@ -166,7 +188,7 @@ module.exports = (env, argv) => ({
 		splitChunks: {
 			cacheGroups: {
 				vendor: {
-					test: /node_modules/, // all dependencies will be placed in vendor.js file, instead of embedded in each generated JS
+					test: /node_modules/, // dependências externas irão dentro de vendor.js
 					chunks: "initial",
 					name: "vendor",
 					enforce: true
@@ -176,19 +198,22 @@ module.exports = (env, argv) => ({
 	}
 });
 
-function enumFilesByExt(rootPath, fileExts) {
-	let ret = []; // 'src/pages/second/Second.page.js'
+/**
+ * Enumera todos os arquivos com as extensões informadas.
+ */
+function enumFilesByExt(rootPath, arrExtensions) {
+	let filesFound = []; // 'src/pages/second/Second.page.js'
 
 	function enumRecursively(curPath) {
-		for (const file of fs.readdirSync(curPath)) { // all files and folders within the directory, returns name only
+		for (const file of fs.readdirSync(curPath)) { // todos os diretórios e arquivos dentro do diretório, retorna somente o nome
 			const fullPath = path.join(curPath, file);
 
-			if (fs.statSync(fullPath).isDirectory()) {
-				enumRecursively(fullPath); // recursively within subdirectories
-			} else if (fs.statSync(fullPath).isFile()) {
-				for (const fileExt of fileExts) {
-					if (fullPath.endsWith(fileExt)) {
-						ret.push(fullPath);
+			if (fs.statSync(fullPath).isDirectory()) { // é um diretório
+				enumRecursively(fullPath); // recursivamente nos subdiretórios
+			} else if (fs.statSync(fullPath).isFile()) { // é um arquivo
+				for (const fileExt of arrExtensions) {
+					if (fullPath.endsWith(fileExt)) { // arquivo termina com uma das extensões informadas
+						filesFound.push(fullPath);
 					}
 				}
 			}
@@ -196,18 +221,24 @@ function enumFilesByExt(rootPath, fileExts) {
 	}
 
 	enumRecursively(rootPath);
-	return ret;
+	return filesFound;
 }
 
-function removeExt(filePath, possibleExts) {
-	for (const ext of possibleExts) {
-		if (filePath.endsWith(ext)) {
+/**
+ * Se o arquivo possui alguma das extensões informadas, remove a extensão.
+ */
+function removeExt(filePath, arrExtensions) {
+	for (const ext of arrExtensions) {
+		if (filePath.endsWith(ext)) { // arquivo termina com a extensão
 			return filePath.substr(0, filePath.length - ext.length);
 		}
 	}
-	return filePath; // none of the extensions found
+	return filePath; // o arquivo não termina com nenhuma das extensões informadas
 }
 
+/**
+ * Converte "algumNome" para "algum-nome".
+ */
 function camelToKebabCase(name) {
 	return name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 }

@@ -1,5 +1,5 @@
 {
-	"_COMENTARIO": "Os caminhos abaixo não devem terminar com '/' (barra).",
+	"_COMENTARIO": "Os caminhos abaixo NÃO devem terminar com '/' (barra).",
 
 	"baseJsf": "/siorg-gestao-webapp/private",
 	"baseApp": "/siorg-gestao-webapp/public/build",
