@@ -9,7 +9,7 @@ import c from './AreaRender.scss';
 
 interface Props {
 	idSelecionada: number,
-	onSelecionaUnidade: (tripaUnidades: UnidadeNoArvore[]) => void,
+	onSelecionaUnidade: (hierarquiaSelec: UnidadeNoArvore[]) => void,
 }
 
 /**
@@ -42,7 +42,7 @@ function AreaRender(props: Props) {
 		hierarquiaSelec: UnidadeNoArvore[],
 		divNo: HTMLDivElement | null)
 	{
-		setArvore({...arvore, hierarquiaSelec: hierarquiaSelec}); // seleciona a unidade clicada
+		setArvore({...arvore, hierarquiaSelec}); // a unidade clicada é a nova selecionada
 		setTimeout(() => {
 			scrollParaDireita();
 			centralizaNoVerticalmente(divNo);

@@ -29,7 +29,7 @@ function NoUnidade(props: Props) {
 			: EstadoNo.Fechado
 	);
 
-	function expandeOuFecha() {
+	function clicouExpandeOuFecha() {
 		if (estado === EstadoNo.Fechado) { // usuário clicou para expandir este nó
 			if (!props.unidade.filhas.length) { // unidades filhas não foram carregadas ainda
 				setEstado(EstadoNo.Carregando);
@@ -65,7 +65,7 @@ function NoUnidade(props: Props) {
 		<div className={c.noUnidadeFlex}>
 			<div className={c.lateralEsquerda}>
 				{props.unidade.temFilhas &&
-					<BtnAbreFechaNo estado={estado} onClick={expandeOuFecha} />
+					<BtnAbreFechaNo estado={estado} onClick={clicouExpandeOuFecha} />
 				}
 			</div>
 			<div className={c.dadosUnidade}>

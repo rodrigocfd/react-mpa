@@ -17,18 +17,18 @@ interface Props {
 function Arvore(props: Props) {
 	const [estado, setEstado] = React.useState(EstadoTelaInteira.Normal); // controla árvore expandida para tela inteira
 
-	function selecionaUnidade(tripaUnidades: UnidadeNoArvore[]) {
+	function selecionouUnidade(hierarquiaSelec: UnidadeNoArvore[]) {
 		if (estado === EstadoTelaInteira.TelaInteira) {
-			toggleTelaInteira(); // selecionar um nó restaura da tela inteira
+			clicouBtnTelaInteira(); // selecionar um nó restaura da tela inteira
 			setTimeout(() => {
-				props.onSelecionaUnidade && props.onSelecionaUnidade(tripaUnidades);
+				props.onSelecionaUnidade && props.onSelecionaUnidade(hierarquiaSelec); // dispara callback
 			}, arvoreUtil.tempoAnimacao);
 		} else {
-			props.onSelecionaUnidade && props.onSelecionaUnidade(tripaUnidades);
+			props.onSelecionaUnidade && props.onSelecionaUnidade(hierarquiaSelec); // dispara callback
 		}
 	}
 
-	function toggleTelaInteira() { // clique no botão que expande/retorna árvore tela inteira
+	function clicouBtnTelaInteira() { // clique no botão que expande/retorna árvore tela inteira
 		switch (estado) {
 		case EstadoTelaInteira.Normal:
 			setEstado(EstadoTelaInteira.TelaInteira);
@@ -41,19 +41,18 @@ function Arvore(props: Props) {
 		}
 	}
 
-	function geraClasseCss(): string { // gera o CSS de acordo com o estado atual
-		switch (estado) {
-			case EstadoTelaInteira.Normal:      return c.normal;
-			case EstadoTelaInteira.TelaInteira: return c.telaInteira;
-			case EstadoTelaInteira.Encolhendo:  return c.encolhendo; // animação em curso
-		}
-	}
+	// Classe CSS a ser aplicada na DIV raiz.
+	const divCss = {
+		[EstadoTelaInteira.Normal]:      c.normal,
+		[EstadoTelaInteira.TelaInteira]: c.telaInteira,
+		[EstadoTelaInteira.Encolhendo]:  c.encolhendo // animação em curso
+	};
 
 	return (
-		<div className={[geraClasseCss()].join(' ')}>
+		<div className={divCss[estado]}>
 			<AreaRender idSelecionada={props.idSelecionada}
-				onSelecionaUnidade={selecionaUnidade} />
-			<BtnTelaInteira estado={estado} onClick={toggleTelaInteira} />
+				onSelecionaUnidade={selecionouUnidade} />
+			<BtnTelaInteira estado={estado} onClick={clicouBtnTelaInteira} />
 		</div>
 	);
 }
