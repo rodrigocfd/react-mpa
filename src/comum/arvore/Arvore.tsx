@@ -8,7 +8,7 @@ import c from './Arvore.scss';
 
 interface Props {
 	idSelecionada: number,
-	onSelecionaUnidade?: (tripaUnidades: UnidadeNoArvore[]) => void,
+	onSelecionaUnidade?: (hierarquiaSelec: UnidadeNoArvore[]) => void,
 }
 
 /**

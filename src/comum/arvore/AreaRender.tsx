@@ -34,6 +34,7 @@ function AreaRender(props: Props) {
 					alert('Erro: a unidade selecionada não faz parte da árvore pesquisada.');
 				} else {
 					setArvore({raiz, hierarquiaSelec});
+					props.onSelecionaUnidade(hierarquiaSelec); // dispara callback
 				}
 			});
 	}, []);
