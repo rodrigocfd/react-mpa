@@ -9,13 +9,14 @@
 			color: $cor-fonte-menu;
 			padding: 8px 12px;
 			user-select: none;
-			transform: translateY(1px);
+			// transform: translateY(1px);
 		}
 
 		.atual { // aba atualmente selecionada
 			border-left: $borda-verde;
 			border-top: $borda-verde;
 			border-right: $borda-verde;
+			border-bottom: none;
 			background-color: white;
 		}
 		.naoAtual { // todas as outras abas não selecionadas

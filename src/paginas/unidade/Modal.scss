@@ -1,0 +1,14 @@
+@import '@comum/variaveis';
+
+.modal {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	border: 8px solid darken($cor-fundo-pagina, 70%);
+	border-bottom-width: 20px;
+	border-right-width: 20px; // o tamanho 100% é maior do que devia porque o menu estica tudo
+
+	background-color: $cor-fundo-pagina;
+}

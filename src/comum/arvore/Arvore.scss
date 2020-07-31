@@ -17,8 +17,8 @@ $tempo-animacao: .15s; // mesmo valor em arvoreUtil.ts
 	height: 100vh;
 	border: 8px solid $cor-fundo-pagina;
 	border-bottom-width: 20px;
-	border-right-width: 20px; // por algum motivo o tamanho 100% está maior do que devia
-	z-index: 1;
+	border-right-width: 20px; // o tamanho 100% é maior do que devia porque o menu estica tudo
+	// z-index: 1;
 }
 .telaInteira { // aplicado quando a árvore irá para tela inteira
 	@include tela-inteira; // o estilo final é aplicado antes da animação começar
