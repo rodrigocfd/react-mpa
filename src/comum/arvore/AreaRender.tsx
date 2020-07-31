@@ -9,38 +9,46 @@ import c from './AreaRender.scss';
 
 interface Props {
 	idSelecionada: number,
-	onSelecionaUnidade?: (tripaUnidades: UnidadeNoArvore[]) => void,
+	onSelecionaUnidade: (tripaUnidades: UnidadeNoArvore[]) => void,
 }
 
 /**
- * Renderiza o nó raiz da árvore.
+ * Renderiza o nó raiz da árvore, e guarda os dados vindos do servidor.
  */
 function AreaRender(props: Props) {
 	const divScrollRef = React.useRef<HTMLDivElement>(null);
 	const [arvore, setArvore] = React.useState({
+		// O nó raiz guarda toda a hierarquia de nós da árvore.
 		raiz: {} as UnidadeNoArvore,
-		tripaSel: [] as UnidadeNoArvore[], // tripa com a hierarquia, a última unidade no array é a selecionada
+		// Nó atualmente selecionado na árvore.
+		// É um array com a hierarquia da raiz até o nó selecionado.
+		// Passado a todos os nós filhos.
+		hierarquiaSelec: [] as UnidadeNoArvore[],
 	});
 
 	React.useEffect(() => {
 		app.serverGet(`arvore/hierarquiaAcima?id=${props.idSelecionada}`) // consulta esta unidade e todos os pais
 			.then((raiz: UnidadeNoArvore) => {
-				const tripaSel = arvoreUtil.montaHierarquiaTripa(raiz, props.idSelecionada);
-				if (tripaSel.length === 0) {
+				const hierarquiaSelec = arvoreUtil.montaHierarquiaFlat(raiz, props.idSelecionada);
+				if (hierarquiaSelec.length === 0) {
 					alert('Erro: a unidade selecionada não faz parte da árvore pesquisada.');
 				} else {
-					setArvore({raiz, tripaSel}); // sem passar com o cursor, o topo mostra a selecionada
+					setArvore({raiz, hierarquiaSelec});
 				}
 			});
 	}, []);
 
-	function clicouUnidade(tripaSel: UnidadeNoArvore[], divNo: HTMLDivElement | null) {
-		setArvore({...arvore, tripaSel}); // seleciona a unidade clicada
+	function clicouUnidade(
+		hierarquiaSelec: UnidadeNoArvore[],
+		divNo: HTMLDivElement | null)
+	{
+		setArvore({...arvore, hierarquiaSelec: hierarquiaSelec}); // seleciona a unidade clicada
 		setTimeout(() => {
 			scrollParaDireita();
 			centralizaNoVerticalmente(divNo);
 		}, arvoreUtil.tempoAnimacao + 10); // duração maior que a animação que restaura a árvore da tela inteira
-		props.onSelecionaUnidade && props.onSelecionaUnidade(tripaSel);
+
+		props.onSelecionaUnidade(hierarquiaSelec); // dispara callback
 	}
 
 	function scrollParaDireita() { // quando um nó é expandido
@@ -65,7 +73,7 @@ function AreaRender(props: Props) {
 					}
 					{!app.isEmpty(arvore.raiz) &&
 						<NoUnidade unidade={arvore.raiz}
-							selecionada={arvore.tripaSel[arvore.tripaSel.length - 1]}
+							hierarquiaSelec={arvore.hierarquiaSelec}
 							onClicaUnidade={clicouUnidade}
 							onExpandeNo={scrollParaDireita} />
 					}

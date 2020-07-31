@@ -2,7 +2,7 @@ import UnidadeNoArvore from '@dto/UnidadeNoArvore';
 
 enum EstadoTelaInteira { Normal, TelaInteira, Encolhendo }
 
-enum EstadoNo { Fechado, Aberto, Carregando }
+enum EstadoNo { Fechado, Expandido, Carregando }
 
 /**
  * Conjunto de funções utilizadas na árvore de unidades.
@@ -19,32 +19,47 @@ const arvoreUtil = {
 	 * @param raiz Unidade raiz onde começa a busca.
 	 * @param idSel ID da unidade selecionada a ser encontrada.
 	 */
-	montaHierarquiaTripa: function montaHierarquiaTripa(
+	montaHierarquiaFlat: function montaHierarquiaFlat(
 		raiz: UnidadeNoArvore, idSel: number): UnidadeNoArvore[]
 	{
 		if (raiz.id === idSel) return [raiz];
 		for (const filha of raiz.filhas) {
-			const encontradas = montaHierarquiaTripa(filha, idSel); // recursivamente
+			const encontradas = montaHierarquiaFlat(filha, idSel); // recursivamente
 			if (encontradas.length > 0) return [raiz, ...encontradas];
 		}
 		return []; // unidade não encontrada
 	},
 
 	/**
-	 * Diz se uma unidade é descendente de outra. Uma unidade não é pai dela
-	 * própria.
-	 * @param filha Unidade filha.
-	 * @param supostoPai Unidade que queremos saber se é pai da filha.
+	 * Diz se uma unidade é a selecionada (a última no array).
+	 * @param unidade Suposta unidade selecionada.
+	 * @param hierarquiaSelec Hierarquia da raiz até à unidade selecionada.
 	 */
-	ehPaiDaUnidade: function ehPaiDaUnidade(
-		supostaFilha: UnidadeNoArvore, supostoPai: UnidadeNoArvore): boolean
+	ehSelec: function(
+		unidade: UnidadeNoArvore,
+		hierarquiaSelec: UnidadeNoArvore[]): boolean
 	{
-		for (const filha of supostoPai.filhas) {
-			if (filha.id === supostaFilha.id) return true;
-			if (ehPaiDaUnidade(supostaFilha, filha)) return true;
-		}
-		return false; // não é pai
+		return hierarquiaSelec[hierarquiaSelec.length - 1].id === unidade.id;
 	},
+
+	/**
+	 * Diz se uma unidade é um dos pais de outra.
+	 * @param unidade Suposta unidade pai.
+	 * @param hierarquiaSelec Hierarquia da raiz até à unidade selecionada.
+	 */
+	ehPaiDaSelec: function(
+		unidade: UnidadeNoArvore,
+		hierarquiaSelec: UnidadeNoArvore[]): boolean
+	{
+		// Não compara a última unidade, que é a selecionada,
+		// pois uma unidade não pode ser pai de si mesma.
+		for (let i = 0; i < hierarquiaSelec.length - 1; ++i) {
+			if (unidade.id === hierarquiaSelec[i].id) {
+				return true;
+			}
+		}
+		return false;
+	}
 };
 
 export default arvoreUtil;

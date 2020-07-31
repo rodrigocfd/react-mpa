@@ -10,8 +10,11 @@ import c from './NoUnidade.scss';
 
 interface Props {
 	unidade: UnidadeNoArvore, // unidade a ser renderizada neste nó
-	selecionada: UnidadeNoArvore, // unidade selecionada na árvore inteira, passado a todos os nós
-	onClicaUnidade: (tripaSel: UnidadeNoArvore[], divNo: HTMLDivElement | null) => void,
+	hierarquiaSelec: UnidadeNoArvore[], // hierarquia até à unidade selecionada, repassada a todos os filhos
+	onClicaUnidade: (
+		hierarquiaSelec: UnidadeNoArvore[],
+		divNo: HTMLDivElement | null)
+		=> void,
 	onExpandeNo: () => void;
 }
 
@@ -19,45 +22,43 @@ interface Props {
  * Um nó da árvore de unidades. Este componente é recursivo.
  */
 function NoUnidade(props: Props) {
-	const ehSel = props.selecionada && // estamos renderizando a unidade selecionada na árvore?
-		(props.selecionada.id === props.unidade.id);
-	const ehPaiDaSel = arvoreUtil.ehPaiDaUnidade( // estamos renderizando um dos pais da selecionada?
-		props.selecionada, props.unidade);
-
-	// Para que os nós-pai possam estar abertos até o filho, é necessário que
-	// os filhos já estejam preenchidos.
-	const [estado, setEstado] = React.useState(ehPaiDaSel ? EstadoNo.Aberto : EstadoNo.Fechado);
+	// Se a selecionada é nossa filha, então este nó tem que estar expandido.
+	const [estado, setEstado] = React.useState(
+		arvoreUtil.ehPaiDaSelec(props.unidade, props.hierarquiaSelec)
+			? EstadoNo.Expandido
+			: EstadoNo.Fechado
+	);
 
 	function expandeOuFecha() {
-		if (estado === EstadoNo.Fechado) { // usuário clicou para abrir
-			if (!props.unidade.filhas.length) { // filhas não carregadas ainda
+		if (estado === EstadoNo.Fechado) { // usuário clicou para expandir este nó
+			if (!props.unidade.filhas.length) { // unidades filhas não foram carregadas ainda
 				setEstado(EstadoNo.Carregando);
-				app.serverGet(`arvore/filhas?idPai=${props.unidade.id}`)
+				app.serverGet(`arvore/filhas?idPai=${props.unidade.id}`) // consulta as filhas
 					.then(filhas => {
-						props.unidade.filhas.push(...filhas);
-						setEstado(EstadoNo.Aberto);
-						props.onExpandeNo();
+						props.unidade.filhas.push(...filhas); // guarda as filhas
+						setEstado(EstadoNo.Expandido);
+						props.onExpandeNo(); // dispara callback
 					});
-			} else { // as filhas estão em cache, é só mostrar
-				setEstado(EstadoNo.Aberto);
+			} else { // as filhas já estão em cache, é só mostrar
+				setEstado(EstadoNo.Expandido);
 				props.onExpandeNo();
 			}
-		} else if (estado === EstadoNo.Aberto || estado === EstadoNo.Carregando) { // usuário clicou para fechar
+		} else if (estado === EstadoNo.Expandido || estado === EstadoNo.Carregando) { // usuário clicou para fechar este nó
 			setEstado(EstadoNo.Fechado);
 		}
 	}
 
 	function clicouNome(divNo: HTMLDivElement | null) {
-		// Envia um array somente com esta unidade.
-		// O nó pai vai receber esta notificação em clicouFilha(),
-		// e assim a notificação sobre até a raiz.
-		props.onClicaUnidade([props.unidade], divNo);
+		// Envia um array, que inicialmente só tem esta unidade.
+		// O nó pai vai receber esta notificação em clicouFilha(), e vai adicionar a si mesmo.
+		// Assim a notificação sobre até a raiz, onde será um array com a hierarquia toda.
+		props.onClicaUnidade([props.unidade], divNo); // dispara callback
 	}
 
-	function clicouFilha(tripaUnidades: UnidadeNoArvore[], divNo: HTMLDivElement | null) {
+	function clicouFilha(hierarquiaSelec: UnidadeNoArvore[], divNo: HTMLDivElement | null) {
 		// Pega o array de unidades que veio da filha,
-		// e insere nossa unidade no início dele.
-		props.onClicaUnidade([props.unidade, ...tripaUnidades], divNo);
+		// e insere esta unidade no início dele.
+		props.onClicaUnidade([props.unidade, ...hierarquiaSelec], divNo); // dispara callback
 	}
 
 	return (
@@ -68,15 +69,16 @@ function NoUnidade(props: Props) {
 				}
 			</div>
 			<div className={c.dadosUnidade}>
-				<NoUnidadeLabel unidade={props.unidade} ehSel={ehSel} onClick={clicouNome} />
+				<NoUnidadeLabel unidade={props.unidade} onClick={clicouNome}
+					ehSel={arvoreUtil.ehSelec(props.unidade, props.hierarquiaSelec)} />
 				<div className={c.filhas}>
 					{estado === EstadoNo.Carregando &&
 						<div className={c.carregando}><Carregando /></div>
 					}
-					{estado === EstadoNo.Aberto && props.unidade.filhas.map(filha =>
+					{estado === EstadoNo.Expandido && props.unidade.filhas.map(filha =>
 						<NoUnidade key={filha.id}
 							unidade={filha}
-							selecionada={props.selecionada}
+							hierarquiaSelec={props.hierarquiaSelec}
 							onClicaUnidade={clicouFilha}
 							onExpandeNo={props.onExpandeNo} />
 					)}
