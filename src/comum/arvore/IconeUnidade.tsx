@@ -2,7 +2,7 @@ import React from 'react';
 
 import c from './IconeUnidade.scss';
 
-interface Valores {
+interface Valores { // usado internamente no componente
 	[key: string]: {
 		ico: string,
 		lbl: string,

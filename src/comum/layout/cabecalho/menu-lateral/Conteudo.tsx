@@ -19,12 +19,12 @@ function Conteudo() {
 						<div className={c.label}>{item.label} ►</div>
 						<ul className={c.menuLevel2}>
 							{item.menu.map(item =>
-								<li className={c.item2}>
+								<li className={c.item2} key={item.label}>
 									{item.menu && <>
 										<div className={c.label}>{item.label} ►</div>
 										<ul className={c.menuLevel3}>
 											{item.menu.map(item =>
-												<li className={c.item3}>
+												<li className={c.item3} key={item.label}>
 													<Link dest={item.linkApp ? 'app' : 'jsf'}
 														href={item.linkApp ? item.linkApp : item.linkJsf}
 														className={c.link}>{item.label}</Link>
