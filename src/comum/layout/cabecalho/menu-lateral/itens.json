@@ -1,79 +1,79 @@
 [
 	{
 		"label": "Estruturas Organizacionais",
-		"menuVert1": [
+		"menu": [
 			{
 				"label": "Consultar Estruturas",
-				"oldLink": "listar_orgaos_estruturas/listar_orgaos_estruturas.jsf"
+				"linkJsf": "listar_orgaos_estruturas/listar_orgaos_estruturas.jsf"
 			},
 			{
 				"label": "Gestão de Órgãos/Entidades",
-				"oldLink": "manter_orgao_entidade/manter_orgao_entidade.jsf"
+				"linkJsf": "manter_orgao_entidade/manter_orgao_entidade.jsf"
 			},
 			{
 				"label": "Proposta de Estrutura",
-				"menuVert2": [
+				"menu": [
 					{
 						"label": "Consultar Propostas",
-						"oldLink": "manter_alteracao_estrutura_organizacional/listar_proposta_alteracao.jsf"
+						"linkJsf": "manter_alteracao_estrutura_organizacional/listar_proposta_alteracao.jsf"
 					},
 					{
 						"label": "Cadastrar Nova Proposta",
-						"oldLink": "manter_alteracao_estrutura_organizacional/manter_alteracao_estrutura_organizacional.jsf?cid=1"
+						"linkJsf": "manter_alteracao_estrutura_organizacional/manter_alteracao_estrutura_organizacional.jsf?cid=1"
 					},
 					{
 						"label": "Consultar Pendências",
-						"oldLink": "manter_pendencia/manter_pendencia.jsf"
+						"linkJsf": "manter_pendencia/manter_pendencia.jsf"
 					},
 					{
 						"label": "Consultar Erros de Efetivação",
-						"oldLink": "listar_erros/listar_erros_efetivacao.jsf"
+						"linkJsf": "listar_erros/listar_erros_efetivacao.jsf"
 					}
 				]
 			},
 			{
 				"label": "Cadastrar Informações Complementares",
-				"oldLink": "manter_informacao_complementar/manter_informacao_complementar.jsf"
+				"linkJsf": "manter_informacao_complementar/manter_informacao_complementar.jsf"
 			},
 			{
 				"label": "Comparar Estruturas",
-				"oldLink": "comparar_estrutura/comparar_estrutura.jsf"
+				"linkJsf": "comparar_estrutura/comparar_estrutura.jsf"
 			}
 		]
 	},
 	{
 		"label": "Cargos/Funções",
-		"menuVert1": [
+		"menu": [
 			{
 				"label": "Cadastrar Novo Cargo/Função",
-				"oldLink": "manter_cargo_comissionado/manter_cargo_comissionado.jsf?cid=1"
+				"linkJsf": "manter_cargo_comissionado/manter_cargo_comissionado.jsf?cid=1"
 			},
 			{
 				"label": "Consultar Instâncias de Cargos/Funções",
-				"oldLink": "manter_cargo_comissionado/consultar_instancias.jsf"
+				"linkJsf": "manter_cargo_comissionado/consultar_instancias.jsf"
 			},
 			{
 				"label": "Consultar Instâncias por Lei",
-				"oldLink": "manter_cargo_comissionado/consultar_instancias_por_lei.jsf"
+				"linkJsf": "manter_cargo_comissionado/consultar_instancias_por_lei.jsf"
 			},
 			{
 				"label": "Consultar Limite Financeiro",
-				"oldLink": "manter_cargo_comissionado/cargo_limite_financeiro.jsf"
+				"linkJsf": "manter_cargo_comissionado/cargo_limite_financeiro.jsf"
 			},
 			{
 				"label": "Definir Valor de Referência",
-				"oldLink": "manter_cargo_comissionado/definir_cargo_referencia.jsf"
+				"linkJsf": "manter_cargo_comissionado/definir_cargo_referencia.jsf"
 			},
 			{
 				"label": "Provimento de cargo/função sem vínculo",
-				"menuVert2": [
+				"menu": [
 					{
 						"label": "Analisar solicitação de cargo/função sem vínculo",
-						"oldLink": "cargo_sem_vinculo/listar_solicitacao_analise.jsf"
+						"linkJsf": "cargo_sem_vinculo/listar_solicitacao_analise.jsf"
 					},
 					{
 						"label": "Solicitar cargo/função sem vínculo",
-						"oldLink": "cargo_sem_vinculo/listar_solicitacao_cargo_sem_vinculo.jsf"
+						"linkJsf": "cargo_sem_vinculo/listar_solicitacao_cargo_sem_vinculo.jsf"
 					}
 				]
 			}
@@ -81,108 +81,108 @@
 	},
 	{
 		"label": "Relatórios",
-		"menuVert1": [
+		"menu": [
 			{
 				"label": "Anexo II/III",
-				"oldLink": "relatorios/gerar_anexo.jsf"
+				"linkJsf": "relatorios/gerar_anexo.jsf"
 			},
 			{
 				"label": "Cargos Temporários",
-				"oldLink": "relatorios/cargos_temporarios.jsf"
+				"linkJsf": "relatorios/cargos_temporarios.jsf"
 			},
 			{
 				"label": "Comparativo de Cargos/Funções entre Órgãos/Entidades",
-				"oldLink": "relatorios/tab_comparativa_cargos_orgaos.jsf"
+				"linkJsf": "relatorios/tab_comparativa_cargos_orgaos.jsf"
 			},
 			{
 				"label": "Distribuição dos Cargos Funções por Órgão/Entidade",
-				"oldLink": "relatorios/distribuicao_cargos_orgao.jsf"
+				"linkJsf": "relatorios/distribuicao_cargos_orgao.jsf"
 			},
 			{
 				"label": "Estrutura Hierárquica",
-				"oldLink": "relatorios/estrutura_hierarquica_unidade_vertice.jsf"
+				"linkJsf": "relatorios/estrutura_hierarquica_unidade_vertice.jsf"
 			},
 			{
 				"label": "Evolução do Quantitativo de Cargos/Funções no Órgão/Entidade",
-				"oldLink": "relatorios/evolucao_quantitativo_cargo_funcao_orgao_entidade.jsf"
+				"linkJsf": "relatorios/evolucao_quantitativo_cargo_funcao_orgao_entidade.jsf"
 			},
 			{
 				"label": "Finalidade e Competência das Unidades Organizacionais",
-				"oldLink": "relatorios/finalidade_competencia_unidade_organizacional.jsf"
+				"linkJsf": "relatorios/finalidade_competencia_unidade_organizacional.jsf"
 			},
 			{
 				"label": "Impacto Orçamentário da Proposta",
-				"oldLink": "relatorios/valor_orcamentario_proposta.jsf"
+				"linkJsf": "relatorios/valor_orcamentario_proposta.jsf"
 			},
 			{
 				"label": "Quadro Comparativo da Estrutura de Cargos/Funções da Proposta",
-				"oldLink": "relatorios/movimentacao_cargos.jsf"
+				"linkJsf": "relatorios/movimentacao_cargos.jsf"
 			},
 			{
 				"label": "Quadro Resumo de Custos de Cargos/Funções da Proposta",
-				"oldLink": "relatorios/propostas_alteracao_cargos.jsf"
+				"linkJsf": "relatorios/propostas_alteracao_cargos.jsf"
 			},
 			{
 				"label": "Titulares de Cargos/Funções e Endereços",
-				"oldLink": "relatorios/ocupantes_cargos_enderecos.jsf"
+				"linkJsf": "relatorios/ocupantes_cargos_enderecos.jsf"
 			},
 			{
 				"label": "Unidades Organizacionais por UF ou Município",
-				"oldLink": "relatorios/relatorio_unidade_organizacional.jsf"
+				"linkJsf": "relatorios/relatorio_unidade_organizacional.jsf"
 			}
 		]
 	},
 	{
 		"label": "Administração do Sistema",
-		"menuVert1": [
+		"menu": [
 			{
 				"label": "Consultar Erros do Sistema",
-				"oldLink": "listar_erros/listar_erros.jsf"
+				"linkJsf": "listar_erros/listar_erros.jsf"
 			},
 			{
 				"label": "Consultar Logs",
-				"oldLink": "listar_log/listar_log.jsf"
+				"linkJsf": "listar_log/listar_log.jsf"
 			},
 			{
 				"label": "Manter Tabelas de Apoio",
-				"oldLink": "manter_tabela_apoio/manter_tabela_apoio.jsf"
+				"linkJsf": "manter_tabela_apoio/manter_tabela_apoio.jsf"
 			},
 			{
 				"label": "Parâmetros de Pesquisa",
-				"oldLink": "parametros_pesquisa/parametros_pesquisa.jsf"
+				"linkJsf": "parametros_pesquisa/parametros_pesquisa.jsf"
 			},
 			{
 				"label": "Cadastro de Parâmetros",
-				"oldLink": "manter_parametros/cadastro_parametros.jsf"
+				"linkJsf": "manter_parametros/cadastro_parametros.jsf"
 			},
 			{
 				"label": "Gestão de Regras de Negócio",
-				"menuVert2": [
+				"menu": [
 					{
 						"label": "Obrigatoriedade NUP",
-						"oldLink": "gestao_regra_negocio/obrigatoriedade_nup.jsf"
+						"linkJsf": "gestao_regra_negocio/obrigatoriedade_nup.jsf"
 					},
 					{
 						"label": "Cargo/Função Sem Vínculo",
-						"oldLink": "gestao_regra_negocio/manter_cargo_funcao_sem_vinculo/manter_cargo_funcao_sem_vinculo.jsf"
+						"linkJsf": "gestao_regra_negocio/manter_cargo_funcao_sem_vinculo/manter_cargo_funcao_sem_vinculo.jsf"
 					},
 					{
 						"label": "Validação de Múltiplas Propostas",
-						"oldLink": "gestao_regra_negocio/validacao_multi_propostas.jsf"
+						"linkJsf": "gestao_regra_negocio/validacao_multi_propostas.jsf"
 					},
 					{
 						"label": "Anexar Documentos",
-						"oldLink": "gestao_regra_negocio/manter_parametros_anexar_documentos.jsf"
+						"linkJsf": "gestao_regra_negocio/manter_parametros_anexar_documentos.jsf"
 					},
 					{
 						"label": "Contato do SIORG",
-						"oldLink": "gestao_regra_negocio/manter_contato_siorg.jsf"
+						"linkJsf": "gestao_regra_negocio/manter_contato_siorg.jsf"
 					}
 				]
 			},
 			{
 				"label": "Baixar Cópia do Banco de Dados",
-				"oldLink": "exportar_banco_dados/exportar_banco_dados.jsf"
+				"linkJsf": "exportar_banco_dados/exportar_banco_dados.jsf"
 			}
 		]
 	}

@@ -2,7 +2,7 @@
 
 // Quando a árvore não está ocupando tela inteira.
 .normal {
-	position: relative; // para position:absolute funcionar dentro
+	position: relative; // para o position:absolute do botão tela inteira funcionar dentro
 	height: 100%;
 }
 
@@ -16,9 +16,7 @@ $tempo-animacao: .15s; // mesmo valor em arvoreUtil.ts
 	width: 100vw;
 	height: 100vh;
 	border: 8px solid $cor-fundo-pagina;
-	border-bottom-width: 20px;
-	border-right-width: 20px; // o tamanho 100% é maior do que devia porque o menu estica tudo
-	// z-index: 1;
+	z-index: 1;
 }
 .telaInteira { // aplicado quando a árvore irá para tela inteira
 	@include tela-inteira; // o estilo final é aplicado antes da animação começar

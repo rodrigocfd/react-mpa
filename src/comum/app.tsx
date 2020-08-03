@@ -51,33 +51,19 @@ const app = {
 	},
 
 	/**
-	 * Adiciona, no começo do caminho, a URL completa da página JSF do Siorg
-	 * antigo, e retorna a URL pronta para o JSF.
-	 * @param caminho Nome da página JSF.
+	 * Retorna uma URL para uma página JSF ou da aplicação React.
+	 * @param dest Destino: JSF ou aplicação React.
+	 * @param caminho Caminho para a página, ex. 'propostas/listar.html'.
 	 */
-	montaUrlJsf: function(caminho: string): string {
-		return ISDEV
-			? `http://${window.location.hostname}:${DEV_PORT_JSF}${prodCfg.baseJsf}/${caminho}`
-			: `${prodCfg.baseJsf}/${caminho}`;
-	},
-
-	/**
-	 * Retorna uma URL absoluta para uma página HTML da aplicação.
-	 * @param caminho Caminho absoluto para a página HTML, ex. 'propostas/listar.html'.
-	 */
-	montaUrlApp: function(caminho: string): string {
+	montaUrl: function(dest: 'jsf' | 'app', caminho: string): string {
+		if (dest === 'jsf') {
+			return ISDEV
+				? `http://${window.location.hostname}:${DEV_PORT_JSF}${prodCfg.baseJsf}/${caminho}`
+				: `${prodCfg.baseJsf}/${caminho}`;
+		}
 		return ISDEV
 			? `/${caminho}`
 			: `${prodCfg.baseApp}/${caminho}`;
-	},
-
-	/**
-	 * Redireciona imediatamente para uma página HTML da aplicação REST.
-	 * Passe um caminho absoluto em relação a src/ como argumento.
-	 * @param pagina Caminho para a página HTML.
-	 */
-	redirecionaAgora: function(pagina: string) {
-		window.location.href = app.montaUrlApp(pagina);
 	},
 
 	/**

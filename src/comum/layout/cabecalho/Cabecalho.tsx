@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Menu from './menu/Menu';
+import MenuLateral from './menu-lateral/MenuLateral';
 import c from './Cabecalho.scss';
 
 /**
@@ -11,13 +11,15 @@ function Cabecalho() {
 		<div className={c.header}>
 			<div className={c.logoRow}>
 				<div className={c.left}>
+					<div className={c.hamburger}>
+						<MenuLateral />
+					</div>
 					<div className={c.logo}></div>
 				</div>
 				<div className={c.right}>
 					{/* <UserInfo /> */}
 				</div>
 			</div>
-			<Menu />
 		</div>
 	);
 }

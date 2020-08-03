@@ -1,0 +1,35 @@
+@import '@comum/variaveis';
+
+.menuLateral {
+	position: fixed;
+	left: -300px;
+	top: 0;
+	width: 300px;
+	height: 100vh;
+	overflow-y: auto;
+	transition: left .25s;
+	z-index: 1;
+
+	background-color: darken($cor-fundo-pagina, 80%);
+	user-select: none;
+	color: white;
+
+	div:hover > &, // nota: aplicado na div pai
+	&:hover {
+		left: 0;
+	}
+
+	.topo {
+		height: 97px; // mesma  altura do cabeçalho, para alinhar border-bottom
+		border-bottom: 1px dotted darken($cor-borda-verde, 30%);
+
+		.cubo {
+			display: inline-block;
+			background: url('~@assets/logo-siorg.png') no-repeat center left;
+			width: 70px;
+			height: 70px;
+			margin-top: 10px;
+			margin-left: 30px;
+		}
+	}
+}

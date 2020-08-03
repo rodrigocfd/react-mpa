@@ -2,7 +2,7 @@ import React from 'react';
 
 import UnidadeNoArvore from '@dto/UnidadeNoArvore';
 import app from '@comum/app';
-import LinkApp from '@comum/LinkApp';
+import Link from '@comum/Link';
 import Arvore from '@comum/arvore/Arvore';
 import Abas from '@comum/abas/Abas';
 import Modal from './Modal';
@@ -22,7 +22,7 @@ function Unidade() {
 				<div className={c.arvore}>
 					<Arvore idSelecionada={23} onSelecionaUnidade={selecionouUnidade} />
 				</div>
-				<div><LinkApp href="index.html">Retornar</LinkApp></div>
+				<div><Link dest="app" href="index.html">Retornar</Link></div>
 			</div>
 			<div className={c.direita}>
 				<Abas abas={[

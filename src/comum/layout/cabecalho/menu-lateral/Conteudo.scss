@@ -1,0 +1,64 @@
+@import '@comum/variaveis';
+
+.label { // texto de um item
+	padding: 9px;
+}
+.link { // um item clicável, que contém um link
+	padding: 9px;
+	cursor: pointer;
+	text-decoration: none;
+	display: block;
+	color: white;
+}
+
+.menuLevel1 { // primeiro nível de menu
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+
+	.item1 {
+		.menuLevel2 { // segundo nível de menu
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+
+			display: none;
+			margin-left: 20px;
+			flex-direction: column;
+
+			.item2 {
+				.menuLevel3 { // terceiro nível de menu
+					list-style-type: none;
+					margin: 0;
+					padding: 0;
+
+					display: none;
+					margin-left: 20px;
+					flex-direction: column;
+
+					.item3 {
+						&:hover {
+							background-color: darken($cor-fundo-pagina, 50%);
+						}
+					}
+				}
+
+				&:hover {
+					background-color: darken($cor-fundo-pagina, 60%);
+				}
+				&:hover .menuLevel3 {
+					display: flex;
+				}
+			}
+		}
+
+		&:hover {
+			background-color: darken($cor-fundo-pagina, 70%);
+		}
+		&:hover .menuLevel2 {
+			display: flex;
+		}
+	}
+}

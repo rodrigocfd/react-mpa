@@ -1,7 +1,7 @@
 import React from 'react';
 
 import app, {AppContext, EstadoAplicacao} from '@comum/app';
-import LinkJsf from '@comum/LinkJsf';
+import Link from '@comum/Link';
 import Carregando from '@comum/carregando/Carregando';
 import InfoUsuario from '@dto/InfoUsuario';
 import Cabecalho from './cabecalho/Cabecalho';
@@ -55,7 +55,7 @@ function Layout({children}: Props) {
 		return (
 			<div className={c.naoCarregado}>
 				<div>{rootContext.msgErro}</div>
-				<div><LinkJsf href="index.jsf">Ir para a página de login</LinkJsf></div>
+				<div><Link dest="jsf" href="index.jsf">Ir para a página de login</Link></div>
 				<CuboFundo gira />
 			</div>
 		);

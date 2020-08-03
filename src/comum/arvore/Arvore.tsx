@@ -48,13 +48,13 @@ function Arvore(props: Props) {
 		[EstadoTelaInteira.Encolhendo]:  c.encolhendo // animação em curso
 	};
 
-	return (
+	return (<>
 		<div className={divCss[estado]}>
 			<AreaRender idSelecionada={props.idSelecionada}
 				onSelecionaUnidade={selecionouUnidade} />
 			<BtnTelaInteira estado={estado} onClick={clicouBtnTelaInteira} />
 		</div>
-	);
+	</>);
 }
 
 export default Arvore;

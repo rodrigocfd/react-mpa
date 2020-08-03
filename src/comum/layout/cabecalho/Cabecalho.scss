@@ -1,14 +1,29 @@
+@import '@comum/variaveis';
+
 .header {
 	background-repeat: repeat;
+	margin: 12px 22px 0 24px;
+	padding-bottom: 14px;
+	border-bottom: 1px dotted lighten($cor-borda-verde, 10%);
 
 	.logoRow {
 		display: flex;
 		flex-direction: row;
-		margin: 36px 22px 0 48px;
 
 		.left {
 			flex-grow: 1;
 
+			.hamburger {
+				display: inline-block;
+				width: 44px;
+				height: 44px;
+				background: url('~@assets/hamburger.svg') no-repeat center center;
+				margin-right: 20px;
+
+				&:hover {
+					background-color: darken($cor-fundo-pagina, 20%);
+				}
+			}
 			.logo {
 				display: inline-block;
 				width: 333px;
