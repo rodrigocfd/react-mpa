@@ -13,16 +13,31 @@ const itens = _itens as Item[];
 function Conteudo() {
 	return (
 		<ul className={c.menuLevel1}>
+			{/* Primeiro nível de menu. */}
 			{itens.map(item =>
 				<li className={c.item1} key={item.label}>
+					{!item.menu && // não é um submenu, é um item clicável
+						<Link dest={item.linkApp ? 'app' : 'jsf'}
+							href={item.linkApp ? item.linkApp : item.linkJsf}
+							className={c.link}>{item.label}</Link>
+					}
 					{item.menu && <>
 						<div className={c.label}>{item.label} ►</div>
 						<ul className={c.menuLevel2}>
+
+							{/* Segundo nível de menu. */}
 							{item.menu.map(item =>
 								<li className={c.item2} key={item.label}>
+									{!item.menu && // não é um submenu, é um item clicável
+										<Link dest={item.linkApp ? 'app' : 'jsf'}
+											href={item.linkApp ? item.linkApp : item.linkJsf}
+											className={c.link}>{item.label}</Link>
+									}
 									{item.menu && <>
 										<div className={c.label}>{item.label} ►</div>
 										<ul className={c.menuLevel3}>
+
+											{/* Terceiro nível de menu. */}
 											{item.menu.map(item =>
 												<li className={c.item3} key={item.label}>
 													<Link dest={item.linkApp ? 'app' : 'jsf'}
@@ -30,22 +45,14 @@ function Conteudo() {
 														className={c.link}>{item.label}</Link>
 												</li>
 											)}
+
 										</ul>
 									</>}
-									{!item.menu &&
-										<Link dest={item.linkApp ? 'app' : 'jsf'}
-											href={item.linkApp ? item.linkApp : item.linkJsf}
-											className={c.link}>{item.label}</Link>
-									}
 								</li>
 							)}
+
 						</ul>
 					</>}
-					{!item.menu &&
-						<Link dest={item.linkApp ? 'app' : 'jsf'}
-							href={item.linkApp ? item.linkApp : item.linkJsf}
-							className={c.link}>{item.label}</Link>
-					}
 				</li>
 			)}
 		</ul>

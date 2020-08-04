@@ -1,15 +1,18 @@
 import Perfil from './Perfil';
-import UnidadeOrganizacional from './UnidadeOrganizacional';
+import Unidade from './Unidade';
 
+/**
+ * Informações recebidas de um usuário logado.
+ */
 interface InfoUsuario {
 	codigo: string,
 	nome: string,
 	perfis: Perfil[],
 	transacoes: string[],
 	transacaoAcessada: string,
-	orgaoUsuario: UnidadeOrganizacional,
-	unidadePermitida: UnidadeOrganizacional,
-	unidadeRaiz: UnidadeOrganizacional,
+	orgaoUsuario: Unidade,
+	unidadePermitida: Unidade,
+	unidadeRaiz: Unidade,
 }
 
 export default InfoUsuario;
