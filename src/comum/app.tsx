@@ -111,6 +111,21 @@ const app = {
 	},
 };
 
+// Extende o objeto array, adicionando métodos.
+declare global {
+	interface Array<T> {
+		/**
+		 * Returns the last element in the array. If empty, returns undefined.
+		 */
+		last(): T;
+	}
+}
+if (!Array.prototype.last) {
+	Array.prototype.last = function<T>(): T {
+		return this.length > 0 ? this[this.length - 1] : undefined;
+	};
+}
+
 export default app;
 export {EstadoAplicacao, AppContext};
 export type {ContextoApp, ContextoAppGetSet};

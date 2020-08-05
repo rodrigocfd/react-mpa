@@ -7,7 +7,7 @@ import c from './NoUnidadeLabel.scss';
 interface Props {
 	unidade: UnidadeNoArvore,
 	ehSel: boolean,
-	onClick: (divNo: HTMLDivElement | null) => void,
+	onClick: (divNo: HTMLDivElement | null) => void, // passa DIV clicada
 }
 
 /**

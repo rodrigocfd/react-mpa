@@ -2,7 +2,7 @@ import React from 'react';
 
 import app, {AppContext, EstadoAplicacao} from '@comum/app';
 import Link from '@comum/Link';
-import Carregando from '@comum/carregando/Carregando';
+import Carregando from '@comum/Carregando';
 import InfoUsuario from '@dto/InfoUsuario';
 import Cabecalho from './cabecalho/Cabecalho';
 import CuboFundo from './CuboFundo';

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import app from '@comum/app';
-import Carregando from '@comum/carregando/Carregando';
+import Carregando from '@comum/Carregando';
 import UnidadeNoArvore from '@dto/UnidadeNoArvore';
 import NoUnidade from './NoUnidade';
 import arvoreUtil from './arvoreUtil';
@@ -30,7 +30,7 @@ function AreaRender(props: Props) {
 		app.serverGet(`arvore/hierarquiaAcima?id=${props.idSelecionada}`) // consulta esta unidade e todos os pais
 			.then((raiz: UnidadeNoArvore) => {
 				const hierarquiaSelec = arvoreUtil.montaHierarquiaFlat(raiz, props.idSelecionada);
-				if (hierarquiaSelec.length === 0) {
+				if (!hierarquiaSelec.length) {
 					alert('Erro: a unidade selecionada não faz parte da árvore pesquisada.');
 				} else {
 					setArvore({raiz, hierarquiaSelec});

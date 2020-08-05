@@ -31,19 +31,8 @@ const arvoreUtil = {
 	},
 
 	/**
-	 * Diz se uma unidade é a selecionada (a última no array).
-	 * @param unidade Suposta unidade selecionada.
-	 * @param hierarquiaSelec Hierarquia da raiz até à unidade selecionada.
-	 */
-	ehSelec: function(
-		unidade: UnidadeNoArvore,
-		hierarquiaSelec: UnidadeNoArvore[]): boolean
-	{
-		return hierarquiaSelec[hierarquiaSelec.length - 1].id === unidade.id;
-	},
-
-	/**
 	 * Diz se uma unidade é um dos pais de outra.
+	 * Uma unidade não é pai de si mesma.
 	 * @param unidade Suposta unidade pai.
 	 * @param hierarquiaSelec Hierarquia da raiz até à unidade selecionada.
 	 */

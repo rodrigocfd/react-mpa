@@ -1,7 +1,7 @@
 import React from 'react'
 
 import app from '@comum/app';
-import Carregando from '@comum/carregando/Carregando';
+import Carregando from '@comum/Carregando';
 import UnidadeNoArvore from '@dto/UnidadeNoArvore';
 import arvoreUtil, {EstadoNo} from './arvoreUtil';
 import BtnAbreFechaNo from './BtnAbreFechaNo';
@@ -13,7 +13,7 @@ interface Props {
 	hierarquiaSelec: UnidadeNoArvore[], // hierarquia até à unidade selecionada, repassada a todos os filhos
 	onClicaUnidade: (
 		hierarquiaSelec: UnidadeNoArvore[],
-		divNo: HTMLDivElement | null)
+		divNo: HTMLDivElement | null) // DIV clicada
 		=> void,
 	onExpandeNo: () => void;
 }
@@ -70,7 +70,7 @@ function NoUnidade(props: Props) {
 			</div>
 			<div className={c.dadosUnidade}>
 				<NoUnidadeLabel unidade={props.unidade} onClick={clicouNome}
-					ehSel={arvoreUtil.ehSelec(props.unidade, props.hierarquiaSelec)} />
+					ehSel={props.hierarquiaSelec.last()?.id == props.unidade.id} />
 				<div className={c.filhas}>
 					{estado === EstadoNo.Carregando &&
 						<div className={c.carregando}><Carregando /></div>

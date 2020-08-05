@@ -4,13 +4,11 @@ import UnidadeNoArvore from '@dto/UnidadeNoArvore';
 import app from '@comum/app';
 import Link from '@comum/Link';
 import Arvore from '@comum/arvore/Arvore';
-import Abas from '@comum/abas/Abas';
-import Modal from './Modal';
+import Dados from './Dados';
 import c from './Unidade.scss';
 
 function Unidade() {
 	const [hierarquiaSelec, setHierarquiaSelec] = React.useState([] as UnidadeNoArvore[]);
-	const [modalAberta, setModalAberta] = React.useState(false);
 
 	function selecionouUnidade(hierarquiaSelec: UnidadeNoArvore[]) {
 		setHierarquiaSelec(hierarquiaSelec);
@@ -25,25 +23,8 @@ function Unidade() {
 				<div><Link dest="app" href="index.html">Retornar</Link></div>
 			</div>
 			<div className={c.direita}>
-				<Abas abas={[
-					{titulo: 'Primeira', conteudo: <div>FOO FOO FOO FOO FOO</div>},
-					{titulo: 'Segunda', conteudo: <div>asdf asdf asdasd asdasd</div>},
-					{titulo: 'Terceira', conteudo: <div>3</div>},
-				]} />
-				<div>
-					<div>Unidade selecionada:</div>
-					{hierarquiaSelec.length > 0 &&
-						<>
-							<div>{hierarquiaSelec[hierarquiaSelec.length - 1].codigo} - {hierarquiaSelec[hierarquiaSelec.length - 1].sigla}</div>
-							<div>{hierarquiaSelec[hierarquiaSelec.length - 1].denominacao}</div>
-							<div>
-								<button onClick={() => setModalAberta(true)}>Abrir modal</button>
-							</div>
-						</>
-					}
-				</div>
+				<Dados idUnidade={hierarquiaSelec.last()?.id} />
 			</div>
-			{modalAberta && <Modal texto="Fufu" onClose={() => setModalAberta(false)} />}
 		</div>
 	);
 }
