@@ -1,12 +1,17 @@
 import React from 'react';
 
+import InfoUsuario from '@dto/InfoUsuario';
 import MenuLateral from './menu-lateral/MenuLateral';
 import c from './Cabecalho.scss';
+
+interface Props {
+	infoUsuario: InfoUsuario,
+}
 
 /**
  * Cabeçalho da aplicação, que aparece em todas as páginas.
  */
-function Cabecalho() {
+function Cabecalho({infoUsuario}: Props) {
 	return (
 		<div className={c.header}>
 			<div className={c.logoRow}>
@@ -17,7 +22,8 @@ function Cabecalho() {
 					<div className={c.logo}></div>
 				</div>
 				<div className={c.right}>
-					{/* <UserInfo /> */}
+					<div>{infoUsuario.nome}</div>
+					<div>{infoUsuario.unidadeRaiz.denominacao}</div>
 				</div>
 			</div>
 		</div>

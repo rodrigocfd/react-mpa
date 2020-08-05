@@ -1,12 +1,20 @@
 import React from 'react';
 
-import app, {AppContext, EstadoAplicacao} from '@comum/app';
+import app from '@comum/app';
 import Link from '@comum/Link';
 import Carregando from '@comum/Carregando';
 import InfoUsuario from '@dto/InfoUsuario';
-import Cabecalho from './cabecalho/Cabecalho';
+import Cabecalho from './Cabecalho';
 import CuboFundo from './CuboFundo';
 import c from './Layout.scss';
+
+enum StatusApp { Carregando, Logado, Erro }
+
+interface Estado { // conteúdo do React.useState() neste componente
+	statusApp: StatusApp,
+	msgErro: string,
+	infoUsuario: InfoUsuario,
+}
 
 interface Props {
 	children: React.ReactNode,
@@ -17,25 +25,25 @@ interface Props {
  * Faz a primeira consulta para verificar se o usuário está autenticado.
  */
 function Layout({children}: Props) {
-	const [rootContext, setRootContext] = React.useState({ // vai ser passado para AppContext.Provider
-		estado: EstadoAplicacao.Carregando,
-		msgErro: '', // exibida por este componente
-		infoUsuario: {} as InfoUsuario, // informações da sessão do Siorg
-	});
+	const [estado, setEstado] = React.useState({
+		statusApp: StatusApp.Carregando, // inicialmente carregando
+		msgErro: '',
+		infoUsuario: {}, // informações da sessão do Siorg
+	} as Estado);
 
 	React.useEffect(() => {
-		if (rootContext.estado === EstadoAplicacao.Carregando) {
+		if (estado.statusApp === StatusApp.Carregando) {
 			app.serverGet('sessao/infoUsuario', {}, false) // requisita informações sobre o usuário atual
 				.then((dados: InfoUsuario) => { // usuário está logado
-					setRootContext({
-						estado: EstadoAplicacao.Logado,
+					setEstado({
+						statusApp: StatusApp.Logado,
 						msgErro: '',
 						infoUsuario: dados, // guarda as informações do usuário
 					});
 				})
 				.catch((err: any) => { // usuário não está logado
-					setRootContext({
-						estado: EstadoAplicacao.Erro,
+					setEstado({
+						statusApp: StatusApp.Erro,
 						msgErro: err.message,
 						infoUsuario: {} as InfoUsuario,
 					});
@@ -43,32 +51,30 @@ function Layout({children}: Props) {
 		}
 	}, []);
 
-	switch (rootContext.estado) {
-	case EstadoAplicacao.Carregando:
+	switch (estado.statusApp) {
+	case StatusApp.Carregando:
 		return (
 			<div className={c.naoCarregado}>
 				<Carregando />
 				<CuboFundo gira />
 			</div>
 		);
-	case EstadoAplicacao.Erro:
+	case StatusApp.Erro:
 		return (
 			<div className={c.naoCarregado}>
-				<div>{rootContext.msgErro}</div>
+				<div>{estado.msgErro}</div>
 				<div><Link dest="jsf" href="index.jsf">Ir para a página de login</Link></div>
 				<CuboFundo gira />
 			</div>
 		);
-	case EstadoAplicacao.Logado: // carrega a aplicação normalmente
-		return (
-			<AppContext.Provider value={[rootContext, setRootContext]}>
-				<Cabecalho />
-				<div className={c.conteudoNormal}>
-					{children}
-				</div>
-				<CuboFundo />
-			</AppContext.Provider>
-		);
+	case StatusApp.Logado: // carrega a aplicação normalmente
+		return (<>
+			<Cabecalho infoUsuario={estado.infoUsuario} />
+			<div className={c.conteudoNormal}>
+				{children}
+			</div>
+			<CuboFundo />
+		</>);
 	default:
 		return null;
 	}

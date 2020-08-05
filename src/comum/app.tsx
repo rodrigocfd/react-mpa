@@ -2,45 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import prodCfg from '../../producao.config.json';
-import InfoUsuario from '@dto/InfoUsuario';
 import Layout from '@comum/layout/Layout';
 
 const DEV_PORT_JSF = 8080;
 const ISDEV = process.env.NODE_ENV === 'development';
 
-enum EstadoAplicacao { Carregando, Logado, Erro }
-
-/**
- * Tipo dos dados armazenados no contexto global da aplicação.
- */
-interface ContextoApp {
-	estado: EstadoAplicacao,
-	msgErro: string,
-	infoUsuario: InfoUsuario,
-}
-
-/**
- * Par getter/setter armazenado no contexto global da aplicação.
- */
-type ContextoAppGetSet = [ContextoApp, React.Dispatch<React.SetStateAction<ContextoApp>>];
-
-/**
- * Contexto global da aplicação.
- * As informações do usuário logado ficam armazenadas aqui.
- */
-const AppContext = React.createContext({} as ContextoAppGetSet); // estado inicial é inválido
-
 /**
  * Conjunto de funções gerais da aplicação.
  */
 const app = {
-	/**
-	 * Retorna [context, setContext] do contexto global da aplicação.
-	 */
-	useContext: function(): ContextoAppGetSet {
-		return React.useContext(AppContext);
-	},
-
 	/**
 	 * Monta componente raiz da página no HTML, dentro de <SiorgRoot>.
 	 * @param elemento Componente React que será renderizado na página.
@@ -127,5 +97,3 @@ if (!Array.prototype.last) {
 }
 
 export default app;
-export {EstadoAplicacao, AppContext};
-export type {ContextoApp, ContextoAppGetSet};
