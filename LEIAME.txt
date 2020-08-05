@@ -19,19 +19,24 @@ rodando em http://localhost:8080 .
 Gerar uma build
 ---------------
 
-Dentro de gera-e-copia-build.sh, altere WORKSPACE_DIR para o caminho onde está
-seu workspace do Siorg.
+A build é composta somente de conteúdo estático: arquivos HTML, CSS e JS
+compilados que serão servidos pelo próprio JBoss, da mesma forma que ele serve
+outros conteúdos estáticos, como arquivos JPG. Para que o JBoss sirva a build, o
+diretório de build deve ser copiado para dentro da área pública do workspace.
 
-O script gera-e-copia-build.sh irá gerar a build com os arquivos HTML, JS e CSS,
-e copiá-la para dentro do workspace do Siorg.
+O script "gera-e-copia-build.sh" gera a build e já copia para o workspace do
+JBoss. No script, altere WORKSPACE_DIR para o caminho onde está seu workspace do
+Siorg.
 
-Gere novamente o .war do Gestão WebApp, e publique no JBoss.
+Após isso, o .war gerado irá conter o conteúdo da build.
 
 -----------------------------------
 Testar localmente a build compilada
 -----------------------------------
 
-No Eclipse usando o Navigator, em siorg-gestao-webapp, clique com o botão
+Primeiro, rode "gera-e-copia-build.sh".
+
+No Eclipse usando o Navigator, em "siorg-gestao-webapp", clique com o botão
 direito e em "Refresh" (ou aperte F5).
 
 Após isto, o diretório build deverá aparecer aqui:
@@ -50,8 +55,8 @@ A URL é http://localhost:8080/siorg-gestao-webapp/public/build/index.html
 Chamadas REST
 -------------
 
-A aplicação espera as chamadas REST em:
+A aplicação React fará as chamadas REST em:
 
 http://localhost:8080/siorg-gestao-webapp/api/...
 
-Configurável em producao.config.json
+Configurável em "producao.config.json".
