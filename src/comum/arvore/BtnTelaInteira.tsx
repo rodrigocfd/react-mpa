@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {EstadoTelaInteira} from './arvoreUtil';
-import c from './BtnTelaInteira.scss';
+import styles from './BtnTelaInteira.scss';
 
 interface Props {
 	estado: EstadoTelaInteira,
@@ -17,8 +17,11 @@ function BtnTelaInteira(props: Props) {
 		: 'Expandir árvore para tela inteira';
 
 	const cssBtn = [
-		c.btn,
-		(props.estado == EstadoTelaInteira.TelaInteira ? c.restaurar : c.expandir)
+		styles.btn,
+		(props.estado == EstadoTelaInteira.TelaInteira
+			? styles.restaurar
+			: styles.expandir
+		)
 	].join(' ');
 
 	return (

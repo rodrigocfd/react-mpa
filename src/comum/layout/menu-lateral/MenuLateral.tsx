@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Conteudo from './Conteudo';
-import c from './MenuLateral.scss';
+import styles from './MenuLateral.scss';
 
 interface Props {
 	releaseSistema: string,
@@ -12,10 +12,10 @@ interface Props {
  */
 function MenuLateral({releaseSistema}: Props) {
 	return (
-		<div className={c.menuLateral}>
-			<div className={c.topo}>
-				<div className={c.cubo}></div>
-				<div className={c.versao}>Versão {releaseSistema}</div>
+		<div className={styles.menuLateral}>
+			<div className={styles.topo}>
+				<div className={styles.cubo}></div>
+				<div className={styles.versao}>Versão {releaseSistema}</div>
 			</div>
 			<Conteudo />
 		</div>

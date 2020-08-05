@@ -1,6 +1,6 @@
 import React from 'react';
 
-import c from './Abas.scss';
+import styles from './Abas.scss';
 
 interface Aba {
 	titulo: string,
@@ -19,17 +19,17 @@ function Abas({abas}: Props) {
 	const [sel, setSel] = React.useState(0); // primeira aba selecionada por padrão
 
 	return (
-		<div className={c.wrap}>
-			<div className={c.topoFlex}>
+		<div className={styles.wrap}>
+			<div className={styles.topoFlex}>
 				{abas.map((aba, index) => (
 					<span key={aba.titulo + index}
-						className={index === sel ? c.atual : c.naoAtual}
+						className={index === sel ? styles.atual : styles.naoAtual}
 						onClick={() => setSel(index)}>
 							{aba.titulo}
 					</span>
 				))}
 			</div>
-			<div className={c.conteudo}>
+			<div className={styles.conteudo}>
 				{abas.filter((aba, index) => sel === index)[0].conteudo}
 			</div>
 		</div>

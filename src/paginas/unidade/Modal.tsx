@@ -1,6 +1,6 @@
 import React from 'react';
 
-import c from './Modal.scss';
+import styles from './Modal.scss';
 
 interface Props {
 	texto: string,
@@ -11,7 +11,7 @@ function Modal(props: Props) {
 	const [outraModalAberta, setOutraModalAberta] = React.useState(false);
 
 	return (
-		<div className={c.modal}>
+		<div className={styles.modal}>
 			<h1>{props.texto}</h1>
 			<div><button onClick={props.onClose}>Fechar</button></div>
 			<div><button onClick={() => setOutraModalAberta(true)}>Outra modal</button></div>

@@ -6,7 +6,7 @@ import UnidadeNoArvore from '@dto/UnidadeNoArvore';
 import arvoreUtil, {EstadoNo} from './arvoreUtil';
 import BtnAbreFechaNo from './BtnAbreFechaNo';
 import NoUnidadeLabel from './NoUnidadeLabel';
-import c from './NoUnidade.scss';
+import styles from './NoUnidade.scss';
 
 interface Props {
 	unidade: UnidadeNoArvore, // unidade a ser renderizada neste nó
@@ -62,18 +62,18 @@ function NoUnidade(props: Props) {
 	}
 
 	return (
-		<div className={c.noUnidadeFlex}>
-			<div className={c.lateralEsquerda}>
+		<div className={styles.noUnidadeFlex}>
+			<div className={styles.lateralEsquerda}>
 				{props.unidade.temFilhas &&
 					<BtnAbreFechaNo estado={estado} onClick={clicouExpandeOuFecha} />
 				}
 			</div>
-			<div className={c.dadosUnidade}>
+			<div className={styles.dadosUnidade}>
 				<NoUnidadeLabel unidade={props.unidade} onClick={clicouNome}
 					ehSel={props.hierarquiaSelec.last()?.id == props.unidade.id} />
-				<div className={c.filhas}>
+				<div className={styles.filhas}>
 					{estado === EstadoNo.Carregando &&
-						<div className={c.carregando}><Carregando /></div>
+						<div className={styles.carregando}><Carregando /></div>
 					}
 					{estado === EstadoNo.Expandido && props.unidade.filhas.map(filha =>
 						<NoUnidade key={filha.id}

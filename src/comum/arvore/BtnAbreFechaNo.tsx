@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {EstadoNo} from './arvoreUtil';
-import c from './BtnAbreFechaNo.scss';
+import styles from './BtnAbreFechaNo.scss';
 
 interface Props {
 	estado: EstadoNo,
@@ -22,7 +22,7 @@ function BtnAbreFechaNo({estado, onClick}: Props) {
 
 	return (
 		<span onClick={onClick}
-			className={c.btnAbreFecha}>{texto()}</span>
+			className={styles.btnAbreFecha}>{texto()}</span>
 	);
 }
 

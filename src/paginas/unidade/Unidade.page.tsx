@@ -5,7 +5,7 @@ import app from '@comum/app';
 import Link from '@comum/Link';
 import Arvore from '@comum/arvore/Arvore';
 import Dados from './Dados';
-import c from './Unidade.scss';
+import styles from './Unidade.scss';
 
 function Unidade() {
 	const [hierarquiaSelec, setHierarquiaSelec] = React.useState([] as UnidadeNoArvore[]);
@@ -14,19 +14,20 @@ function Unidade() {
 		setHierarquiaSelec(hierarquiaSelec);
 	}
 
-	return (
-		<div className={c.flex}>
-			<div className={c.esquerda}>
-				<div className={c.arvore}>
+	return (<>
+		<h1>Unidade</h1>
+		<div className={styles.flex}>
+			<div className={styles.esquerda}>
+				<div className={styles.arvore}>
 					<Arvore idSelecionada={23} onSelecionaUnidade={selecionouUnidade} />
 				</div>
 				<div><Link dest="app" href="index.html">Retornar</Link></div>
 			</div>
-			<div className={c.direita}>
+			<div className={styles.direita}>
 				<Dados idUnidade={hierarquiaSelec.last()?.id} />
 			</div>
 		</div>
-	);
+	</>);
 }
 
 app.constroiPagina(<Unidade />);

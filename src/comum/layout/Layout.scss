@@ -15,7 +15,7 @@ body {
 	color: #333;
 	background-color: $cor-fundo-pagina;
 }
-h1, h2 {
+h1, h2, h3 {
 	color: #47727B;
 	margin-top: 0;
 }
@@ -50,7 +50,7 @@ input[type=text], input[type=password], select, textarea {
 	padding: 3px;
 }
 
-.naoCarregado {
+.naoCarregado { // Siorg fora do ar ou usuário não autenticado
 	text-align: center;
 	margin-top: 150px;
 	font-size: 1.1em;
@@ -61,5 +61,5 @@ input[type=text], input[type=password], select, textarea {
 }
 
 .conteudoNormal {
-	margin: 30px 10px 10px 24px;
+	margin: 16px 10px 10px 24px;
 }

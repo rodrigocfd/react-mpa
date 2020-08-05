@@ -4,7 +4,7 @@ import UnidadeNoArvore from '@dto/UnidadeNoArvore';
 import arvoreUtil, {EstadoTelaInteira} from './arvoreUtil';
 import AreaRender from './AreaRender';
 import BtnTelaInteira from './BtnTelaInteira';
-import c from './Arvore.scss';
+import styles from './Arvore.scss';
 
 interface Props {
 	idSelecionada: number,
@@ -43,9 +43,9 @@ function Arvore(props: Props) {
 
 	// Classe CSS a ser aplicada na DIV raiz.
 	const divCss = {
-		[EstadoTelaInteira.Normal]:      c.normal,
-		[EstadoTelaInteira.TelaInteira]: c.telaInteira,
-		[EstadoTelaInteira.Encolhendo]:  c.encolhendo // animação em curso
+		[EstadoTelaInteira.Normal]:      styles.normal,
+		[EstadoTelaInteira.TelaInteira]: styles.telaInteira,
+		[EstadoTelaInteira.Encolhendo]:  styles.encolhendo // animação em curso
 	};
 
 	return (<>

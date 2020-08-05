@@ -1,6 +1,6 @@
 import React from 'react';
 
-import c from './Carregando.scss';
+import styles from './Carregando.scss';
 
 interface Props {
 	texto?: string,
@@ -11,9 +11,9 @@ interface Props {
  */
 function Carregando({texto}: Props) {
 	return (
-		<span className={c.wrap}>
-			<div className={c.texto}>{texto || 'Carregando...'}</div>
-			<div className={c.cubo} />
+		<span className={styles.wrap}>
+			<div className={styles.texto}>{texto || 'Carregando...'}</div>
+			<div className={styles.cubo} />
 		</span>
 	);
 }

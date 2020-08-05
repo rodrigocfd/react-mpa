@@ -5,7 +5,7 @@ import Carregando from '@comum/Carregando';
 import UnidadeNoArvore from '@dto/UnidadeNoArvore';
 import NoUnidade from './NoUnidade';
 import arvoreUtil from './arvoreUtil';
-import c from './AreaRender.scss';
+import styles from './AreaRender.scss';
 
 interface Props {
 	idSelecionada: number,
@@ -67,10 +67,10 @@ function AreaRender(props: Props) {
 	}
 
 	return (
-		<div className={c.areaRenderFlex}>
-			<div className={c.nosDaArvore} ref={divScrollRef}>
+		<div className={styles.areaRenderFlex}>
+			<div className={styles.nosDaArvore} ref={divScrollRef}>
 					{app.isEmpty(arvore.raiz) &&
-						<div className={c.carregando}><Carregando texto="Carregando árvore..." /></div>
+						<div className={styles.carregando}><Carregando texto="Carregando árvore..." /></div>
 					}
 					{!app.isEmpty(arvore.raiz) &&
 						<NoUnidade unidade={arvore.raiz}

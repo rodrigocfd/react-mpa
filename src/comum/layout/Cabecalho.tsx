@@ -2,7 +2,7 @@ import React from 'react';
 
 import InfoUsuario from '@dto/InfoUsuario';
 import MenuLateral from './menu-lateral/MenuLateral';
-import c from './Cabecalho.scss';
+import styles from './Cabecalho.scss';
 
 interface Props {
 	infoUsuario: InfoUsuario,
@@ -13,15 +13,15 @@ interface Props {
  */
 function Cabecalho({infoUsuario}: Props) {
 	return (
-		<div className={c.header}>
-			<div className={c.logoRow}>
-				<div className={c.left}>
-					<div className={c.hamburger}>
+		<div className={styles.header}>
+			<div className={styles.logoRow}>
+				<div className={styles.left}>
+					<div className={styles.hamburger}>
 						<MenuLateral releaseSistema={infoUsuario.releaseSistema} />
 					</div>
-					<div className={c.logo}></div>
+					<div className={styles.logo}></div>
 				</div>
-				<div className={c.right}>
+				<div className={styles.right}>
 					<div>{infoUsuario.nome}</div>
 					<div>{infoUsuario.unidadeRaiz.denominacao}</div>
 				</div>

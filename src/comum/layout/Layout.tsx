@@ -6,7 +6,7 @@ import Carregando from '@comum/Carregando';
 import InfoUsuario from '@dto/InfoUsuario';
 import Cabecalho from './Cabecalho';
 import CuboFundo from './CuboFundo';
-import c from './Layout.scss';
+import styles from './Layout.scss';
 
 enum StatusApp { Carregando, Logado, Erro }
 
@@ -54,14 +54,14 @@ function Layout({children}: Props) {
 	switch (estado.statusApp) {
 	case StatusApp.Carregando:
 		return (
-			<div className={c.naoCarregado}>
+			<div className={styles.naoCarregado}>
 				<Carregando />
 				<CuboFundo gira />
 			</div>
 		);
 	case StatusApp.Erro:
 		return (
-			<div className={c.naoCarregado}>
+			<div className={styles.naoCarregado}>
 				<div>{estado.msgErro}</div>
 				<div><Link dest="jsf" href="index.jsf">Ir para a página de login</Link></div>
 				<CuboFundo gira />
@@ -70,7 +70,7 @@ function Layout({children}: Props) {
 	case StatusApp.Logado: // carrega a aplicação normalmente
 		return (<>
 			<Cabecalho infoUsuario={estado.infoUsuario} />
-			<div className={c.conteudoNormal}>
+			<div className={styles.conteudoNormal}>
 				{children}
 			</div>
 			<CuboFundo />
