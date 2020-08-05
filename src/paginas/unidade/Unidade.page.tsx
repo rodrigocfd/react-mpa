@@ -5,6 +5,7 @@ import app from '@comum/app';
 import Link from '@comum/Link';
 import Arvore from '@comum/arvore/Arvore';
 import Dados from './Dados';
+import Hierarquia from './Hierarquia';
 import styles from './Unidade.scss';
 
 function Unidade() {
@@ -23,8 +24,11 @@ function Unidade() {
 				</div>
 				<div><Link dest="app" href="index.html">Retornar</Link></div>
 			</div>
-			<div className={styles.direita}>
+			<div>
 				<Dados idUnidade={hierarquiaSelec.last()?.id} />
+			</div>
+			<div>
+				<Hierarquia hierarquia={hierarquiaSelec} />
 			</div>
 		</div>
 	</>);

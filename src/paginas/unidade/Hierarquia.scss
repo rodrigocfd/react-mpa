@@ -1,0 +1,25 @@
+@import '@comum/variaveis';
+
+.hierarquia {
+	margin-left: 16px;
+
+	.item {
+		display: flex;
+		flex-direction: row;
+
+		.icones, .nome {
+			margin-top: 5px;
+		}
+		.nome {
+
+		}
+		.icones {
+			align-self: center;
+			white-space: nowrap;
+
+			& > div { // ícones
+				margin-right: 4px;
+			}
+		}
+	}
+}
