@@ -22,6 +22,8 @@
 	.topo {
 		height: 97px; // mesma  altura do cabeçalho, para alinhar border-bottom
 		border-bottom: 1px dotted darken($cor-borda-verde, 30%);
+		display: flex;
+		flex-direction: row;
 
 		.cubo {
 			display: inline-block;
@@ -30,6 +32,14 @@
 			height: 70px;
 			margin-top: 10px;
 			margin-left: 30px;
+		}
+		.versao {
+			flex-grow: 1;
+			text-align: right;
+			padding-top: 20px;
+			padding-right: 20px;
+			color: #888;
+			font-size: 90%;
 		}
 	}
 }

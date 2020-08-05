@@ -17,7 +17,7 @@ function Cabecalho({infoUsuario}: Props) {
 			<div className={c.logoRow}>
 				<div className={c.left}>
 					<div className={c.hamburger}>
-						<MenuLateral />
+						<MenuLateral releaseSistema={infoUsuario.releaseSistema} />
 					</div>
 					<div className={c.logo}></div>
 				</div>
