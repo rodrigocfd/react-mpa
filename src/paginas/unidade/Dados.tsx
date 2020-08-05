@@ -29,6 +29,7 @@ function Dados({idUnidade}: Props) {
 				<h3>Informações da Unidade</h3>
 				<div>
 					<Linha lbl="Nome" val={`${un.denominacao} (${un.sigla})`} />
+					<Linha lbl="Código" val={un.codigo} />
 					<Linha lbl="Esfera" val={un.esfera} />
 					<Linha lbl="Poder" val={un.poder} />
 					<Linha lbl="Natureza Jurídica" val={un.naturezaJuridica} />

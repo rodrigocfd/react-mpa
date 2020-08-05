@@ -18,6 +18,7 @@ $padding-vert-nome-unidade: 4px; // ver NoUnidade.scss
 	}
 	.nome {
 		cursor: pointer;
+		user-select: none;
 		padding: $padding-vert-nome-unidade 5px;
 
 		&:hover {
