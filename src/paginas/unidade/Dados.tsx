@@ -23,21 +23,41 @@ function Dados({idUnidade}: Props) {
 		}
 	}, [idUnidade]);
 
-	return !un ? <Carregando /> : (
+	return app.isEmpty(un) ? <Carregando /> : (
 		<Box>
 			<div className={styles.dados}>
 				<h3>Informações da Unidade</h3>
-				<div>Esfera: {un.esfera}</div>
-				<div>Poder: {un.poder}</div>
-				<div>NJ: {un.naturezaJuridica}</div>
-				<div>SNJ: {un.subnaturezaJuridica}</div>
-				<div>Categoria: {un.categoria}</div>
-				<div>{un.permiteCargosValor}</div>
-				<div>{un.validaAutoridade}</div>
-				<div>{un.validaDistribuicao}</div>
+				<div>
+					<Linha lbl="Nome" val={`${un.denominacao} (${un.sigla})`} />
+					<Linha lbl="Esfera" val={un.esfera} />
+					<Linha lbl="Poder" val={un.poder} />
+					<Linha lbl="Natureza Jurídica" val={un.naturezaJuridica} />
+					<Linha lbl="Subnatureza Jurídica" val={un.subnaturezaJuridica} />
+					<Linha lbl="Categoria" val={un.categoria} />
+					<Linha lbl="Permite cargos por valor"
+						val={<div className={un.permiteCargosValor ? styles.sim : styles.nao} />} />
+					<Linha lbl="Valida autoridade"
+						val={<div className={un.validaAutoridade ? styles.sim : styles.nao} />} />
+					<Linha lbl="Valida distribuição"
+						val={<div className={un.validaDistribuicao ? styles.sim : styles.nao} />} />
+				</div>
 			</div>
 		</Box>
 	)
+}
+
+interface LinhaProps {
+	lbl: string,
+	val: string | React.ReactNode,
+}
+
+function Linha(props: LinhaProps) {
+	return (
+		<div className={styles.linha}>
+			<div>{props.lbl || '--'}</div>
+			<div>{props.val || '--'}</div>
+		</div>
+	);
 }
 
 export default Dados;

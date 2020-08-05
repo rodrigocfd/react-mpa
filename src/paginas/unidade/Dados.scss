@@ -1,6 +1,37 @@
 @import '@comum/variaveis';
 
 .dados {
-	min-width: 500px;
-	min-height: 300px;
+	.linha {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		border-bottom: 1px dotted #ccc;
+
+		&:last-of-type {
+			border-bottom: none;
+		}
+
+		& > div {
+			margin: 6px 0;
+		}
+		& > div:first-child {
+			width: 120px;
+		}
+		& > div:last-child {
+			width: 280px;
+			padding-left: 20px;
+		}
+
+		.sim, .nao { // ícones sim/não
+			display: inline-block;
+			width: 18px;
+			height: 18px;
+		}
+		.sim {
+			background: url('~@assets/check.svg') no-repeat center center;
+		}
+		.nao {
+			background: url('~@assets/x.svg') no-repeat center center;
+		}
+	}
 }
